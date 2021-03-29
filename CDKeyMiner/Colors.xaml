@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CDKeyMiner">
+    <SolidColorBrush x:Key="MinerGreen" Color="#FF0EE22B"/>
+    <SolidColorBrush x:Key="MinerBackground" Color="#252526"/>
+</ResourceDictionary>
