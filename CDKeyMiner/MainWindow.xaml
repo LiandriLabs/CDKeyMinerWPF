@@ -20,15 +20,15 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource MinerGreen}" FontFamily="Segoe UI Light" FontSize="12">CD Key Miner</Label>
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource MinerGreen}" FontFamily="Segoe UI Semibold" FontSize="12" Panel.ZIndex="1">CD Key Miner</Label>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1">
                 <Button x:Name="MinimizeButton"
                     KeyboardNavigation.IsTabStop="False" Content="–" Click="MinimizeButton_Click" Background="Transparent" Foreground="{StaticResource MinerGreen}" BorderBrush="{x:Null}"  FontFamily="Segoe UI Black" FontSize="14" />
 
                 <Button x:Name="CloseButton"
                     KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Background="Transparent" BorderBrush="{x:Null}" Foreground="{StaticResource MinerGreen}"  FontFamily="Segoe UI Black" FontSize="14"/>
             </StackPanel>
-            <Frame x:Name="_mainFrame" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="_mainFrame" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden" Margin="0,-20,0,0"/>
         </Grid>
     </Border>
 </Window>

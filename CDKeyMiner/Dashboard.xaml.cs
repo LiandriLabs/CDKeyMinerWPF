@@ -20,9 +20,17 @@ namespace CDKeyMiner
     /// </summary>
     public partial class Dashboard : Page
     {
-        public Dashboard()
+        private Credentials creds;
+
+        public Dashboard(Credentials credentials)
         {
             InitializeComponent();
+            creds = credentials;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            greetingLbl.Content = $"Welcome, {creds.Username}";
         }
     }
 }

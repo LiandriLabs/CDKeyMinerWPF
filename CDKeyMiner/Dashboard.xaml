@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:CDKeyMiner"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Dashboard">
+      Title="Dashboard" Loaded="Page_Loaded">
 
     <Grid>
-        <Label Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center" VerticalAlignment="Center">Welcome, username!</Label>
+        <Label Name="greetingLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center" VerticalAlignment="Center">Welcome, username!</Label>
     </Grid>
 </Page>

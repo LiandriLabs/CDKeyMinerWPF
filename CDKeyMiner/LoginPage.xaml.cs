@@ -32,7 +32,7 @@ namespace CDKeyMiner
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Dashboard());
+            NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
         }
 
         private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)
