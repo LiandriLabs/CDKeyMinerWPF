@@ -48,7 +48,8 @@ namespace CDKeyMiner
 
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Opacity = 0;
+            var fadeIn = (Storyboard)FindResource("FadeIn");
+            buttonLbl.Opacity = 0;
 
             if (!mining)
             {
@@ -62,7 +63,7 @@ namespace CDKeyMiner
                     {
                         statusLbl.Dispatcher.Invoke(() =>
                         {
-                            buttonLbl.Content = "!";
+                            buttonLbl.Content = "⚠";
                             statusLbl.Content = "Cannot find miner EXE.";
                         });
                     }
@@ -70,8 +71,8 @@ namespace CDKeyMiner
                     {
                         statusLbl.Dispatcher.Invoke(() =>
                         {
-                            buttonLbl.Content = "!";
-                            statusLbl.Content = "Connection error (retrying).";
+                            buttonLbl.Content = "⚠";
+                            statusLbl.Content = "Connection error - retrying.";
                         });
                     }
                 };
@@ -111,8 +112,7 @@ namespace CDKeyMiner
                 statusLbl.Content = "Click to start mining.";
             }
 
-            var fadeIn = (Storyboard)FindResource("FadeIn");
-            fadeIn.Begin(this);
+            fadeIn.Begin(buttonLbl);
         }
 
         private void buttonLbl_MouseEnter(object sender, MouseEventArgs e)
