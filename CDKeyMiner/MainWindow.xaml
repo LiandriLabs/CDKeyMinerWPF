@@ -20,7 +20,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource MinerGreen}" FontFamily="Segoe UI Semibold" FontSize="12" Panel.ZIndex="1">CD Key Miner</Label>
+            <Label HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource MinerGreen}" FontSize="12" Panel.ZIndex="1">CD Key Miner</Label>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1">
                 <Button x:Name="MinimizeButton"
                     KeyboardNavigation.IsTabStop="False" Content="–" Click="MinimizeButton_Click" Background="Transparent" Foreground="{StaticResource MinerGreen}" BorderBrush="{x:Null}"  FontFamily="Segoe UI Black" FontSize="14" />

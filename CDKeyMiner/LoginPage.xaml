@@ -26,6 +26,6 @@
                 <ImageBrush ImageSource="Resources/password.gif" AlignmentX="Left" Stretch="None"/>
             </PasswordBox.Background>
         </PasswordBox>
-        <!--<Button Click="Button_Click" Margin="0,5,0,0" Style="{StaticResource LoginButton}">GO</Button>-->
+        <Button Click="Button_Click" Margin="0,5,0,0" Style="{StaticResource LoginButton}" FontFamily="Segoe UI Light" Content="LOG IN"/>
     </StackPanel>
 </Page>

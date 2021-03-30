@@ -54,4 +54,16 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Storyboard x:Key="FadeOut">
+        <DoubleAnimation 
+                Storyboard.TargetProperty="Opacity" 
+                From="1" To="0" Duration="0:0:1"/>
+    </Storyboard>
+
+    <Storyboard x:Key="FadeIn">
+        <DoubleAnimation 
+                Storyboard.TargetProperty="Opacity" 
+                From="0" To="1" Duration="0:0:1"/>
+    </Storyboard>
 </ResourceDictionary>
