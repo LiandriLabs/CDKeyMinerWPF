@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:CDKeyMiner"
         mc:Ignorable="d"
         Title="CD Key Miner" Height="600" Width="800"
-        Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True">
-    <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15">
+        Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+    <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15" x:Name="mainWindow">
         <Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
         </Border.Effect>
@@ -28,7 +28,7 @@
                 <Button x:Name="CloseButton"
                     KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Background="Transparent" BorderBrush="{x:Null}" Foreground="{StaticResource MinerGreen}"  FontFamily="Segoe UI Black" FontSize="14"/>
             </StackPanel>
-            <Frame x:Name="_mainFrame" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden" Margin="0,-20,0,0"/>
+            <Frame x:Name="_mainFrame" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden" Margin="0,-25,0,0"/>
         </Grid>
     </Border>
 </Window>

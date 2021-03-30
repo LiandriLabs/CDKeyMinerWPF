@@ -9,7 +9,7 @@
       Title="LoginPage" Background="{StaticResource MinerBackground}" Loaded="Page_Loaded">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center" FontSize="72">💿⛏️</Label>
+        <Image Source="Resources/logo.png" Width="210"/>
         <TextBox Width="210" Name="usernameBox"
                  TextChanged="usernameBox_TextChanged"
                  KeyDown="usernameBox_KeyDown"

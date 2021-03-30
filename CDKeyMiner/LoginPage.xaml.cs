@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -32,7 +33,12 @@ namespace CDKeyMiner
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
+            //var sb = (FindResource("FadeOut") as Storyboard).Clone(); 
+            //sb.Completed += (s, evt) =>
+            //{
+                NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
+            //};
+            //sb.Begin(this);
         }
 
         private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)

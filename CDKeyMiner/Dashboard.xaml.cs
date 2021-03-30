@@ -38,6 +38,10 @@ namespace CDKeyMiner
 
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            this.Opacity = 0;
+            var fadeIn = (Storyboard)FindResource("FadeIn");
+            fadeIn.Begin(this);
+
             if (!mining)
             {
                 mining = true;
@@ -46,9 +50,10 @@ namespace CDKeyMiner
             }
             else
             {
+                
                 mining = false;
                 buttonLbl.Content = "▶";
-                statusLbl.Content = "Press to start mining.";
+                statusLbl.Content = "Click to start mining.";
             }
         }
 
