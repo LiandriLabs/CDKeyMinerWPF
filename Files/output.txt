@@ -1,0 +1,53 @@
+20210330 21:20:15 T-Rex NVIDIA GPU miner v0.19.12  -  [CUDA v11.10 | Windows]
+20210330 21:20:15 r.34753df0aef5
+20210330 21:20:15
+20210330 21:20:15 NVIDIA Driver v461.92
+20210330 21:20:15 CUDA devices available: 1
+20210330 21:20:15
+20210330 21:20:15 WARN: DevFee 1% (ethash)
+20210330 21:20:15
+20210330 21:20:15 URL : stratum+tcp://eu1.ethermine.org:4444
+20210330 21:20:15 USER: 0x0DD14AEA9FdCdd632Bdca66DFA2d247D8B41B35d
+20210330 21:20:15 PASS: x
+20210330 21:20:15 WRK : rig0
+20210330 21:20:15
+20210330 21:20:15 Starting on: eu1.ethermine.org:4444
+20210330 21:20:15 Using protocol: stratum1.
+20210330 21:20:15 Authorizing...
+20210330 21:20:15 ApiServer: HTTP server started on 127.0.0.1:4067
+20210330 21:20:15 ---------------------------------------------------
+20210330 21:20:15 For control navigate to: http://127.0.0.1:4067/trex
+20210330 21:20:15 ---------------------------------------------------
+20210330 21:20:15 ApiServer: Telnet server started on 127.0.0.1:4068
+20210330 21:20:15 Authorized successfully.
+20210330 21:20:15 ethash epoch: 404, block: 12142193, diff: 4.00 G
+20210330 21:20:15 ethash epoch: 404, block: 12142193, diff: 4.00 G
+20210330 21:20:15 WARN: GPU #0(002900): EVGA GeForce RTX 3070, intensity set to 22
+20210330 21:20:17 GPU #0: generating DAG 4.16 GB for epoch 404 ...
+20210330 21:20:24 GPU #0: DAG generated [crc: a56cf2cd, time: 7138 ms], memory left: 2.81 GB
+20210330 21:20:35 ethash epoch: 404, block: 12142194, diff: 4.00 G
+20210330 21:20:40 GPU #0: using kernel #4
+20210330 21:20:47 [ OK ] 1/1 - 59.59 MH/s, 34ms ... GPU #0
+20210330 21:21:07 ethash epoch: 404, block: 12142195, diff: 4.00 G
+20210330 21:21:14 ethash epoch: 404, block: 12142196, diff: 4.00 G
+
+########################### New version of T-Rex is available ###########################
+# version: 0.19.14
+# download: https://github.com/trexminer/T-Rex/releases/download/0.19.14/t-rex-0.19.14-win-cuda11.1.zip
+# notes:
+Octopus performance improvements for 16xx; fan speed control; bug fixes
+#########################################################################################
+
+20210330 21:21:16
+20210330 21:21:16 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 21:21:16 GPU #0: EVGA RTX 3070 - 58.47 MH/s, [T:56C, P:132W, F:56%, E:472kH/W], 1/1 R:0%
+20210330 21:21:16 Shares/min: 1 (Avr. 1.841)
+20210330 21:21:16 Uptime: 1 min | Algo: ethash | T-Rex v0.19.12
+20210330 21:21:16 WD: 1 min 3 secs, shares 1/1
+20210330 21:21:16
+20210330 21:21:21 ethash epoch: 404, block: 12142197, diff: 4.00 G
+20210330 21:21:21 WARN: shutdown t-rex, got Ctrl+C from console
+20210330 21:21:21 Main loop finished. Cleaning up resources...
+20210330 21:21:21 ApiServer: stopped listening on 127.0.0.1:4067
+20210330 21:21:21 ApiServer: stopped listening on 127.0.0.1:4068
+20210330 21:21:23 T-Rex finished.

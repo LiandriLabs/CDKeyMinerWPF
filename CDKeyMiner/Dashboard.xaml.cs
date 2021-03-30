@@ -23,11 +23,21 @@ namespace CDKeyMiner
     {
         private Credentials creds;
         private bool mining = false;
+        private IMiner miner;
+        private int shares = 0;
 
         public Dashboard(Credentials credentials)
         {
             InitializeComponent();
             creds = credentials;
+        }
+
+        ~Dashboard()
+        {
+            if (miner != null)
+            {
+                miner.Stop();
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -39,22 +49,70 @@ namespace CDKeyMiner
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Opacity = 0;
-            var fadeIn = (Storyboard)FindResource("FadeIn");
-            fadeIn.Begin(this);
 
             if (!mining)
             {
                 mining = true;
                 buttonLbl.Content = "■";
-                statusLbl.Content = "Mining...";
+                statusLbl.Content = "Starting miner...";
+                miner = new Trex();
+                miner.OnError += (s, err) =>
+                {
+                    if (err == MinerError.ExeNotFound)
+                    {
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            buttonLbl.Content = "!";
+                            statusLbl.Content = "Cannot find miner EXE.";
+                        });
+                    }
+                    else if (err == MinerError.ConnectionError)
+                    {
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            buttonLbl.Content = "!";
+                            statusLbl.Content = "Connection error (retrying).";
+                        });
+                    }
+                };
+                miner.OnAuthorized += (s, evt) =>
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        buttonLbl.Content = "■";
+                        statusLbl.Content = "Miner connected.";
+                    });
+                };
+                miner.OnMining += (s, evt) =>
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        buttonLbl.Content = "■";
+                        statusLbl.Content = "Mining (0 shares).";
+                    });
+                };
+                miner.OnShare += (s, evt) =>
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        shares++;
+                        buttonLbl.Content = "■";
+                        statusLbl.Content = $"Mining ({shares} shares).";
+                    });
+                };
+                miner.Start(creds);
             }
             else
             {
-                
+
                 mining = false;
+                miner.Stop();
                 buttonLbl.Content = "▶";
                 statusLbl.Content = "Click to start mining.";
             }
+
+            var fadeIn = (Storyboard)FindResource("FadeIn");
+            fadeIn.Begin(this);
         }
 
         private void buttonLbl_MouseEnter(object sender, MouseEventArgs e)
