@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace CDKeyMiner
 {
@@ -25,10 +26,13 @@ namespace CDKeyMiner
 
         public void Start(Credentials credentials)
         {
+            Log.Information("Starting t-rex miner.");
             var trexPath = Path.Combine(libPath, "t-rex.exe");
             if (!File.Exists(trexPath))
             {
+                Log.Error("t-rex exe not found in {0}", trexPath);
                 OnError?.Invoke(this, MinerError.ExeNotFound);
+                return;
             }
 
             Stop();
@@ -59,11 +63,16 @@ namespace CDKeyMiner
                 }
                 else if (e.Data.Contains("ERROR: No connection"))
                 {
+                    Log.Error("T-rex connection error.");
                     OnError?.Invoke(this, MinerError.ConnectionError);
                 }
             });
 
             trexProc.ErrorDataReceived += new DataReceivedEventHandler((sender, e) => {
+                if (e.Data != null)
+                {
+                    Log.Error("Error from t-rex: {0}", e.Data);
+                }
                 OnError?.Invoke(this, MinerError.UnknownError);
             });
 
@@ -76,13 +85,10 @@ namespace CDKeyMiner
         }
 
         public void Stop()
-        {
+        { 
             if (trexProc != null && !trexProc.HasExited)
             {
-                //trexProc.Exited += (s, e) =>
-                //{
-                //    OnError?.Invoke(this, MinerError.HasStopped);
-                //};
+                Log.Information("Stopping t-rex miner.");
                 trexProc.Kill();
                 trexProc = null;
                 OnError?.Invoke(this, MinerError.HasStopped);
