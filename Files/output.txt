@@ -51,3 +51,233 @@ Octopus performance improvements for 16xx; fan speed control; bug fixes
 20210330 21:21:21 ApiServer: stopped listening on 127.0.0.1:4067
 20210330 21:21:21 ApiServer: stopped listening on 127.0.0.1:4068
 20210330 21:21:23 T-Rex finished.
+
+
+
+
+
+C:\Users\PsioN\Desktop\t-rex-0.19>t-rex.exe -a ethash -o stratum+tcp://eu1.ethermine.org:4444 -u 0x0DD14AEA9FdCdd632Bdca66DFA2d247D8B41B35d -p x -w rig0
+20210330 22:48:33 T-Rex NVIDIA GPU miner v0.19.12  -  [CUDA v11.10 | Windows]
+20210330 22:48:33 r.34753df0aef5
+20210330 22:48:33
+20210330 22:48:34 NVIDIA Driver v461.92
+20210330 22:48:34 CUDA devices available: 1
+20210330 22:48:34
+20210330 22:48:34 WARN: DevFee 1% (ethash)
+20210330 22:48:34
+20210330 22:48:34 URL : stratum+tcp://eu1.ethermine.org:4444
+20210330 22:48:34 USER: 0x0DD14AEA9FdCdd632Bdca66DFA2d247D8B41B35d
+20210330 22:48:34 PASS: x
+20210330 22:48:34 WRK : rig0
+20210330 22:48:34
+20210330 22:48:34 Starting on: eu1.ethermine.org:4444
+20210330 22:48:34 ApiServer: HTTP server started on 127.0.0.1:4067
+20210330 22:48:34 ---------------------------------------------------
+20210330 22:48:34 For control navigate to: http://127.0.0.1:4067/trex
+20210330 22:48:34 ---------------------------------------------------
+20210330 22:48:34 ApiServer: Telnet server started on 127.0.0.1:4068
+20210330 22:48:34 WARN: GPU #0(002900): EVGA GeForce RTX 3070, intensity set to 22
+20210330 22:48:35 Using protocol: stratum1.
+20210330 22:48:35 Authorizing...
+20210330 22:48:36 Authorized successfully.
+20210330 22:48:36 ethash epoch: 404, block: 12142597, diff: 4.00 G
+20210330 22:48:36 ethash epoch: 404, block: 12142597, diff: 4.00 G
+20210330 22:48:37 GPU #0: generating DAG 4.16 GB for epoch 404 ...
+20210330 22:48:44 GPU #0: DAG generated [crc: a56cf2cd, time: 7141 ms], memory left: 2.81 GB
+20210330 22:48:49 ethash epoch: 404, block: 12142598, diff: 4.00 G
+20210330 22:48:50 ethash epoch: 404, block: 12142599, diff: 4.00 G
+20210330 22:49:01 GPU #0: using kernel #5
+20210330 22:49:08 [ OK ] 1/1 - 54.45 MH/s, 32ms ... GPU #0
+20210330 22:49:20 ethash epoch: 404, block: 12142600, diff: 4.00 G
+20210330 22:49:21 [ OK ] 2/2 - 57.60 MH/s, 42ms ... GPU #0
+20210330 22:49:22 ethash epoch: 404, block: 12142601, diff: 4.00 G
+20210330 22:49:23 ethash epoch: 404, block: 12142602, diff: 4.00 G
+20210330 22:49:28 ethash epoch: 404, block: 12142603, diff: 4.00 G
+20210330 22:49:30 ethash epoch: 404, block: 12142604, diff: 4.00 G
+20210330 22:49:32 ethash epoch: 404, block: 12142605, diff: 4.00 G
+
+########################### New version of T-Rex is available ###########################
+# version: 0.19.14
+# download: https://github.com/trexminer/T-Rex/releases/download/0.19.14/t-rex-0.19.14-win-cuda11.1.zip
+# notes:
+Octopus performance improvements for 16xx; fan speed control; bug fixes
+#########################################################################################
+
+20210330 22:49:35
+20210330 22:49:35 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:49:35 GPU #0: EVGA RTX 3070 - 58.20 MH/s, [T:55C, P:132W, F:56%, E:469kH/W], 2/2 R:0%
+20210330 22:49:35 Shares/min: 2 (Avr. 2.51)
+20210330 22:49:35 Uptime: 1 min 1 sec | Algo: ethash | T-Rex v0.19.12
+20210330 22:49:35 WD: 1 min 3 secs, shares 2/2
+20210330 22:49:35
+20210330 22:49:40 ethash epoch: 404, block: 12142606, diff: 4.00 G
+20210330 22:50:05
+20210330 22:50:05 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:50:05 GPU #0: EVGA RTX 3070 - 58.78 MH/s, [T:53C, P:132W, F:56%, E:445kH/W], 2/2 R:0%
+20210330 22:50:05 Shares/min: 2 (Avr. 2.51)
+20210330 22:50:05 Uptime: 1 min 31 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:50:05 WD: 1 min 33 secs, shares 2/2
+20210330 22:50:05
+20210330 22:50:06 ethash epoch: 404, block: 12142607, diff: 4.00 G
+20210330 22:50:11 ethash epoch: 404, block: 12142608, diff: 4.00 G
+20210330 22:50:14 ethash epoch: 404, block: 12142609, diff: 4.00 G
+20210330 22:50:19 ethash epoch: 404, block: 12142610, diff: 4.00 G
+20210330 22:50:35
+20210330 22:50:35 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:50:35 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:52C, P:132W, F:56%, E:450kH/W], 2/2 R:0%
+20210330 22:50:35 Shares/min: 2 (Avr. 2.51)
+20210330 22:50:35 Uptime: 2 mins 1 sec | Algo: ethash | T-Rex v0.19.12
+20210330 22:50:35 WD: 2 mins 3 secs, shares 2/2
+20210330 22:50:35
+20210330 22:50:35 ethash epoch: 404, block: 12142611, diff: 4.00 G
+20210330 22:50:37 ethash epoch: 404, block: 12142612, diff: 4.00 G
+20210330 22:50:56 [ OK ] 3/3 - 59.38 MH/s, 35ms ... GPU #0
+20210330 22:51:00 [ OK ] 4/4 - 59.38 MH/s, 34ms ... GPU #0
+20210330 22:51:05
+20210330 22:51:05 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:51:05 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:52C, P:132W, F:51%, E:450kH/W], 4/4 R:0%
+20210330 22:51:05 Shares/min: 1.619 (Avr. 1.643)
+20210330 22:51:05 Uptime: 2 mins 31 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:51:05 WD: 2 mins 33 secs, shares 4/4
+20210330 22:51:05
+20210330 22:51:14 [ OK ] 5/5 - 59.38 MH/s, 292ms ... GPU #0
+20210330 22:51:34 ethash epoch: 404, block: 12142613, diff: 4.00 G
+20210330 22:51:35
+20210330 22:51:35 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:51:35 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:54C, P:132W, F:46%, E:450kH/W], 5/5 R:0%
+20210330 22:51:35 Shares/min: 1.915 (Avr. 1.873)
+20210330 22:51:35 Uptime: 3 mins 1 sec | Algo: ethash | T-Rex v0.19.12
+20210330 22:51:35 WD: 3 mins 3 secs, shares 5/5
+20210330 22:51:35
+20210330 22:51:38 ethash epoch: 404, block: 12142614, diff: 4.00 G
+20210330 22:51:48 ethash epoch: 404, block: 12142615, diff: 4.00 G
+20210330 22:51:50 ethash epoch: 404, block: 12142616, diff: 4.00 G
+20210330 22:51:51 ethash epoch: 404, block: 12142617, diff: 4.00 G
+20210330 22:51:58 ethash epoch: 404, block: 12142618, diff: 4.00 G
+20210330 22:52:00 [ OK ] 6/6 - 59.38 MH/s, 33ms ... GPU #0
+20210330 22:52:02 ethash epoch: 404, block: 12142619, diff: 4.00 G
+20210330 22:52:03 ethash epoch: 404, block: 12142620, diff: 4.00 G
+20210330 22:52:05
+20210330 22:52:05 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:52:05 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:56C, P:132W, F:48%, E:450kH/W], 6/6 R:0%
+20210330 22:52:05 Shares/min: 1.749 (Avr. 1.744)
+20210330 22:52:05 Uptime: 3 mins 31 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:52:05 WD: 3 mins 34 secs, shares 6/6
+20210330 22:52:05
+20210330 22:52:08 ethash epoch: 404, block: 12142621, diff: 4.00 G
+20210330 22:52:16 ethash epoch: 404, block: 12142622, diff: 4.00 G
+20210330 22:52:35
+20210330 22:52:35 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:52:35 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:55C, P:132W, F:53%, E:450kH/W], 6/6 R:0%
+20210330 22:52:35 Shares/min: 1.749 (Avr. 1.744)
+20210330 22:52:35 Uptime: 4 mins 1 sec | Algo: ethash | T-Rex v0.19.12
+20210330 22:52:35 WD: 4 mins 4 secs, shares 6/6
+20210330 22:52:35
+20210330 22:52:46 ethash epoch: 404, block: 12142623, diff: 4.00 G
+20210330 22:52:54 ethash epoch: 404, block: 12142624, diff: 4.00 G
+20210330 22:53:05
+20210330 22:53:05 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:53:05 GPU #0: EVGA RTX 3070 - 59.39 MH/s, [T:54C, P:132W, F:54%, E:450kH/W], 6/6 R:0%
+20210330 22:53:05 Shares/min: 1.749 (Avr. 1.744)
+20210330 22:53:05 Uptime: 4 mins 31 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:53:05 WD: 4 mins 34 secs, shares 6/6
+20210330 22:53:05
+20210330 22:53:15 [ OK ] 7/7 - 59.39 MH/s, 34ms ... GPU #0
+20210330 22:53:16 ethash epoch: 404, block: 12142625, diff: 4.00 G
+20210330 22:53:20 ethash epoch: 404, block: 12142626, diff: 4.00 G
+20210330 22:53:24 [ OK ] 8/8 - 59.39 MH/s, 35ms ... GPU #0
+20210330 22:53:35
+20210330 22:53:35 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:53:35 GPU #0: EVGA RTX 3070 - 59.39 MH/s, [T:54C, P:132W, F:51%, E:450kH/W], 8/8 R:0%
+20210330 22:53:35 Shares/min: 1.645 (Avr. 1.654)
+20210330 22:53:35 Uptime: 5 mins 1 sec | Algo: ethash | T-Rex v0.19.12
+20210330 22:53:35 WD: 5 mins 4 secs, shares 8/8
+20210330 22:53:35
+20210330 22:53:37 ethash epoch: 404, block: 12142627, diff: 4.00 G
+20210330 22:53:46 [ OK ] 9/9 - 59.39 MH/s, 35ms ... GPU #0
+20210330 22:54:05
+20210330 22:54:05 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:54:05 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:54C, P:132W, F:49%, E:450kH/W], 9/9 R:0%
+20210330 22:54:05 Shares/min: 1.728 (Avr. 1.728)
+20210330 22:54:05 Uptime: 5 mins 31 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:54:05 WD: 5 mins 34 secs, shares 9/9
+20210330 22:54:05
+20210330 22:54:25 ethash epoch: 404, block: 12142628, diff: 4.00 G
+20210330 22:54:35
+20210330 22:54:35 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:54:35 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:55C, P:132W, F:50%, E:450kH/W], 9/9 R:0%
+20210330 22:54:35 Shares/min: 1.728 (Avr. 1.728)
+20210330 22:54:35 Uptime: 6 mins 1 sec | Algo: ethash | T-Rex v0.19.12
+20210330 22:54:35 WD: 6 mins 4 secs, shares 9/9
+20210330 22:54:35
+20210330 22:54:36 ethash epoch: 404, block: 12142629, diff: 4.00 G
+20210330 22:55:05
+20210330 22:55:05 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:55:05 GPU #0: EVGA RTX 3070 - 59.39 MH/s, [T:55C, P:132W, F:51%, E:450kH/W], 9/9 R:0%
+20210330 22:55:05 Shares/min: 1.728 (Avr. 1.728)
+20210330 22:55:05 Uptime: 6 mins 31 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:55:05 WD: 6 mins 34 secs, shares 9/9
+20210330 22:55:05
+20210330 22:55:14 ethash epoch: 404, block: 12142630, diff: 4.00 G
+20210330 22:55:18 ethash epoch: 404, block: 12142631, diff: 4.00 G
+20210330 22:55:28 ethash epoch: 404, block: 12142632, diff: 4.00 G
+20210330 22:55:30 ethash epoch: 404, block: 12142633, diff: 4.00 G
+20210330 22:55:36
+20210330 22:55:36 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:55:36 GPU #0: EVGA RTX 3070 - 59.39 MH/s, [T:54C, P:132W, F:52%, E:450kH/W], 9/9 R:0%
+20210330 22:55:36 Shares/min: 1.728 (Avr. 1.728)
+20210330 22:55:36 Uptime: 7 mins 2 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:55:36 WD: 7 mins 4 secs, shares 9/9
+20210330 22:55:36
+20210330 22:55:44 ethash epoch: 404, block: 12142634, diff: 4.00 G
+20210330 22:56:02 ethash epoch: 404, block: 12142635, diff: 4.00 G
+20210330 22:56:04 ethash epoch: 404, block: 12142636, diff: 4.00 G
+20210330 22:56:06
+20210330 22:56:06 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:56:06 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:54C, P:132W, F:51%, E:450kH/W], 9/9 R:0%
+20210330 22:56:06 Shares/min: 1.728 (Avr. 1.728)
+20210330 22:56:06 Uptime: 7 mins 32 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:56:06 WD: 7 mins 34 secs, shares 9/9
+20210330 22:56:06
+20210330 22:56:17 [ OK ] 10/10 - 59.38 MH/s, 36ms ... GPU #0
+20210330 22:56:17 ethash epoch: 404, block: 12142637, diff: 4.00 G
+20210330 22:56:19 ethash epoch: 404, block: 12142638, diff: 4.00 G
+20210330 22:56:36
+20210330 22:56:36 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:56:36 GPU #0: EVGA RTX 3070 - 59.39 MH/s, [T:54C, P:132W, F:50%, E:450kH/W], 10/10 R:0%
+20210330 22:56:36 Shares/min: 1.259 (Avr. 1.293)
+20210330 22:56:36 Uptime: 8 mins 2 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:56:36 WD: 8 mins 4 secs, shares 10/10
+20210330 22:56:36
+20210330 22:56:38 [ OK ] 11/11 - 59.39 MH/s, 33ms ... GPU #0
+20210330 22:56:47 ethash epoch: 404, block: 12142639, diff: 4.00 G
+20210330 22:56:51 ethash epoch: 404, block: 12142640, diff: 4.00 G
+20210330 22:57:00 ethash epoch: 404, block: 12142641, diff: 4.00 G
+20210330 22:57:06
+20210330 22:57:06 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:57:06 GPU #0: EVGA RTX 3070 - 59.39 MH/s, [T:55C, P:132W, F:50%, E:450kH/W], 11/11 R:0%
+20210330 22:57:06 Shares/min: 1.334 (Avr. 1.362)
+20210330 22:57:06 Uptime: 8 mins 32 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:57:06 WD: 8 mins 34 secs, shares 11/11
+20210330 22:57:06
+20210330 22:57:06 ethash epoch: 404, block: 12142642, diff: 4.00 G
+20210330 22:57:10 ethash epoch: 404, block: 12142643, diff: 4.00 G
+20210330 22:57:36
+20210330 22:57:36 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:57:36 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:54C, P:132W, F:51%, E:450kH/W], 11/11 R:0%
+20210330 22:57:36 Shares/min: 1.334 (Avr. 1.362)
+20210330 22:57:36 Uptime: 9 mins 2 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:57:36 WD: 9 mins 4 secs, shares 11/11
+20210330 22:57:36
+20210330 22:57:39 ethash epoch: 404, block: 12142644, diff: 4.00 G
+20210330 22:57:48 ethash epoch: 404, block: 12142645, diff: 4.00 G
+20210330 22:57:50 ethash epoch: 404, block: 12142646, diff: 4.00 G
+20210330 22:58:06
+20210330 22:58:06 Mining at eu1.ethermine.org:4444, diff: 4.00 G
+20210330 22:58:06 GPU #0: EVGA RTX 3070 - 59.38 MH/s, [T:54C, P:132W, F:51%, E:450kH/W], 11/11 R:0%
+20210330 22:58:06 Shares/min: 1.334 (Avr. 1.362)
+20210330 22:58:06 Uptime: 9 mins 32 secs | Algo: ethash | T-Rex v0.19.12
+20210330 22:58:06 WD: 9 mins 34 secs, shares 11/11
+20210330 22:58:06
+20210330 22:58:18 ethash epoch: 404, block: 12142647, diff: 4.00 G
+20210330 22:58:22 [ OK ] 12/12 - 59.01 MH/s, 37ms ... GPU #0

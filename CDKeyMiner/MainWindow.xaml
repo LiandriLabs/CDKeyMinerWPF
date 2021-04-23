@@ -23,10 +23,10 @@
             <Label HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource MinerGreen}" FontSize="12" Panel.ZIndex="1">CD Key Miner</Label>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1">
                 <Button x:Name="MinimizeButton"
-                    KeyboardNavigation.IsTabStop="False" Content="–" Click="MinimizeButton_Click" Background="Transparent" Foreground="{StaticResource MinerGreen}" BorderBrush="{x:Null}"  FontFamily="Segoe UI Black" FontSize="14" />
+                    KeyboardNavigation.IsTabStop="False" Content="–" Click="MinimizeButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="14" />
 
                 <Button x:Name="CloseButton"
-                    KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Background="Transparent" BorderBrush="{x:Null}" Foreground="{StaticResource MinerGreen}"  FontFamily="Segoe UI Black" FontSize="14"/>
+                    KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="14"/>
             </StackPanel>
             <Frame x:Name="_mainFrame" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden" Margin="0,-25,0,0"/>
         </Grid>

@@ -42,20 +42,17 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var sb = (Storyboard)FindResource("FadeIn");
-            sb.Begin(this);
+            //var sb = (Storyboard)FindResource("FadeIn");
+            //sb.Begin(this);
         }
 
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var fadeIn = (Storyboard)FindResource("FadeIn");
-            buttonLbl.Opacity = 0;
-
             if (!mining)
             {
                 mining = true;
-                buttonLbl.Content = "■";
-                statusLbl.Content = "Starting miner...";
+                buttonLbl.AnimatedUpdate("■");
+                statusLbl.AnimatedUpdate("Starting miner...");
                 miner = new Trex();
                 miner.OnError += (s, err) =>
                 {
@@ -63,16 +60,16 @@ namespace CDKeyMiner
                     {
                         statusLbl.Dispatcher.Invoke(() =>
                         {
-                            buttonLbl.Content = "⚠";
-                            statusLbl.Content = "Cannot find miner EXE.";
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate("Cannot find miner EXE.");
                         });
                     }
                     else if (err == MinerError.ConnectionError)
                     {
                         statusLbl.Dispatcher.Invoke(() =>
                         {
-                            buttonLbl.Content = "⚠";
-                            statusLbl.Content = "Connection error - retrying.";
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate("Connection error - retrying.");
                         });
                     }
                 };
@@ -80,16 +77,16 @@ namespace CDKeyMiner
                 {
                     statusLbl.Dispatcher.Invoke(() =>
                     {
-                        buttonLbl.Content = "■";
-                        statusLbl.Content = "Miner connected.";
+                        buttonLbl.AnimatedUpdate("■");
+                        statusLbl.AnimatedUpdate("Miner connected.");
                     });
                 };
                 miner.OnMining += (s, evt) =>
                 {
                     statusLbl.Dispatcher.Invoke(() =>
                     {
-                        buttonLbl.Content = "■";
-                        statusLbl.Content = "Mining (0 shares).";
+                        buttonLbl.AnimatedUpdate("■");
+                        statusLbl.AnimatedUpdate("Mining (0 shares).");
                     });
                 };
                 miner.OnShare += (s, evt) =>
@@ -97,8 +94,8 @@ namespace CDKeyMiner
                     statusLbl.Dispatcher.Invoke(() =>
                     {
                         shares++;
-                        buttonLbl.Content = "■";
-                        statusLbl.Content = $"Mining ({shares} shares).";
+                        buttonLbl.AnimatedUpdate("■");
+                        statusLbl.AnimatedUpdate($"Mining ({shares} shares).");
                     });
                 };
                 miner.Start(creds);
@@ -108,11 +105,9 @@ namespace CDKeyMiner
 
                 mining = false;
                 miner.Stop();
-                buttonLbl.Content = "▶";
-                statusLbl.Content = "Click to start mining.";
+                buttonLbl.AnimatedUpdate("▶");
+                statusLbl.AnimatedUpdate("Click the button to start mining.");
             }
-
-            fadeIn.Begin(buttonLbl);
         }
 
         private void buttonLbl_MouseEnter(object sender, MouseEventArgs e)

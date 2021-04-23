@@ -9,7 +9,7 @@
       Title="LoginPage" Background="{StaticResource MinerBackground}" Loaded="Page_Loaded">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Source="Resources/logo.png" Width="210"/>
+        <Image Source="Resources/logo.png" Width="210" Margin="0,0,0,20"/>
         <TextBox Width="210" Name="usernameBox"
                  TextChanged="usernameBox_TextChanged"
                  KeyDown="usernameBox_KeyDown"
@@ -26,6 +26,6 @@
                 <ImageBrush ImageSource="Resources/password.gif" AlignmentX="Left" Stretch="None"/>
             </PasswordBox.Background>
         </PasswordBox>
-        <Button Click="Button_Click" Margin="0,5,0,0" Style="{StaticResource LoginButton}" FontFamily="Segoe UI Light" Content="LOG IN"/>
+        <Button Click="Button_Click" Margin="0,5,0,0" Style="{StaticResource LoginButton}" FontFamily="Segoe UI Semibold" Content="LOGIN" Foreground="#FFFBFBFB" Height="30"/>
     </StackPanel>
 </Page>
