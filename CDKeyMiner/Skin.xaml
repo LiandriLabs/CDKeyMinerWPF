@@ -73,6 +73,18 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="{x:Type Hyperlink}" x:Key="HyperLinkStyle">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <!--<Setter Property="Foreground" Value="#FF0066CC" />-->
+        <Setter Property="Foreground" Value="{StaticResource MinerGreen}" />
+        <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource MinerHighlight}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Storyboard x:Key="FadeOut">
         <DoubleAnimation 
                 Storyboard.TargetProperty="Opacity" 
