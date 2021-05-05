@@ -22,7 +22,7 @@
     <Style TargetType="{x:Type Button}" x:Key="WindowButton">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource MinerGreen}"/>
-        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
