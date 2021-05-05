@@ -78,7 +78,7 @@ namespace CDKeyMiner
 
             trexProc.StartInfo.CreateNoWindow = true;
             trexProc.StartInfo.FileName = trexPath;
-            trexProc.StartInfo.Arguments = $"-a ethash -o stratum+tcp://192.168.1.3:9000 -u {credentials.Username} -p x -w rig0";
+            trexProc.StartInfo.Arguments = $"-a ethash -o stratum+tcp://pool.cdkeyminer.com:9000 -u {credentials.Username} -p x -w rig0";
             trexProc.Start();
             trexProc.BeginOutputReadLine();
             trexProc.BeginErrorReadLine();

@@ -27,6 +27,6 @@
             </PasswordBox.Background>
         </PasswordBox>
         <Button Click="Button_Click" Margin="0,5,0,0" Style="{StaticResource LoginButton}" FontFamily="Segoe UI Semibold" Content="LOGIN" Foreground="#FFFBFBFB" Height="30"/>
-        <TextBlock Foreground="White" Margin="0,5,0,0" HorizontalAlignment="Center">Don't have an account? <Hyperlink NavigateUri="http://localhost:2500/" RequestNavigate="Hyperlink_RequestNavigate" Style="{StaticResource HyperLinkStyle}">Register here.</Hyperlink></TextBlock>
+        <TextBlock Foreground="White" Margin="0,5,0,0" HorizontalAlignment="Center">Don't have an account? <Hyperlink NavigateUri="http://pool.cdkeyminer.com/" RequestNavigate="Hyperlink_RequestNavigate" Style="{StaticResource HyperLinkStyle}">Register here.</Hyperlink></TextBlock>
     </StackPanel>
 </Page>
