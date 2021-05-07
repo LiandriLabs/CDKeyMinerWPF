@@ -38,3 +38,13 @@ Type "copyright", "credits" or "license()" for more information.
 
 100 shares 0.00018 =
 0.00000180 PS
+
+
+---------------
+
+4295 MH
+
+7 640 000 000 MH
+
+0.000001743 PS
+0.000001873765897587995
