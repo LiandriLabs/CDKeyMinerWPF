@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Phoenix.cs" />
     <Compile Include="Trex.cs" />
     <Page Include="Colors.xaml">
       <SubType>Designer</SubType>
@@ -138,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="cdkeyminer.ico" />
-    <Content Include="Lib\t-rex.exe">
+    <Content Include="Lib\PhoenixMiner.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\logo2.png" />

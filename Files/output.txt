@@ -281,3 +281,101 @@ Octopus performance improvements for 16xx; fan speed control; bug fixes
 20210330 22:58:06
 20210330 22:58:18 ethash epoch: 404, block: 12142647, diff: 4.00 G
 20210330 22:58:22 [ OK ] 12/12 - 59.01 MH/s, 37ms ... GPU #0
+
+
+
+
+
+------------ PHOENIX -----------------------------
+
+C:\Users\PsioN\Desktop\t-rex-0.19>PhoenixMiner.exe -pool pool.cdkeyminer.com:9000 -wal psionski -proto 2 -coin eth -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1
+Phoenix Miner 5.5c Windows/msvc - Release build
+-----------------------------------------------
+
+CUDA version: 11.0, CUDA runtime: 8.0
+No OpenCL platforms found
+Available GPUs for mining:
+GPU1: NVIDIA GeForce RTX 3070 (pcie 41), CUDA cap. 8.6, 8 GB VRAM, 46 CUs
+Nvidia driver version: 466.27
+Eth: the pool list contains 1 pool (1 from command-line)
+Eth: primary pool: pool.cdkeyminer.com:9000
+Starting GPU mining
+Eth: Connecting to ethash pool pool.cdkeyminer.com:9000 (proto: EthProxy)
+GPU1: 45C 52% 20W
+GPUs power: 20.4 W
+Eth: Connected to ethash pool pool.cdkeyminer.com:9000 (172.105.249.37)
+Eth: New job #647c6808 from pool.cdkeyminer.com:9000; diff: 4295MH
+GPU1: Starting up... (0)
+GPU1: Generating ethash light cache for epoch #414
+Light cache generated in 2.2 s (30.6 MB/s)
+GPU1: Allocating DAG (4.25) GB; good for epoch up to #416
+GPU1: Generating DAG for epoch #414
+Eth: New job #4be5822f from pool.cdkeyminer.com:9000; diff: 4295MH
+GPU1: DAG  27%
+GPU1: DAG  55%
+Eth: New job #9515c05a from pool.cdkeyminer.com:9000; diff: 4295MH
+GPU1: DAG  83%
+GPU1: DAG generated in 5.6 s (770.0 MB/s)
+GPU1: Using v2 Ethash CUDA kernels (NVIDIA GeForce RTX 3070)
+Eth: New job #4287dfe8 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #c07ac786 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #6c28648d from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #51d3dca9 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #47535bcf from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #1b23ba3e from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #a9a2a179 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #75ff31a7 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #a3c8574d from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #05c6682a from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #1ce84234 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #64ceabe0 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #2dfcb641 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #e27c9f86 from pool.cdkeyminer.com:9000; diff: 4295MH
+GPU1: 59C 58% 187W
+GPUs power: 187.4 W
+Eth: New job #89429c7f from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #0dfcc94e from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #578ee50a from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #7647a22c from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #86e51d11 from pool.cdkeyminer.com:9000; diff: 4295MH
+
+*** 0:00 *** 5/13 03:46 **************************************
+Eth: Mining ETH on pool.cdkeyminer.com:9000 for 0:00
+Eth speed: 51.123 MH/s, shares: 0/0/0, time: 0:00
+Eth: Accepted shares 0 (0 stales), rejected shares 0 (0 stales)
+Eth: Incorrect shares 0 (0.00%), est. stales percentage 0.00%
+Eth: Average speed (5 min): 51.347 MH/s
+
+Eth: New job #38f041f7 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #9b498e26 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #50e2cd15 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #5061e0f8 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #017f0d7d from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #096640a1 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: GPU1: ETH share found!
+Eth: Share actual difficulty: 6788 MH
+Eth: Share accepted in 36 ms
+GPU1: 61C 60% 187W
+GPUs power: 187.3 W
+Eth: New job #5d0f6d7c from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #4d6b2ac1 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #040f7f0f from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: GPU1: ETH share found!
+Eth: Share actual difficulty: 31.8 GH (!)
+Eth: Share accepted in 35 ms
+Eth: New job #df791932 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #856c7218 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #7032dc62 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #9bb0eec0 from pool.cdkeyminer.com:9000; diff: 4295MH
+Eth: New job #4e262652 from pool.cdkeyminer.com:9000; diff: 4295MH
+Quitting...
+
+
+
+Eth: Can't resolve host pool.cdkeyminer.com:9000 - The requested name is valid, but no data of the requested type was found
+Eth: Can't resolve host pool2.cdkeyminer.com:9000 - No such host is known
+Eth: Could not connect to ethash pool pool.cdkeyminer.com:9001: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+Eth: Connected to ethash pool pool.cdkeyminer.com:9000 (172.105.249.37)
+Eth: Connection closed by the pool
+
+
