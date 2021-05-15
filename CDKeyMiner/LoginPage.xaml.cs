@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Serilog;
 
 namespace CDKeyMiner
 {
@@ -32,14 +33,39 @@ namespace CDKeyMiner
             usernameBox.Focus();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var sb = (FindResource("FadeOut") as Storyboard).Clone(); 
-            //sb.Completed += (s, evt) =>
-            //{
-                NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
-            //};
-            //sb.Begin(this);
+            try
+            {
+                var fadeOut = (FindResource("FadeOut") as Storyboard).Clone();
+                fadeOut.Begin(this);
+                messageLabel.Visibility = Visibility.Collapsed;
+
+                Log.Information("Trying to log in");
+                var loggedIn = await LoginHelper.LogIn(usernameBox.Text, passwordBox.Password);
+                if (loggedIn)
+                {
+                    Log.Information("Logged in");
+                    NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
+                }
+                else
+                {
+                    Log.Error("Login failed");
+                    messageLabel.Content = "Username or password incorrect";
+                    messageLabel.Visibility = Visibility.Visible;
+                    usernameBox.Focus();
+                    var fadeIn = (FindResource("FadeIn") as Storyboard).Clone();
+                    fadeIn.Begin(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Communication error");
+                messageLabel.Content = "Cannot connect to server";
+                messageLabel.Visibility = Visibility.Visible;
+                var sb = (FindResource("FadeIn") as Storyboard).Clone();
+                sb.Begin(this);
+            }
         }
 
         private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)
