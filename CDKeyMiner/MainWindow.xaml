@@ -8,6 +8,14 @@
         Title="CD Key Miner" Height="600" Width="800"
         Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15" x:Name="mainWindow">
+        <Border.LayoutTransform>
+            <TransformGroup>
+                <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Border.LayoutTransform>
         <Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
         </Border.Effect>
@@ -22,10 +30,13 @@
             </Grid.RowDefinitions>
             <Label HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="{StaticResource MinerGreen}" FontSize="12" FontFamily="Segoe UI Black" Panel.ZIndex="1">CD Key Miner</Label>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1">
-                <Button x:Name="MinimizeButton"
+                <Button x:Name="LogoutButton" ToolTip="Log out"
+                    KeyboardNavigation.IsTabStop="False" Content="↵" Click="LogoutButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="18" Visibility="Collapsed" />
+                
+                <Button x:Name="MinimizeButton" ToolTip="Minimize"
                     KeyboardNavigation.IsTabStop="False" Content="–" Click="MinimizeButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="18" />
 
-                <Button x:Name="CloseButton"
+                <Button x:Name="CloseButton" ToolTip="Exit"
                     KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="18"/>
             </StackPanel>
             <Frame x:Name="_mainFrame" Grid.Row="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden" Margin="0,-25,0,0"/>

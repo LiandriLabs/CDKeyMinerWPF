@@ -30,7 +30,17 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            usernameBox.Focus();
+            var uname = Properties.Settings.Default.Username;
+            if (!string.IsNullOrEmpty(uname))
+            {
+                NavigationService.Navigate(new Dashboard(new Credentials(uname, "x")));
+            }
+            else
+            {
+                usernameBox.Focus();
+                var sb = (Storyboard)FindResource("FadeIn");
+                sb.Begin(this);
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -46,6 +56,8 @@ namespace CDKeyMiner
                 if (loggedIn)
                 {
                     Log.Information("Logged in");
+                    Properties.Settings.Default.Username = usernameBox.Text;
+                    Properties.Settings.Default.Save();
                     NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
                 }
                 else

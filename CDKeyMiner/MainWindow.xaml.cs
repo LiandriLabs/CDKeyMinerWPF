@@ -48,5 +48,14 @@ namespace CDKeyMiner
         {
             App.Current.MainWindow.WindowState = WindowState.Minimized;
         }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogoutButton.Visibility = Visibility.Collapsed;
+            Properties.Settings.Default.Username = "";
+            Properties.Settings.Default.Save();
+            (_mainFrame.Content as Dashboard)?.StopMiner();
+            _mainFrame.Navigate(new LoginPage());
+        }
     }
 }

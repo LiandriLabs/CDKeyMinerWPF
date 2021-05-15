@@ -34,6 +34,11 @@ namespace CDKeyMiner
 
         ~Dashboard()
         {
+            StopMiner();
+        }
+
+        public void StopMiner()
+        {
             if (miner != null)
             {
                 miner.Stop();
@@ -42,6 +47,7 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
             //var sb = (Storyboard)FindResource("FadeIn");
             //sb.Begin(this);
         }
