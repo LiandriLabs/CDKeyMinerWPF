@@ -11,7 +11,7 @@ namespace CDKeyMiner
 {
     static class LoginHelper
     {
-        static string URL = "wss://pool.cdkeyminer.com/socket.io/?EIO=4&transport=websocket";
+        static string URL = "wss://www.cdkeyminer.com/socket.io/?EIO=4&transport=websocket";
 
         static async Task Send(ClientWebSocket socket, string data)
         {
