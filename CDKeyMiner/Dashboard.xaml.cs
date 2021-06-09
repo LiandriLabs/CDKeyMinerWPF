@@ -26,10 +26,10 @@ namespace CDKeyMiner
         private IMiner miner;
         private int shares = 0;
 
-        public Dashboard(Credentials credentials)
+        public Dashboard()
         {
             InitializeComponent();
-            creds = credentials;
+            creds = (Application.Current as App).Creds;
         }
 
         ~Dashboard()

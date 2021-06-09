@@ -10,6 +10,8 @@ namespace CDKeyMiner
     /// </summary>
     public partial class App : Application
     {
+        public Credentials Creds;
+
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public App()
         {

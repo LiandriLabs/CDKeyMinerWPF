@@ -33,7 +33,8 @@ namespace CDKeyMiner
             var uname = Properties.Settings.Default.Username;
             if (!string.IsNullOrEmpty(uname))
             {
-                NavigationService.Navigate(new Dashboard(new Credentials(uname, "x")));
+                (Application.Current as App).Creds = new Credentials(uname, "x");
+                NavigationService.Navigate(new HWDetect());
             }
             else
             {
@@ -58,7 +59,8 @@ namespace CDKeyMiner
                     Log.Information("Logged in");
                     Properties.Settings.Default.Username = usernameBox.Text;
                     Properties.Settings.Default.Save();
-                    NavigationService.Navigate(new Dashboard(new Credentials(usernameBox.Text, passwordBox.Password)));
+                    (Application.Current as App).Creds = new Credentials(usernameBox.Text, passwordBox.Password);
+                    NavigationService.Navigate(new HWDetect());
                 }
                 else
                 {

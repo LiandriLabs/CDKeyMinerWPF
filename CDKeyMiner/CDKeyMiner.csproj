@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,7 +65,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Download.xaml.cs">
+      <DependentUpon>Download.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="HWDetect.xaml.cs">
+      <DependentUpon>HWDetect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginHelper.cs" />
     <Compile Include="Phoenix.cs" />
     <Compile Include="Trex.cs" />
@@ -73,6 +80,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Download.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HWDetect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,10 +154,10 @@
     <Resource Include="Resources\username.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cdkeyminer.ico" />
-    <Content Include="Lib\PhoenixMiner.exe">
+    <Content Include="Lib\README.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="cdkeyminer.ico" />
     <Resource Include="Resources\logo2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
