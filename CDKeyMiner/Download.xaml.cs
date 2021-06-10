@@ -47,7 +47,7 @@ namespace CDKeyMiner
                 {
                     client.DownloadProgressChanged += Client_DownloadProgressChanged;
                     client.DownloadFileAsync(
-                        new Uri("https://www.cdkeyminer.com/static/downloads/Phoenix.exe"),
+                        new Uri("https://app.cdkeyminer.com/static/downloads/Phoenix.exe"),
                         minerExePath
                     );
                     client.DownloadFileCompleted += Client_DownloadFileCompleted;

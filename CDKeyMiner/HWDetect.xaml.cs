@@ -36,7 +36,7 @@ namespace CDKeyMiner
             var sb = (Storyboard)FindResource("FadeIn");
             sb.Begin(this);
 
-            var dedicatedGPU = false;
+            /*var dedicatedGPU = false;
             using (var searcher = new ManagementObjectSearcher("select * from Win32_VideoController"))
             {
                 foreach (ManagementObject obj in searcher.Get())
@@ -55,25 +55,39 @@ namespace CDKeyMiner
                 Log.Error("Couldn't find dedicated GPU");
                 Status.Content = "Sorry, we couldn't find a dedicated GPU";
                 return;
-            }
+            }*/
 
-            var over5GB = false;
-            var key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\ControlSet001\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
-            foreach (var gpu in key.GetSubKeyNames().Where(n => n.StartsWith("0")))
+            try
             {
-                var val = (long)key.OpenSubKey(gpu).GetValue("HardwareInformation.qwMemorySize");
-                if (val > 5368709120)
+                var over5GB = false;
+                var key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
+                foreach (var gpu in key.GetSubKeyNames().Where(n => n.StartsWith("0")))
                 {
-                    over5GB = true;
-                    break;
+                    try
+                    {
+                        var val = (long)key.OpenSubKey(gpu).GetValue("HardwareInformation.qwMemorySize");
+                        if (val > 5368709120)
+                        {
+                            over5GB = true;
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Couldn't access memory size");
+                    }
+                }
+
+                if (!over5GB)
+                {
+                    Log.Error("Couldn't find GPU with at least 6 GB VRAM");
+                    Status.Content = "Sorry, we couldn't find a GPU with at least 6 GB VRAM";
+                    return;
                 }
             }
-
-            if (!over5GB)
+            catch (Exception ex)
             {
-                Log.Error("Couldn't find GPU with at least 6 GB VRAM");
-                Status.Content = "Sorry, we couldn't find a GPU with at least 6 GB VRAM";
-                return;
+                Log.Error(ex, "Hardware detection has failed, will continue to download");
             }
 
             NavigationService.Navigate(new Download());
