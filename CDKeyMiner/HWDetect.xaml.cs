@@ -102,9 +102,8 @@ namespace CDKeyMiner
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Hardware detection has failed");
-                Status.Content = "Hardware detection has failed, please contact support";
-                return;
+                Log.Error(ex, "Hardware detection has failed, mining ETC");
+                (Application.Current as App).Algo = Algo.ETC;
             }
 
             NavigationService.Navigate(new Download());
