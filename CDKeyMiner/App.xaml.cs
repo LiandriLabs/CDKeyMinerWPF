@@ -11,6 +11,7 @@ namespace CDKeyMiner
     public partial class App : Application
     {
         public Credentials Creds;
+        public Algo Algo;
 
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public App()

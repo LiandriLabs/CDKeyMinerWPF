@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Serilog;
 
 namespace CDKeyMiner
@@ -80,7 +81,20 @@ namespace CDKeyMiner
 
             phoenixProc.StartInfo.CreateNoWindow = true;
             phoenixProc.StartInfo.FileName = minerExePath;
-            phoenixProc.StartInfo.Arguments = $"-pool pool.cdkeyminer.com:9000 -wal {credentials.Username} -proto 2 -coin eth -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1";
+            var algo = (Application.Current as App).Algo;
+            if (algo == Algo.ETH)
+            {
+                phoenixProc.StartInfo.Arguments = $"-pool pool.cdkeyminer.com:9000 -wal {credentials.Username} -proto 2 -coin eth -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1";
+            }
+            else if (algo == Algo.ETC)
+            {
+                phoenixProc.StartInfo.Arguments = $"-pool pool.cdkeyminer.com:9001 -wal {credentials.Username} -proto 2 -coin etc -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1";
+            }
+            else
+            {
+                Log.Error("This should never happen");
+                Application.Current.Shutdown();
+            }
             phoenixProc.Start();
             phoenixProc.BeginOutputReadLine();
             phoenixProc.BeginErrorReadLine();

@@ -25,6 +25,7 @@ namespace CDKeyMiner
         private bool mining = false;
         private IMiner miner;
         private int shares = 0;
+        private Algo algo;
 
         public Dashboard()
         {
@@ -48,6 +49,7 @@ namespace CDKeyMiner
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
+            algo = (Application.Current as App).Algo;
             //var sb = (Storyboard)FindResource("FadeIn");
             //sb.Begin(this);
         }
@@ -92,7 +94,7 @@ namespace CDKeyMiner
                     statusLbl.Dispatcher.Invoke(() =>
                     {
                         buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate("Mining (0 shares).");
+                        statusLbl.AnimatedUpdate($"Mining {algo} (0 shares).");
                     });
                 };
                 miner.OnShare += (s, evt) =>
@@ -101,7 +103,7 @@ namespace CDKeyMiner
                     {
                         shares++;
                         buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate($"Mining ({shares} shares).");
+                        statusLbl.AnimatedUpdate($"Mining {algo} ({shares} shares).");
                     });
                 };
                 miner.Start(creds);

@@ -60,6 +60,7 @@ namespace CDKeyMiner
             try
             {
                 var over5GB = false;
+                var over3GB = false;
                 var key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
                 foreach (var gpu in key.GetSubKeyNames().Where(n => n.StartsWith("0")))
                 {
@@ -71,23 +72,39 @@ namespace CDKeyMiner
                             over5GB = true;
                             break;
                         }
+                        else if (val > 2684354560)
+                        {
+                            over3GB = true;
+                            break;
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, "Couldn't access memory size");
+                        Log.Error(ex, "Couldn't assess memory size for GPU " + gpu);
                     }
                 }
 
-                if (!over5GB)
+                if (!over5GB && !over3GB)
                 {
-                    Log.Error("Couldn't find GPU with at least 6 GB VRAM");
-                    Status.Content = "Sorry, we couldn't find a GPU with at least 6 GB VRAM";
+                    Log.Error("Couldn't find GPU with at least 3 GB VRAM");
+                    Status.Content = "Sorry, we couldn't find a GPU with at least 3 GB VRAM";
                     return;
+                }
+
+                if (over5GB)
+                {
+                    (Application.Current as App).Algo = Algo.ETH;
+                }
+                else
+                {
+                    (Application.Current as App).Algo = Algo.ETC;
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Hardware detection has failed, will continue to download");
+                Log.Error(ex, "Hardware detection has failed");
+                Status.Content = "Hardware detection has failed, please contact support";
+                return;
             }
 
             NavigationService.Navigate(new Download());
