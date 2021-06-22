@@ -55,6 +55,7 @@ namespace CDKeyMiner
             Properties.Settings.Default.Username = "";
             Properties.Settings.Default.Save();
             (_mainFrame.Content as Dashboard)?.StopMiner();
+            balanceLbl.AnimatedUpdate("");
             _mainFrame.Navigate(new LoginPage());
         }
     }

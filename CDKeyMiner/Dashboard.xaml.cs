@@ -29,6 +29,7 @@ namespace CDKeyMiner
         private Algo algo;
         private DateTime startTime;
         private double startBal;
+        private MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
 
         public Dashboard()
         {
@@ -37,7 +38,7 @@ namespace CDKeyMiner
             WSHelper.Instance.OnBalance += OnBalance;
             startBal = (Application.Current as App).StartBalance;
             var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
-            balanceLbl.Content = $"Your balance: {balStr} CDKT";
+            mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
         }
 
         private void OnBalance(object sender, double e)
@@ -52,11 +53,11 @@ namespace CDKeyMiner
                     var deltaBal = e - startBal;
                     var est = ((24 * 60) / elapsed.TotalMinutes) * deltaBal;
                     var estStr = est.ToString("F1", CultureInfo.InvariantCulture);
-                    balanceLbl.AnimatedUpdate($"Your balance: {balStr} CDKT (+{estStr} / 24h)");
+                    mainWindow.balanceLbl.AnimatedUpdate($"Balance: {balStr} CDKT (+{estStr} / 24h)");
                 }
                 else
                 {
-                    balanceLbl.AnimatedUpdate($"Your balance: {balStr} CDKT");
+                    mainWindow.balanceLbl.AnimatedUpdate($"Balance: {balStr} CDKT");
                 }
             });
         }
@@ -85,6 +86,8 @@ namespace CDKeyMiner
 
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            var sb = (Storyboard)FindResource("Spin");
+
             if (!mining)
             {
                 mining = true;
@@ -116,6 +119,7 @@ namespace CDKeyMiner
                     {
                         buttonLbl.AnimatedUpdate("■");
                         statusLbl.AnimatedUpdate("Miner connected, please wait...");
+                        sb.Begin(mainWindow.CDIcon, true);
                     });
                 };
                 miner.OnMining += (s, evt) =>
@@ -153,6 +157,7 @@ namespace CDKeyMiner
                 miner.Stop();
                 buttonLbl.AnimatedUpdate("▶");
                 statusLbl.AnimatedUpdate("Click the button to start mining.");
+                sb.Stop(mainWindow.CDIcon);
             }
         }
 
