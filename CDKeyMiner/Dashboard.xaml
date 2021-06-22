@@ -11,5 +11,6 @@
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label Name="buttonLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center" FontSize="72" PreviewMouseDown="Label_PreviewMouseDown" MouseEnter="buttonLbl_MouseEnter" MouseLeave="buttonLbl_MouseLeave">▶</Label>
         <Label Name="statusLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center">Click the button to start mining.</Label>
+        <Label Name="balanceLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center"></Label>
     </StackPanel>
 </Page>

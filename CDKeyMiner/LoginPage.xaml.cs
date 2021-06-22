@@ -26,15 +26,68 @@ namespace CDKeyMiner
         public LoginPage()
         {
             InitializeComponent();
+            WSHelper.Instance.OnLoggedIn += OnLoggedIn;
+            WSHelper.Instance.OnLoginFailed += OnLoginFailed;
+            WSHelper.Instance.OnError += OnError;
+            WSHelper.Instance.OnBalance += OnBalance;
+        }
+
+        private void OnBalance(object sender, double e)
+        {
+            (Application.Current as App).StartBalance = e;
+            WSHelper.Instance.OnBalance -= OnBalance;
+        }
+
+        private void OnError(object sender, string e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                messageLabel.Content = e;
+                messageLabel.Visibility = Visibility.Visible;
+                var sb = (FindResource("FadeIn") as Storyboard).Clone();
+                sb.Begin(this);
+            });
+        }
+
+        private void OnLoginFailed(object sender, EventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Log.Error("Login failed");
+                messageLabel.Content = "Username or password incorrect";
+                messageLabel.Visibility = Visibility.Visible;
+                usernameBox.Focus();
+                var fadeIn = (FindResource("FadeIn") as Storyboard).Clone();
+                fadeIn.Begin(this);
+            });
+        }
+
+        private void OnLoggedIn(object sender, EventArgs e)
+        {
+            WSHelper.Instance.OnLoggedIn -= OnLoggedIn;
+            WSHelper.Instance.OnLoginFailed -= OnLoginFailed;
+            WSHelper.Instance.OnError -= OnError;
+            this.Dispatcher.Invoke(() =>
+            {
+                Log.Information("Logged in");
+                if (!string.IsNullOrEmpty(usernameBox.Text))
+                {
+                    Properties.Settings.Default.Username = usernameBox.Text;
+                    Properties.Settings.Default.Save();
+                    (Application.Current as App).Creds = new Credentials(usernameBox.Text, "x");
+                }
+                NavigationService.Navigate(new HWDetect());
+            });
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var uname = Properties.Settings.Default.Username;
-            if (!string.IsNullOrEmpty(uname))
+            var jwt = Properties.Settings.Default.JWT;
+            if (!string.IsNullOrEmpty(uname) && !string.IsNullOrEmpty(jwt))
             {
                 (Application.Current as App).Creds = new Credentials(uname, "x");
-                NavigationService.Navigate(new HWDetect());
+                WSHelper.Instance.Resume(jwt);
             }
             else
             {
@@ -44,42 +97,14 @@ namespace CDKeyMiner
             }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var fadeOut = (FindResource("FadeOut") as Storyboard).Clone();
-                fadeOut.Begin(this);
-                messageLabel.Visibility = Visibility.Collapsed;
+            var fadeOut = (FindResource("FadeOut") as Storyboard).Clone();
+            fadeOut.Begin(this);
+            messageLabel.Visibility = Visibility.Collapsed;
 
-                Log.Information("Trying to log in");
-                var loggedIn = await LoginHelper.LogIn(usernameBox.Text, passwordBox.Password);
-                if (loggedIn)
-                {
-                    Log.Information("Logged in");
-                    Properties.Settings.Default.Username = usernameBox.Text;
-                    Properties.Settings.Default.Save();
-                    (Application.Current as App).Creds = new Credentials(usernameBox.Text, passwordBox.Password);
-                    NavigationService.Navigate(new HWDetect());
-                }
-                else
-                {
-                    Log.Error("Login failed");
-                    messageLabel.Content = "Username or password incorrect";
-                    messageLabel.Visibility = Visibility.Visible;
-                    usernameBox.Focus();
-                    var fadeIn = (FindResource("FadeIn") as Storyboard).Clone();
-                    fadeIn.Begin(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Communication error");
-                messageLabel.Content = "Cannot connect to server";
-                messageLabel.Visibility = Visibility.Visible;
-                var sb = (FindResource("FadeIn") as Storyboard).Clone();
-                sb.Begin(this);
-            }
+            Log.Information("Trying to log in");
+            WSHelper.Instance.Login(usernameBox.Text, passwordBox.Password);
         }
 
         private void usernameBox_TextChanged(object sender, TextChangedEventArgs e)

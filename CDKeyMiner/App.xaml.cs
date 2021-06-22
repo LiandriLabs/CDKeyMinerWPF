@@ -12,6 +12,7 @@ namespace CDKeyMiner
     {
         public Credentials Creds;
         public Algo Algo;
+        public double StartBalance;
 
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public App()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CDKeyMiner
 {
@@ -24,18 +26,45 @@ namespace CDKeyMiner
         private Credentials creds;
         private bool mining = false;
         private IMiner miner;
-        private int shares = 0;
         private Algo algo;
+        private DateTime startTime;
+        private double startBal;
 
         public Dashboard()
         {
             InitializeComponent();
             creds = (Application.Current as App).Creds;
+            WSHelper.Instance.OnBalance += OnBalance;
+            startBal = (Application.Current as App).StartBalance;
+            var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
+            balanceLbl.Content = $"Your balance: {balStr} CDKT";
+        }
+
+        private void OnBalance(object sender, double e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                var balStr = e.ToString("F3", CultureInfo.InvariantCulture);
+
+                var elapsed = DateTime.UtcNow - startTime;
+                if (elapsed.TotalMinutes >= 5)
+                {
+                    var deltaBal = e - startBal;
+                    var est = ((24 * 60) / elapsed.TotalMinutes) * deltaBal;
+                    var estStr = est.ToString("F1", CultureInfo.InvariantCulture);
+                    balanceLbl.AnimatedUpdate($"Your balance: {balStr} CDKT (+{estStr} / 24h)");
+                }
+                else
+                {
+                    balanceLbl.AnimatedUpdate($"Your balance: {balStr} CDKT");
+                }
+            });
         }
 
         ~Dashboard()
         {
             StopMiner();
+            WSHelper.Instance.Disconnect();
         }
 
         public void StopMiner()
@@ -69,7 +98,7 @@ namespace CDKeyMiner
                         statusLbl.Dispatcher.Invoke(() =>
                         {
                             buttonLbl.AnimatedUpdate("⚠");
-                            statusLbl.AnimatedUpdate("Cannot find miner EXE.");
+                            statusLbl.AnimatedUpdate("Cannot find miner EXE");
                         });
                     }
                     else if (err == MinerError.ConnectionError)
@@ -77,7 +106,7 @@ namespace CDKeyMiner
                         statusLbl.Dispatcher.Invoke(() =>
                         {
                             buttonLbl.AnimatedUpdate("⚠");
-                            statusLbl.AnimatedUpdate("Connection error - retrying.");
+                            statusLbl.AnimatedUpdate("Connection error - retrying");
                         });
                     }
                 };
@@ -86,7 +115,7 @@ namespace CDKeyMiner
                     statusLbl.Dispatcher.Invoke(() =>
                     {
                         buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate("Miner connected.");
+                        statusLbl.AnimatedUpdate("Miner connected, please wait...");
                     });
                 };
                 miner.OnMining += (s, evt) =>
@@ -94,16 +123,25 @@ namespace CDKeyMiner
                     statusLbl.Dispatcher.Invoke(() =>
                     {
                         buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate($"Mining {algo} (0 shares).");
+                        statusLbl.AnimatedUpdate($"Mining {algo}");
+                        startTime = DateTime.UtcNow;
                     });
                 };
-                miner.OnShare += (s, evt) =>
+                /*miner.OnShare += (s, evt) =>
                 {
                     statusLbl.Dispatcher.Invoke(() =>
                     {
                         shares++;
                         buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate($"Mining {algo} ({shares} shares).");
+                        statusLbl.AnimatedUpdate($"Mining {algo} ({shares} shares)");
+                    });
+                };*/
+                miner.OnHashrate += (s, hr) =>
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        buttonLbl.AnimatedUpdate("■");
+                        statusLbl.AnimatedUpdate($"Mining {algo} ({hr})");
                     });
                 };
                 miner.Start(creds);

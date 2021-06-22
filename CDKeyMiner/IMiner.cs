@@ -14,6 +14,7 @@ namespace CDKeyMiner
         event EventHandler OnMining;
         event EventHandler OnShare;
         event EventHandler<MinerError> OnError;
+        event EventHandler<string> OnHashrate;
     }
 
     public enum MinerError

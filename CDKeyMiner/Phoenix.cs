@@ -24,6 +24,7 @@ namespace CDKeyMiner
         public event EventHandler OnMining;
         public event EventHandler OnShare;
         public event EventHandler<MinerError> OnError;
+        public event EventHandler<string> OnHashrate;
 
         public void Start(Credentials credentials)
         {
@@ -68,6 +69,13 @@ namespace CDKeyMiner
                 {
                     Log.Error("Phoenix connection error.");
                     OnError?.Invoke(this, MinerError.ConnectionError);
+                }
+                else if (e.Data.Contains("Eth speed:"))
+                {
+                    var start = e.Data.IndexOf("Eth speed:") + 11;
+                    var end = e.Data.IndexOf(",");
+                    var hashrate = e.Data.Substring(start, end - start);
+                    OnHashrate?.Invoke(this, hashrate);
                 }
             });
 
