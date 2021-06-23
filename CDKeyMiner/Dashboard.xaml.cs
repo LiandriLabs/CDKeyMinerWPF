@@ -29,6 +29,7 @@ namespace CDKeyMiner
         private Algo algo;
         private DateTime startTime;
         private double startBal;
+        private double bal;
         private MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
 
         public Dashboard()
@@ -37,6 +38,7 @@ namespace CDKeyMiner
             creds = (Application.Current as App).Creds;
             WSHelper.Instance.OnBalance += OnBalance;
             startBal = (Application.Current as App).StartBalance;
+            bal = startBal;
             var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
             mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
         }
@@ -45,12 +47,13 @@ namespace CDKeyMiner
         {
             this.Dispatcher.Invoke(() =>
             {
-                var balStr = e.ToString("F3", CultureInfo.InvariantCulture);
+                bal = e;
+                var balStr = bal.ToString("F3", CultureInfo.InvariantCulture);
 
                 var elapsed = DateTime.UtcNow - startTime;
                 if (elapsed.TotalMinutes >= 5)
                 {
-                    var deltaBal = e - startBal;
+                    var deltaBal = bal - startBal;
                     var est = ((24 * 60) / elapsed.TotalMinutes) * deltaBal;
                     var estStr = est.ToString("F1", CultureInfo.InvariantCulture);
                     mainWindow.balanceLbl.AnimatedUpdate($"Balance: {balStr} CDKT (+{estStr} / 24h)");
@@ -124,6 +127,7 @@ namespace CDKeyMiner
                         buttonLbl.AnimatedUpdate("■");
                         statusLbl.AnimatedUpdate($"Mining {algo}");
                         startTime = DateTime.UtcNow;
+                        startBal = bal;
                     });
                 };
                 miner.OnHashrate += (s, hr) =>
