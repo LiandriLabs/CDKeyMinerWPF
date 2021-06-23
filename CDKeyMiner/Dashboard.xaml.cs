@@ -80,14 +80,10 @@ namespace CDKeyMiner
         {
             (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
             algo = (Application.Current as App).Algo;
-            //var sb = (Storyboard)FindResource("FadeIn");
-            //sb.Begin(this);
         }
 
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var sb = (Storyboard)FindResource("Spin");
-
             if (!mining)
             {
                 mining = true;
@@ -119,7 +115,6 @@ namespace CDKeyMiner
                     {
                         buttonLbl.AnimatedUpdate("■");
                         statusLbl.AnimatedUpdate("Miner connected, please wait...");
-                        sb.Begin(mainWindow.CDIcon, true);
                     });
                 };
                 miner.OnMining += (s, evt) =>
@@ -131,15 +126,6 @@ namespace CDKeyMiner
                         startTime = DateTime.UtcNow;
                     });
                 };
-                /*miner.OnShare += (s, evt) =>
-                {
-                    statusLbl.Dispatcher.Invoke(() =>
-                    {
-                        shares++;
-                        buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate($"Mining {algo} ({shares} shares)");
-                    });
-                };*/
                 miner.OnHashrate += (s, hr) =>
                 {
                     statusLbl.Dispatcher.Invoke(() =>
@@ -157,7 +143,6 @@ namespace CDKeyMiner
                 miner.Stop();
                 buttonLbl.AnimatedUpdate("▶");
                 statusLbl.AnimatedUpdate("Click the button to start mining.");
-                sb.Stop(mainWindow.CDIcon);
             }
         }
 

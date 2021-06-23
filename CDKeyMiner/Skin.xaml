@@ -99,11 +99,4 @@
                 Storyboard.TargetProperty="Opacity" 
                 From="0" To="1" Duration="0:0:0.5"/>
     </Storyboard>
-
-    <Storyboard x:Key="Spin">
-        <DoubleAnimation
-                Storyboard.TargetName="MyRotateTransform"
-                Storyboard.TargetProperty="(RotateTransform.Angle)"
-                From="0.0" To="360" Duration="0:0:1" RepeatBehavior="Forever" />
-    </Storyboard>
 </ResourceDictionary>
