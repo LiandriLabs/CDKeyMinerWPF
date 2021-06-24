@@ -47,6 +47,13 @@ namespace CDKeyMiner
         {
             this.Dispatcher.Invoke(() =>
             {
+                if (e < bal)
+                {
+                    // user bought something
+                    var purchase = bal - e;
+                    startBal -= purchase;
+                }
+
                 bal = e;
                 var balStr = bal.ToString("F3", CultureInfo.InvariantCulture);
 
