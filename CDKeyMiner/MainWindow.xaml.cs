@@ -53,6 +53,7 @@ namespace CDKeyMiner
         {
             LogoutButton.Visibility = Visibility.Collapsed;
             Properties.Settings.Default.Username = "";
+            Properties.Settings.Default.JWT = "";
             Properties.Settings.Default.Save();
             (_mainFrame.Content as Dashboard)?.StopMiner();
             balanceLbl.AnimatedUpdate("");

@@ -31,6 +31,7 @@ namespace CDKeyMiner
         private double startBal;
         private double bal;
         private MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+        private App app = (App)Application.Current;
 
         public Dashboard()
         {
@@ -165,6 +166,11 @@ namespace CDKeyMiner
         private void buttonLbl_MouseLeave(object sender, MouseEventArgs e)
         {
             (sender as Label).Foreground = (Brush)FindResource("MinerGreen");
+        }
+
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(app.InfoPage);
         }
     }
 }

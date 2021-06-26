@@ -46,5 +46,17 @@ namespace CDKeyMiner.Properties {
                 this["JWT"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MigrateSettings {
+            get {
+                return ((bool)(this["MigrateSettings"]));
+            }
+            set {
+                this["MigrateSettings"] = value;
+            }
+        }
     }
 }

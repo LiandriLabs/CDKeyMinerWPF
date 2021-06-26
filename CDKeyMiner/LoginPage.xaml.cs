@@ -26,6 +26,12 @@ namespace CDKeyMiner
         public LoginPage()
         {
             InitializeComponent();
+            if (Properties.Settings.Default.MigrateSettings)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.MigrateSettings = false;
+                Properties.Settings.Default.Save();
+            }
             WSHelper.Instance.OnLoggedIn += OnLoggedIn;
             WSHelper.Instance.OnLoginFailed += OnLoginFailed;
             WSHelper.Instance.OnError += OnError;

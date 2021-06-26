@@ -19,7 +19,7 @@
         <Border.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
         </Border.Effect>
-        <Grid Margin="7">
+        <Grid Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
@@ -28,16 +28,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Panel.ZIndex="1">
-                <Image Source="cdkeyminer.ico" Width="16" Margin="4,0,0,0" x:Name="CDIcon" RenderTransformOrigin="0.5,0.5">
-                    <Image.RenderTransform>
-                        <RotateTransform x:Name="MyRotateTransform" Angle="0" />
-                    </Image.RenderTransform>
-                </Image>
+            <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Panel.ZIndex="1" Margin="7">
+                <Image Source="cdkeyminer.ico" Width="16" Margin="4,0,0,0" x:Name="CDIcon"/>
                 <Label HorizontalAlignment="Left" Foreground="{StaticResource MinerGreen}" FontSize="12" FontFamily="Segoe UI Black">cdkeyMINER</Label>
                 <Label Name="balanceLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center"></Label>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1">
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1" Margin="7,7,3,7">
                 <Button x:Name="LogoutButton" ToolTip="Log out"
                     KeyboardNavigation.IsTabStop="False" Content="⇐" Click="LogoutButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="16" Visibility="Hidden" />
                 

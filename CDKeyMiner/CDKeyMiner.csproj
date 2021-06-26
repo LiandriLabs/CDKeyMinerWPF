@@ -76,6 +76,10 @@
     <Compile Include="HWDetect.xaml.cs">
       <DependentUpon>HWDetect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InfoData.cs" />
     <Compile Include="Phoenix.cs" />
     <Compile Include="WSHelper.cs" />
     <Page Include="Colors.xaml">
@@ -91,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HWDetect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Info.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

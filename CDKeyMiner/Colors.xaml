@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CDKeyMiner">
-    <SolidColorBrush x:Key="MinerGreen" Color="#FF8CB61C"/>
+    <SolidColorBrush x:Key="MinerGreen" Color="#8CB61C"/>
+    <SolidColorBrush x:Key="MinerOrange" Color="#FFA200"/>
     <SolidColorBrush x:Key="MinerBackground" Color="#252526"/>
-    <SolidColorBrush x:Key="MinerHighlight" Color="#FFA2D41A"/>
+    <SolidColorBrush x:Key="MinerDarkBackground" Color="#191919"/>
+    <SolidColorBrush x:Key="MinerLightBackground" Color="#FF303030"/>
+    <SolidColorBrush x:Key="MinerHighlight" Color="#A2D41A"/>
 </ResourceDictionary>
