@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,15 @@ namespace CDKeyMiner
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(app.DashboardPage);
+        }
+
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Updater.Instance.DownloadUpdates();
+            MessageBox.Show("Update finished, click OK to restart");
+            var pid = Process.GetCurrentProcess().Id;
+            Process.Start("CDKeyMiner.exe", pid.ToString());
+            Application.Current.MainWindow.Close();
         }
     }
 }

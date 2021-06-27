@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -88,17 +89,18 @@ namespace CDKeyMiner
             }
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
             algo = (Application.Current as App).Algo;
+            var appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            app.InfoPage.VersionLabel.Content = appVersion;
             var upd = Updater.Instance.CheckForUpdates();
             if (upd)
             {
-                await Updater.Instance.DownloadUpdates();
-                var pid = Process.GetCurrentProcess().Id;
-                Process.Start("CDKeyMiner.exe", pid.ToString());
-                Application.Current.MainWindow.Close();
+                InfoButton.Content = "● Information";
+                app.InfoPage.VersionLabel.Content = appVersion + " (latest: " + Updater.Instance.NewVersion + ")";
+                app.InfoPage.UpdateButton.IsEnabled = true; 
             }
         }
 

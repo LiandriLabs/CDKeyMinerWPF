@@ -17,6 +17,7 @@ namespace CDKeyMiner
         private Dictionary<string, string> manifest;
         private Dictionary<string, string> serverManifest;
         private string baseURL = "http://localhost:81/static/downloads/cdkm-latest/";
+        public string NewVersion;
 
         private Updater() {
             var manifestJson = File.ReadAllText(Path.Combine(appDir, "manifest.json"));
@@ -47,6 +48,7 @@ namespace CDKeyMiner
             {
                 if (!manifest.ContainsKey(kvp.Key) || kvp.Value != manifest[kvp.Key])
                 {
+                    NewVersion = serverManifest["CDKeyMiner.exe"];
                     return true;
                 }
             }
