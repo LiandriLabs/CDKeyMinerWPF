@@ -24,6 +24,8 @@ namespace CDKeyMiner
     /// </summary>
     public partial class HWDetect : Page
     {
+        private App app = (App)Application.Current;
+
         public HWDetect()
         {
             InitializeComponent();
@@ -66,15 +68,18 @@ namespace CDKeyMiner
                 {
                     try
                     {
-                        var val = (long)key.OpenSubKey(gpu).GetValue("HardwareInformation.qwMemorySize");
+                        var gpuKey = key.OpenSubKey(gpu);
+                        var val = (long)gpuKey.GetValue("HardwareInformation.qwMemorySize");
                         if (val > 5368709120)
                         {
                             over5GB = true;
+                            app.GPU = (string)gpuKey.GetValue("HardwareInformation.AdapterString");
                             break;
                         }
                         else if (val > 2684354560)
                         {
                             over3GB = true;
+                            app.GPU = (string)gpuKey.GetValue("HardwareInformation.AdapterString");
                             break;
                         }
                     }
@@ -103,6 +108,7 @@ namespace CDKeyMiner
             catch (Exception ex)
             {
                 Log.Error(ex, "Hardware detection has failed, mining ETC");
+                (Application.Current as App).GPU = "Detection failed, contact support";
                 (Application.Current as App).Algo = Algo.ETC;
             }
 

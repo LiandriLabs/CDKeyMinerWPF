@@ -1,10 +1,10 @@
 ﻿{
-  "CDKeyMiner.exe": "1.4.0a",
-  "CDKeyMiner.exe.config": "1.4.0a",
-  "CDKeyMiner.pdb": "1.4.0a",
+  "CDKeyMiner.exe": "1.4.0",
+  "CDKeyMiner.exe.config": "1.4.0",
+  "CDKeyMiner.pdb": "1.4.0",
   "Newtonsoft.Json.dll": "13.0.1",
   "Serilog.dll": "2.10.0",
   "Serilog.Sinks.File.dll": "4.1.0",
   "Lib\\PhoenixMiner.exe": "5.6d",
-  "Lib\\README.txt": "1.4.0a"
+  "Lib\\README.txt": "1.4.0"
 }

@@ -34,16 +34,18 @@ namespace CDKeyMiner
         private double bal;
         private MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
         private App app = (App)Application.Current;
+        private bool notificationSeen = false;
 
         public Dashboard()
         {
             InitializeComponent();
-            creds = (Application.Current as App).Creds;
+            creds = app.Creds;
             WSHelper.Instance.OnBalance += OnBalance;
-            startBal = (Application.Current as App).StartBalance;
+            startBal = app.StartBalance;
             bal = startBal;
             var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
             mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
+            algo = app.Algo;
         }
 
         private void OnBalance(object sender, double e)
@@ -92,15 +94,19 @@ namespace CDKeyMiner
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
-            algo = (Application.Current as App).Algo;
+            app.InfoPage.UserLabel.Content = creds.Username;
+            app.InfoPage.GPULabel.Content = app.GPU;
             var appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             app.InfoPage.VersionLabel.Content = appVersion;
             var upd = Updater.Instance.CheckForUpdates();
             if (upd)
             {
-                InfoButton.Content = "● Information";
+                if (!notificationSeen)
+                {
+                    InfoButton.Content = "● Information";
+                }
                 app.InfoPage.VersionLabel.Content = appVersion + " (latest: " + Updater.Instance.NewVersion + ")";
-                app.InfoPage.UpdateButton.IsEnabled = true; 
+                app.InfoPage.UpdateButton.IsEnabled = true;
             }
         }
 
@@ -157,15 +163,34 @@ namespace CDKeyMiner
                         statusLbl.AnimatedUpdate($"Mining {algo} ({hr})");
                     });
                 };
+                miner.OnTemperature += (s, t) =>
+                {
+                    app.InfoPage.TempLabel.Dispatcher.Invoke(() =>
+                    {
+                        app.InfoPage.TempLabel.Content = t.ToString() + "°C";
+                        if (t >= 85)
+                        {
+                            app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerOrange") as SolidColorBrush;
+                        }
+                        else
+                        {
+                            app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
+                        }
+                    });
+                };
                 miner.Start(creds);
             }
             else
             {
-
-                mining = false;
-                miner.Stop();
-                buttonLbl.AnimatedUpdate("▶");
-                statusLbl.AnimatedUpdate("Click the button to start mining.");
+                Dispatcher.Invoke(() =>
+                {
+                    app.InfoPage.TempLabel.Content = "N/A";
+                    app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
+                    mining = false;
+                    miner.Stop();
+                    buttonLbl.AnimatedUpdate("▶");
+                    statusLbl.AnimatedUpdate("Click the button to start mining.");
+                });    
             }
         }
 
@@ -181,6 +206,8 @@ namespace CDKeyMiner
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
+            InfoButton.Content = "Information";
+            notificationSeen = true;
             NavigationService.Navigate(app.InfoPage);
         }
     }

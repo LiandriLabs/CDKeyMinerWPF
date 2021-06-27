@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using Serilog;
@@ -14,6 +15,7 @@ namespace CDKeyMiner
     {
         private string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
         private Process phoenixProc;
+        Regex tempRx = new Regex(@"^GPU.: (?<temp>\d+)C.*", RegexOptions.Compiled);
 
         public Phoenix()
         {
@@ -25,6 +27,7 @@ namespace CDKeyMiner
         public event EventHandler OnShare;
         public event EventHandler<MinerError> OnError;
         public event EventHandler<string> OnHashrate;
+        public event EventHandler<int> OnTemperature;
 
         public void Start(Credentials credentials)
         {
@@ -46,6 +49,7 @@ namespace CDKeyMiner
             phoenixProc.StartInfo.RedirectStandardError = true;
 
             phoenixProc.OutputDataReceived += new DataReceivedEventHandler((sender, e) => {
+                Log.Debug(e.Data);
                 if (e.Data == null)
                 {
                     return;
@@ -76,6 +80,16 @@ namespace CDKeyMiner
                     var end = e.Data.IndexOf(",");
                     var hashrate = e.Data.Substring(start, end - start);
                     OnHashrate?.Invoke(this, hashrate);
+                }
+                else if (tempRx.IsMatch(e.Data))
+                {
+                    try
+                    {
+                        var matches = tempRx.Matches(e.Data);
+                        var temp = int.Parse(matches[0].Groups["temp"].Value);
+                        OnTemperature?.Invoke(this, temp);
+                    }
+                    catch { }
                 }
             });
 

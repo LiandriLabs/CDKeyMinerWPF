@@ -13,6 +13,7 @@ namespace CDKeyMiner
     {
         public Credentials Creds;
         public Algo Algo;
+        public string GPU;
         public double StartBalance;
         public Dashboard DashboardPage;
         public Info InfoPage;
