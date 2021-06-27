@@ -16,7 +16,7 @@ namespace CDKeyMiner
         private string appDir = AppDomain.CurrentDomain.BaseDirectory;
         private Dictionary<string, string> manifest;
         private Dictionary<string, string> serverManifest;
-        private string baseURL = "http://localhost:81/static/downloads/cdkm-latest/";
+        private string baseURL = "https://app.cdkeyminer.com/static/downloads/cdkm-latest/";
         public string NewVersion;
 
         private Updater() {

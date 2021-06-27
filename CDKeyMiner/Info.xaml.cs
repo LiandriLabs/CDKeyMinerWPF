@@ -41,5 +41,10 @@ namespace CDKeyMiner
             Process.Start("CDKeyMiner.exe", pid.ToString());
             Application.Current.MainWindow.Close();
         }
+
+        private void ShowLogsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
+        }
     }
 }
