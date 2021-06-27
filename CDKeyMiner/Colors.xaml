@@ -3,8 +3,9 @@
                     xmlns:local="clr-namespace:CDKeyMiner">
     <SolidColorBrush x:Key="MinerGreen" Color="#8CB61C"/>
     <SolidColorBrush x:Key="MinerOrange" Color="#FFA200"/>
+    <SolidColorBrush x:Key="MinerOrangeHigh" Color="#FBC463"/>
     <SolidColorBrush x:Key="MinerBackground" Color="#252526"/>
     <SolidColorBrush x:Key="MinerDarkBackground" Color="#191919"/>
-    <SolidColorBrush x:Key="MinerLightBackground" Color="#FF303030"/>
+    <SolidColorBrush x:Key="MinerLightBackground" Color="#303030"/>
     <SolidColorBrush x:Key="MinerHighlight" Color="#A2D41A"/>
 </ResourceDictionary>

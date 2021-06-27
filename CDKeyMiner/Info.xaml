@@ -36,9 +36,7 @@
             <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
                 <Label Foreground="{StaticResource MinerGreen}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">psion</Label>
             </Border>
-            <Border Grid.Row="1" Grid.Column="3" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
-                <Label Foreground="{StaticResource MinerOrange}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center">show logs</Label>
-            </Border>
+            <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource InfoPanelButton}">show logs</Button>
 
             <Label Grid.Row="2" Grid.ColumnSpan="3" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Left" FontSize="14" FontFamily="Segoe UI Black">GPU</Label>
             <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
@@ -52,9 +50,7 @@
             <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
                 <Label Foreground="{StaticResource MinerGreen}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">1.4.0</Label>
             </Border>
-            <Border Grid.Row="5" Grid.Column="2" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
-                <Label Foreground="{StaticResource MinerOrange}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center">update now</Label>
-            </Border>
+            <Button Grid.Row="5" Grid.Column="2" Height="36" Style="{StaticResource InfoPanelButton}">update now</Button>
         </Grid>
         <Button x:Name="DashboardButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource LeftTabButton}" Background="{StaticResource MinerDarkBackground}" Click="DashboardButton_Click">Dashboard</Button>
         <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource RightTabButton}" Background="{StaticResource MinerBackground}">Information</Button>

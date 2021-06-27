@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CDKeyMiner
 {
-    public class InfoData
+    public class InfoModel
     {
     }
 }

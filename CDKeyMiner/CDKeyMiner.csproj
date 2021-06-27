@@ -79,7 +79,7 @@
     <Compile Include="Info.xaml.cs">
       <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InfoData.cs" />
+    <Compile Include="InfoModel.cs" />
     <Compile Include="Phoenix.cs" />
     <Compile Include="WSHelper.cs" />
     <Page Include="Colors.xaml">
