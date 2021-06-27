@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -87,10 +88,18 @@ namespace CDKeyMiner
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
             algo = (Application.Current as App).Algo;
+            var upd = Updater.Instance.CheckForUpdates();
+            if (upd)
+            {
+                await Updater.Instance.DownloadUpdates();
+                var pid = Process.GetCurrentProcess().Id;
+                Process.Start("CDKeyMiner.exe", pid.ToString());
+                Application.Current.MainWindow.Close();
+            }
         }
 
         private void Label_PreviewMouseDown(object sender, MouseButtonEventArgs e)

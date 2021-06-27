@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System;
+using System.Diagnostics;
 using System.Security.Permissions;
 using System.Windows;
 
@@ -20,7 +21,7 @@ namespace CDKeyMiner
         public App()
         {
             Log.Logger = new LoggerConfiguration()
-                    .MinimumLevel.Debug()
+                    .MinimumLevel.Information()
                     .WriteTo.File("cdkm.log", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
 
@@ -34,6 +35,24 @@ namespace CDKeyMiner
         {
             Exception ex = (Exception)e.ExceptionObject;
             Log.Error(ex, "Unhandled exception");
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            Log.Information("Arguments: {Args}", e.Args);
+            if (e.Args.Length == 1)
+            {
+                try
+                {
+                    Process proc = Process.GetProcessById(int.Parse(e.Args[0]));
+                    Log.Information("Waiting for process with PID {PID} to exit", e.Args[0]);
+                    proc.WaitForExit();
+                }
+                catch (ArgumentException ex)
+                {
+                    Log.Information("Process is already closed");
+                }
+            }
         }
     }
 }

@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="InfoModel.cs" />
     <Compile Include="Phoenix.cs" />
+    <Compile Include="Updater.cs" />
     <Compile Include="WSHelper.cs" />
     <Page Include="Colors.xaml">
       <SubType>Designer</SubType>
@@ -149,6 +150,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
