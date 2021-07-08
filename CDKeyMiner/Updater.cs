@@ -69,7 +69,10 @@ namespace CDKeyMiner
                     {
                         var url = baseURL + kvp.Key.Replace("\\", "/");
                         var destination = Path.Combine(appDir, kvp.Key);
-                        File.Move(destination, destination + ".bak");
+                        if (File.Exists(destination))
+                        {
+                            File.Move(destination, destination + ".bak");
+                        }
                         await http.DownloadFileTaskAsync(url, destination);
                     }
                 }

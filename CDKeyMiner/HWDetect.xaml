@@ -6,9 +6,20 @@
       xmlns:local="clr-namespace:CDKeyMiner"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="HWDetect" Loaded="Page_Loaded" Opacity="0">
+      Title="HWDetect" Loaded="Page_Loaded" Opacity="1">
 
-    <Grid>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label x:Name="Status" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MinerGreen}">Detecting hardware...</Label>
-    </Grid>
+        <Button x:Name="CompModeBtn" Style="{StaticResource LoginButton}" Click="CompModeBtn_Click" Visibility="Collapsed" Margin="0,5,0,0">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Image Source="Resources/UacShield_16x.png"/>
+                <Label FontFamily="Segoe UI Semibold" Foreground="#FFFBFBFB">Enable Compute Mode</Label>
+            </StackPanel>
+        </Button>
+        <Button x:Name="SkipBtn" Style="{StaticResource LoginButton}" Click="SkipBtn_Click" Visibility="Collapsed" Margin="0,5,0,0">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Label FontFamily="Segoe UI Semibold" Foreground="#FFFBFBFB">Skip (earnings may suffer)</Label>
+            </StackPanel>
+        </Button>
+    </StackPanel>
 </Page>

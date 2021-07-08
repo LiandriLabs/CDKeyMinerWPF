@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using Serilog;
+using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Management;
-using Microsoft.Win32;
-using Serilog;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 
 namespace CDKeyMiner
 {
@@ -25,6 +17,7 @@ namespace CDKeyMiner
     public partial class HWDetect : Page
     {
         private App app = (App)Application.Current;
+        private bool needsComputeMode = false;
 
         public HWDetect()
         {
@@ -37,27 +30,6 @@ namespace CDKeyMiner
 
             var sb = (Storyboard)FindResource("FadeIn");
             sb.Begin(this);
-
-            /*var dedicatedGPU = false;
-            using (var searcher = new ManagementObjectSearcher("select * from Win32_VideoController"))
-            {
-                foreach (ManagementObject obj in searcher.Get())
-                {
-                    var DACType = (string)obj["AdapterDACType"];
-                    if (DACType != "Internal")
-                    {
-                        dedicatedGPU = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!dedicatedGPU)
-            {
-                Log.Error("Couldn't find dedicated GPU");
-                Status.Content = "Sorry, we couldn't find a dedicated GPU";
-                return;
-            }*/
 
             try
             {
@@ -73,14 +45,30 @@ namespace CDKeyMiner
                         if (val > 5368709120)
                         {
                             over5GB = true;
-                            app.GPU = (string)gpuKey.GetValue("HardwareInformation.AdapterString");
-                            break;
+                            app.GPU = (string)gpuKey.GetValue("DriverDesc");
+                            try
+                            {
+                                int compMode = (int)gpuKey.GetValue("KMD_EnableInternalLargePage");
+                                if (compMode != 2)
+                                {
+                                    needsComputeMode = true;
+                                }
+                            }
+                            catch { }
                         }
                         else if (val > 2684354560)
                         {
                             over3GB = true;
-                            app.GPU = (string)gpuKey.GetValue("HardwareInformation.AdapterString");
-                            break;
+                            app.GPU = (string)gpuKey.GetValue("DriverDesc");
+                            try
+                            {
+                                int compMode = (int)gpuKey.GetValue("KMD_EnableInternalLargePage");
+                                if (compMode != 2)
+                                {
+                                    needsComputeMode = true;
+                                }
+                            }
+                            catch { }
                         }
                     }
                     catch (Exception ex)
@@ -98,21 +86,73 @@ namespace CDKeyMiner
 
                 if (over5GB)
                 {
-                    (Application.Current as App).Algo = Algo.ETH;
+                    app.Algo = Algo.ETH;
                 }
                 else
                 {
-                    (Application.Current as App).Algo = Algo.ETC;
+                    app.Algo = Algo.ETC;
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Hardware detection has failed, mining ETC");
-                (Application.Current as App).GPU = "Detection failed, contact support";
-                (Application.Current as App).Algo = Algo.ETC;
+                app.GPU = "Detection failed, contact support";
+                app.Algo = Algo.ETC;
             }
 
+            if (needsComputeMode)
+            {
+                Status.Content = "You have an AMD GPU, but compute mode is not enabled.";
+                CompModeBtn.Visibility = Visibility.Visible;
+                SkipBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                NavigationService.Navigate(new Download());
+            }
+        }
+
+        private async void CompModeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int res = await RunProcessAsync("EnableComputeMode.exe");
+            if (res == 0)
+            {
+                CompModeBtn.Visibility = Visibility.Collapsed;
+                SkipBtn.Visibility = Visibility.Collapsed;
+                Status.Content = "Success, please reboot your PC.";
+            }
+            else
+            {
+                CompModeBtn.Visibility = Visibility.Collapsed;
+                SkipBtn.Visibility = Visibility.Collapsed;
+                Status.Content = "Failed, please enable manually.";
+            }
+        }
+
+        private void SkipBtn_Click(object sender, RoutedEventArgs e)
+        {
             NavigationService.Navigate(new Download());
+        }
+
+        static Task<int> RunProcessAsync(string fileName)
+        {
+            var tcs = new TaskCompletionSource<int>();
+
+            var process = new Process
+            {
+                StartInfo = { FileName = fileName },
+                EnableRaisingEvents = true
+            };
+
+            process.Exited += (sender, args) =>
+            {
+                tcs.SetResult(process.ExitCode);
+                process.Dispose();
+            };
+
+            process.Start();
+
+            return tcs.Task;
         }
     }
 }

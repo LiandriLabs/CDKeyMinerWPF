@@ -171,8 +171,15 @@
     <Content Include="Lib\README.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\UacShield_16x.png" />
     <Resource Include="cdkeyminer.ico" />
     <Resource Include="Resources\logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnableComputeMode\EnableComputeMode.csproj">
+      <Project>{c6ae65fd-3e12-42a4-bcf0-4722e3337708}</Project>
+      <Name>EnableComputeMode</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
