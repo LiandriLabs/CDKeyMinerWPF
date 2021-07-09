@@ -24,6 +24,21 @@ namespace CDKeyMiner
             InitializeComponent();
         }
 
+        private bool NeedsComputeMode(RegistryKey key)
+        {
+            var gpuProv = (string)key.GetValue("ProviderName");
+            var driverDesc = (string)key.GetValue("DriverDesc");
+            if (gpuProv.Contains("Advanced Micro Devices") || driverDesc.Contains("Radeon"))
+            {
+                var lp = key.GetValue("KMD_EnableInternalLargePage");
+                if (lp == null || (int)lp != 2)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Log.Information("Detecting hardware");
@@ -46,29 +61,13 @@ namespace CDKeyMiner
                         {
                             over5GB = true;
                             app.GPU = (string)gpuKey.GetValue("DriverDesc");
-                            try
-                            {
-                                int compMode = (int)gpuKey.GetValue("KMD_EnableInternalLargePage");
-                                if (compMode != 2)
-                                {
-                                    needsComputeMode = true;
-                                }
-                            }
-                            catch { }
+                            needsComputeMode = needsComputeMode || NeedsComputeMode(gpuKey);
                         }
                         else if (val > 2684354560)
                         {
                             over3GB = true;
                             app.GPU = (string)gpuKey.GetValue("DriverDesc");
-                            try
-                            {
-                                int compMode = (int)gpuKey.GetValue("KMD_EnableInternalLargePage");
-                                if (compMode != 2)
-                                {
-                                    needsComputeMode = true;
-                                }
-                            }
-                            catch { }
+                            needsComputeMode = needsComputeMode || NeedsComputeMode(gpuKey);
                         }
                     }
                     catch (Exception ex)
