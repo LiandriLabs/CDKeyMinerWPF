@@ -17,6 +17,7 @@ namespace CDKeyMiner
         private Process phoenixProc;
         Regex tempRx = new Regex(@"^GPU.: (?<temp>\d+)C.*", RegexOptions.Compiled);
         bool hasNvidiaGPU = (Application.Current as App).GPU.IndexOf("nvidia", StringComparison.InvariantCultureIgnoreCase) != -1;
+        Regex incorrSharesRx = new Regex(@".*Incorrect shares\s(?<shares>\d+)\s.*", RegexOptions.Compiled);
 
         public Phoenix()
         {
@@ -29,6 +30,7 @@ namespace CDKeyMiner
         public event EventHandler<MinerError> OnError;
         public event EventHandler<string> OnHashrate;
         public event EventHandler<int> OnTemperature;
+        public event EventHandler<int> OnIncorrectShares;
 
         public void Start(Credentials credentials)
         {
@@ -89,6 +91,16 @@ namespace CDKeyMiner
                         var matches = tempRx.Matches(e.Data);
                         var temp = int.Parse(matches[0].Groups["temp"].Value);
                         OnTemperature?.Invoke(this, temp);
+                    }
+                    catch { }
+                }
+                else if (incorrSharesRx.IsMatch(e.Data))
+                {
+                    try
+                    {
+                        var matches = incorrSharesRx.Matches(e.Data);
+                        var shares = int.Parse(matches[0].Groups["shares"].Value);
+                        OnIncorrectShares?.Invoke(this, shares);
                     }
                     catch { }
                 }

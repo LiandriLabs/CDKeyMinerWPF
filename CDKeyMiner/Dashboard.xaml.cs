@@ -191,6 +191,17 @@ namespace CDKeyMiner
                         });
                     }
                 };
+                miner.OnIncorrectShares += (s, sh) =>
+                {
+                    if (sh > 0)
+                    {
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate($"Your GPU submitted {sh} incorrect share(s)");
+                        });
+                    }
+                };
                 miner.Start(creds);
             }
             else
