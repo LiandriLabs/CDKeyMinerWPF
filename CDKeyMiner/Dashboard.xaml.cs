@@ -177,6 +177,19 @@ namespace CDKeyMiner
                             app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
                         }
                     });
+
+                    if (t >= 90)
+                    {
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            app.InfoPage.TempLabel.Content = "N/A";
+                            app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
+                            mining = false;
+                            miner.Stop();
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate("Stopped because temperature exceeded 90°C");
+                        });
+                    }
                 };
                 miner.Start(creds);
             }
