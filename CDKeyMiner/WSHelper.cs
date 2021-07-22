@@ -10,13 +10,18 @@ using System.Windows.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using System.Globalization;
 
 namespace CDKeyMiner
 {
     public class WSHelper
     {
         private static WSHelper inst = null;
-        private const string URL = "wss://app.cdkeyminer.com/socket.io/?EIO=4&transport=websocket";   
+#if DEBUG
+        private const string URL = "ws://localhost:81/socket.io/?EIO=4&transport=websocket";
+#else
+        private const string URL = "wss://app.cdkeyminer.com/socket.io/?EIO=4&transport=websocket";
+#endif
         private ClientWebSocket ws;
         private string jwt;
         private DispatcherTimer pingTimer = new DispatcherTimer();
@@ -138,6 +143,16 @@ namespace CDKeyMiner
             ProcessMessages();
         }
 
+        public async void ReportHashrate(double hr)
+        {
+            await Send(ws, $"42[\"hashrate\",{hr.ToString("N2", CultureInfo.InvariantCulture)}]");
+        }
+
+        public async void ReportTemperature(int temp)
+        {
+            await Send(ws, $"42[\"temperature\", {temp}]");
+        }
+
         private async void ProcessMessages()
         {
             while (true)
@@ -162,7 +177,7 @@ namespace CDKeyMiner
                         Properties.Settings.Default.Save();
                         this.jwt = jwt;
                     }
-                    else if (resp.Contains("LOGIN_FAILED"))
+                    else if (resp.Contains("LOGIN_FAILED") || resp.Contains("INVALID_SESSION"))
                     {
                         OnLoginFailed?.Invoke(inst, null);
                     }

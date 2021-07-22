@@ -22,7 +22,11 @@ namespace CDKeyMiner
         public App()
         {
             Log.Logger = new LoggerConfiguration()
+#if DEBUG
+                    .MinimumLevel.Debug()
+#else
                     .MinimumLevel.Information()
+#endif
                     .WriteTo.File("cdkm.log", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
 

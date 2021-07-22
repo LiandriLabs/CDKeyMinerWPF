@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -161,10 +162,29 @@ namespace CDKeyMiner
                     {
                         buttonLbl.AnimatedUpdate("■");
                         statusLbl.AnimatedUpdate($"Mining {algo} ({hr})");
+                        try
+                        {
+                            var hrNumStr = hr.Substring(0, hr.IndexOf(' '));
+                            var hrNum = double.Parse(hrNumStr, CultureInfo.InvariantCulture);
+                            WSHelper.Instance.ReportHashrate(hrNum);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(ex, "Report hash rate error");
+                        }
                     });
                 };
                 miner.OnTemperature += (s, t) =>
                 {
+                    try
+                    {
+                        WSHelper.Instance.ReportTemperature(t);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Report temperature error");
+                    }
+
                     app.InfoPage.TempLabel.Dispatcher.Invoke(() =>
                     {
                         app.InfoPage.TempLabel.Content = t.ToString() + "°C";
