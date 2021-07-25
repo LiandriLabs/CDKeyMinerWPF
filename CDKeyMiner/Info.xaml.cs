@@ -44,7 +44,7 @@ namespace CDKeyMiner
 
         private void ShowLogsButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
+            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory + "Logs");
         }
     }
 }

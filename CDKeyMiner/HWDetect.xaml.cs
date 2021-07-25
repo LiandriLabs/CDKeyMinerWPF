@@ -107,7 +107,7 @@ namespace CDKeyMiner
             }
             else
             {
-                NavigationService.Navigate(new Download());
+                NavigationService.Navigate(new AV());
             }
         }
 
@@ -130,7 +130,7 @@ namespace CDKeyMiner
 
         private void SkipBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Download());
+            NavigationService.Navigate(new AV());
         }
 
         static Task<int> RunProcessAsync(string fileName)

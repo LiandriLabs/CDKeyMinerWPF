@@ -69,11 +69,11 @@ namespace CDKeyMiner
                     var deltaBal = bal - startBal;
                     var est = ((24 * 60) / elapsed.TotalMinutes) * deltaBal;
                     var estStr = est.ToString("F1", CultureInfo.InvariantCulture);
-                    mainWindow.balanceLbl.AnimatedUpdate($"Balance: {balStr} CDKT (+{estStr} / 24h)");
+                    mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT (+{estStr} / 24h)";
                 }
                 else
                 {
-                    mainWindow.balanceLbl.AnimatedUpdate($"Balance: {balStr} CDKT");
+                    mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
                 }
             });
         }
@@ -160,8 +160,8 @@ namespace CDKeyMiner
                 {
                     statusLbl.Dispatcher.Invoke(() =>
                     {
-                        buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate($"Mining {algo} ({hr})");
+                        buttonLbl.Content = "■";
+                        statusLbl.Content = $"Mining {algo} ({hr})";
                         try
                         {
                             var hrNumStr = hr.Substring(0, hr.IndexOf(' '));

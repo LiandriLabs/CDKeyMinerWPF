@@ -28,6 +28,7 @@ namespace CDKeyMiner
             InitializeComponent();
             if (Properties.Settings.Default.MigrateSettings)
             {
+                Log.Information("Migrating settings from previous installation");
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.MigrateSettings = false;
                 Properties.Settings.Default.Save();

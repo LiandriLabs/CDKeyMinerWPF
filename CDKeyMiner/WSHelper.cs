@@ -145,12 +145,26 @@ namespace CDKeyMiner
 
         public async void ReportHashrate(double hr)
         {
-            await Send(ws, $"42[\"hashrate\",{hr.ToString("N2", CultureInfo.InvariantCulture)}]");
+            try
+            {
+                await Send(ws, $"42[\"hashrate\",{hr.ToString("N2", CultureInfo.InvariantCulture)}]");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Report hash rate error");
+            }
         }
 
         public async void ReportTemperature(int temp)
         {
-            await Send(ws, $"42[\"temperature\", {temp}]");
+            try
+            {
+                await Send(ws, $"42[\"temperature\", {temp}]");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Report temperature error");
+            }
         }
 
         private async void ProcessMessages()

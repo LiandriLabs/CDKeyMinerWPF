@@ -69,6 +69,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Algo.cs" />
+    <Compile Include="AV.xaml.cs">
+      <DependentUpon>AV.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Download.xaml.cs">
       <DependentUpon>Download.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,10 @@
     <Compile Include="Phoenix.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WSHelper.cs" />
+    <Page Include="AV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

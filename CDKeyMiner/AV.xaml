@@ -1,0 +1,32 @@
+﻿<Page x:Class="CDKeyMiner.AV"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CDKeyMiner"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="AV" Loaded="Page_Loaded" Opacity="0">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="240">
+        <Label Foreground="{StaticResource MinerGreen}" FontWeight="Bold" HorizontalAlignment="Center">Add Exclusion to Windows Defender</Label>
+        <TextBlock TextAlignment="Center" Foreground="{StaticResource MinerGreen}" TextWrapping="Wrap">
+            <Run>Cryptocurrency miners are detected as Potentially Unwanted Applications (PUAs).</Run>
+        </TextBlock>
+        <TextBlock TextAlignment="Center" Foreground="{StaticResource MinerGreen}" TextWrapping="Wrap" Margin="0,5,0,0">
+            <Run Text="In this case they "/><Run FontStyle="Italic" Text="are"/>
+            <Run Text="actually wanted, so we recommend adding the &quot;Lib&quot; folder to exclusions in Windows Defender."/>
+        </TextBlock>
+        <Button x:Name="AVExcludeBtn" Style="{StaticResource LoginButton}" Click="AVExcludeBtn_Click" Margin="0,10,0,0">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Image Source="Resources/UacShield_16x.png"/>
+                <Label FontFamily="Segoe UI Semibold" Foreground="#FFFBFBFB">Add Exclusion</Label>
+            </StackPanel>
+        </Button>
+        <Button x:Name="SkipBtn" Style="{StaticResource LoginButton}" Click="SkipBtn_Click" Margin="0,5,0,0">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Label FontFamily="Segoe UI Semibold" Foreground="#FFFBFBFB">Skip (I will do this manually)</Label>
+            </StackPanel>
+        </Button>
+    </StackPanel>
+</Page>
