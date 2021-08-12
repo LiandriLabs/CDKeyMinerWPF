@@ -94,6 +94,7 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Log.Information("Page loaded: Dashboard");
             (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
             app.InfoPage.UserLabel.Content = creds.Username;
             app.InfoPage.GPULabel.Content = app.GPU;
@@ -217,7 +218,6 @@ namespace CDKeyMiner
                     {
                         statusLbl.Dispatcher.Invoke(() =>
                         {
-                            buttonLbl.AnimatedUpdate("⚠");
                             statusLbl.AnimatedUpdate($"Your GPU submitted {sh} incorrect share(s)");
                         });
                     }

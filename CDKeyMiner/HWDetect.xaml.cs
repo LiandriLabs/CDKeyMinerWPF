@@ -41,7 +41,7 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Log.Information("Detecting hardware");
+            Log.Information("Page loaded: HWDetect");
 
             var sb = (Storyboard)FindResource("FadeIn");
             sb.Begin(this);

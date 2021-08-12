@@ -97,9 +97,10 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource MinerOrangeHigh}"/>
+                <Setter Property="Background" Value="{StaticResource InfoButtonHighlight}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="LightGray" />
+                <Setter Property="Foreground" Value="{StaticResource InfoButtonDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>

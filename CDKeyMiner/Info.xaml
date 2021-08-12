@@ -50,7 +50,7 @@
             <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
                 <Label x:Name="VersionLabel" Foreground="{StaticResource MinerGreen}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">-</Label>
             </Border>
-            <Button x:Name="UpdateButton" Grid.Row="5" Grid.Column="2" Height="36" Style="{StaticResource InfoPanelButton}" Click="UpdateButton_Click" IsEnabled="False">update now</Button>
+            <Button x:Name="UpdateButton" Grid.Row="5" Grid.Column="2" Height="36" Style="{StaticResource InfoPanelButton}" Click="UpdateButton_Click" IsEnabled="False">update</Button>
         </Grid>
         <Button x:Name="DashboardButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource LeftTabButton}" Background="{StaticResource MinerDarkBackground}" Click="DashboardButton_Click">Dashboard</Button>
         <Button x:Name="InfoButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource RightTabButton}" Background="{StaticResource MinerBackground}">Information</Button>

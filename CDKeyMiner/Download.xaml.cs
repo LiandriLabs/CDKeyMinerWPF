@@ -32,6 +32,7 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Log.Information("Page loaded: Download");
             string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
             var minerExePath = Path.Combine(libPath, "PhoenixMiner.exe");
             if (File.Exists(minerExePath))

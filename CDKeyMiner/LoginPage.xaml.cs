@@ -89,6 +89,8 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Log.Information("Page loaded: LoginPage");
+
             var uname = Properties.Settings.Default.Username;
             var jwt = Properties.Settings.Default.JWT;
             if (!string.IsNullOrEmpty(uname) && !string.IsNullOrEmpty(jwt))

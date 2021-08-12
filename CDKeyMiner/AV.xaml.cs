@@ -37,6 +37,7 @@ namespace CDKeyMiner
             var elevated = new ProcessStartInfo("powershell")
             {
                 UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
                 Verb = "runas",
                 Arguments = " -Command Add-MpPreference -ExclusionPath '" + libPath + "'"
             };
@@ -49,6 +50,7 @@ namespace CDKeyMiner
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Log.Information("Page loaded: AV");
             if (Properties.Settings.Default.AVExclusion == libPath)
             {
                 NavigationService.Navigate(new Download());

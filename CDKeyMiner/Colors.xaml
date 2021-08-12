@@ -8,4 +8,6 @@
     <SolidColorBrush x:Key="MinerDarkBackground" Color="#191919"/>
     <SolidColorBrush x:Key="MinerLightBackground" Color="#303030"/>
     <SolidColorBrush x:Key="MinerHighlight" Color="#A2D41A"/>
+    <SolidColorBrush x:Key="InfoButtonHighlight" Color="#4D4D4D"/>
+    <SolidColorBrush x:Key="InfoButtonDisabled" Color="#5B5B5B"/>
 </ResourceDictionary>
