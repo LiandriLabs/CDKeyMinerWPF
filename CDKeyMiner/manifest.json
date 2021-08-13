@@ -1,6 +1,6 @@
 ﻿{
-  "CDKeyMiner.exe": "1.6.2",
-  "CDKeyMiner.exe.config": "1.6.0",
+  "CDKeyMiner.exe": "1.7.0",
+  "CDKeyMiner.exe.config": "1.7.0",
   "Newtonsoft.Json.dll": "13.0.1",
   "Serilog.dll": "2.10.0",
   "Serilog.Sinks.File.dll": "4.1.0",

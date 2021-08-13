@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="CD Key Miner" Width="500" Height="400"
         Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ContextMenu x:Key="AppMenu">
+            <MenuItem Header="Dark theme" Click="MenuDark_Click"/>
+            <MenuItem Header="Light theme" Click="MenuLight_Click"/>
+        </ContextMenu>
+    </Window.Resources>
     <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15" x:Name="mainWindow">
         <Border.LayoutTransform>
             <TransformGroup>
@@ -29,7 +35,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Panel.ZIndex="1" Margin="7">
-                <Image Source="cdkeyminer.ico" Width="16" Margin="4,0,0,0" x:Name="CDIcon"/>
+                <Button x:Name="AppMenuBtn" Style="{StaticResource WindowIcon}" Click="AppMenuBtn_Click">
+                    <Image Source="cdkeyminer.ico" Width="16" Margin="4,0,0,0"/>
+                </Button>
                 <Label HorizontalAlignment="Left" Foreground="{StaticResource MinerGreen}" FontSize="12" FontFamily="Segoe UI Black">cdkeyMINER</Label>
                 <Label Name="balanceLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center"></Label>
             </StackPanel>

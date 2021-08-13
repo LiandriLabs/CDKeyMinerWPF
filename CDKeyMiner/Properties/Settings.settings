@@ -14,5 +14,8 @@
     <Setting Name="AVExclusion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dark</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

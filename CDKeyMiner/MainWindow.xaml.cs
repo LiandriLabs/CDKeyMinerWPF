@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +59,40 @@ namespace CDKeyMiner
             (_mainFrame.Content as Dashboard)?.StopMiner();
             balanceLbl.AnimatedUpdate("");
             _mainFrame.Navigate(new LoginPage());
+        }
+
+        private void MenuDark_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Application.Current as App).Theme != "Dark")
+            {
+                Properties.Settings.Default.Theme = "Dark";
+                Properties.Settings.Default.Save();
+                RestartApplication();
+            }
+        }
+
+        private void MenuLight_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Application.Current as App).Theme != "Light")
+            {
+                Properties.Settings.Default.Theme = "Light";
+                Properties.Settings.Default.Save();
+                RestartApplication();
+            }
+        }
+
+        private void RestartApplication()
+        {
+            var pid = Process.GetCurrentProcess().Id;
+            Process.Start("CDKeyMiner.exe", pid.ToString());
+            Application.Current.MainWindow.Close();
+        }
+
+        private void AppMenuBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ContextMenu cm = this.FindResource("AppMenu") as ContextMenu;
+            cm.PlacementTarget = sender as Image;
+            cm.IsOpen = true;
         }
     }
 }

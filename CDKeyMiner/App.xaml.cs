@@ -19,6 +19,7 @@ namespace CDKeyMiner
         public double StartBalance;
         public Dashboard DashboardPage;
         public Info InfoPage;
+        public string Theme;
 
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public App()
@@ -110,6 +111,16 @@ namespace CDKeyMiner
                 {
                     Log.Information("Process is already closed");
                 }
+            }
+
+            Theme = CDKeyMiner.Properties.Settings.Default.Theme;
+
+            if (Theme == "Light")
+            {
+                Resources.Clear();
+                Resources.MergedDictionaries.Clear();
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("ColorsLight.xaml", UriKind.Relative) });
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Skin.xaml", UriKind.Relative) });
             }
         }
     }

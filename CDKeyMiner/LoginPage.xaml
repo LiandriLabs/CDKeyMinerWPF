@@ -9,7 +9,7 @@
       Title="LoginPage" Background="{StaticResource MinerBackground}" Loaded="Page_Loaded" Opacity="0" Height="280">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Source="Resources/logo2.png" Width="210" Margin="0,0,0,10"/>
+        <Image Source="{StaticResource LogoSource}" Width="210" Margin="0,0,0,10"/>
         <Label Name="messageLabel" Foreground="Red" Visibility="Collapsed" Padding="0" Margin="4,0,0,2"></Label>
         <TextBox Width="210" Name="usernameBox"
                  TextChanged="usernameBox_TextChanged"
@@ -28,6 +28,6 @@
             </PasswordBox.Background>
         </PasswordBox>
         <Button Click="Button_Click" Margin="0,5,0,0" Style="{StaticResource LoginButton}" FontFamily="Segoe UI Semibold" Content="LOGIN" Foreground="#FFFBFBFB" Height="30"/>
-        <TextBlock Foreground="White" Margin="0,5,0,0" HorizontalAlignment="Center">Don't have an account? <Hyperlink NavigateUri="https://app.cdkeyminer.com/#registerForm" RequestNavigate="Hyperlink_RequestNavigate" Style="{StaticResource HyperLinkStyle}">Register here</Hyperlink></TextBlock>
+        <TextBlock Foreground="{StaticResource TextColor}" Margin="0,5,0,0" HorizontalAlignment="Center">Don't have an account? <Hyperlink NavigateUri="https://app.cdkeyminer.com/#registerForm" RequestNavigate="Hyperlink_RequestNavigate" Style="{StaticResource HyperLinkStyle}">Register here</Hyperlink></TextBlock>
     </StackPanel>
 </Page>
