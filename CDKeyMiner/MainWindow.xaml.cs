@@ -14,54 +14,15 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-using System.Windows.Interop;
 using Serilog;
 
 namespace CDKeyMiner
 {
-    internal enum AccentState
-    {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
-        ACCENT_INVALID_STATE = 5
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct AccentPolicy
-    {
-        public AccentState AccentState;
-        public uint AccentFlags;
-        public uint GradientColor;
-        public uint AnimationId;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    internal struct WindowCompositionAttributeData
-    {
-        public WindowCompositionAttribute Attribute;
-        public IntPtr Data;
-        public int SizeOfData;
-    }
-
-    internal enum WindowCompositionAttribute
-    {
-        // ...
-        WCA_ACCENT_POLICY = 19
-        // ...
-    }
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
         private ContextMenu appMenu;
 
         public MainWindow()
@@ -89,29 +50,6 @@ namespace CDKeyMiner
                 else if (theme == "Glass")
                 {
                     (appMenu.Items[2] as MenuItem).IsChecked = true;
-                    try
-                    {
-                        mainWindow.Margin = new Thickness(0);
-                        mainWindow.Effect = null;
-                        this.Width -= 30;
-                        this.Height -= 30;
-                        var windowHelper = new WindowInteropHelper(this);
-                        var accent = new AccentPolicy();
-                        accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
-                        var accentStructSize = Marshal.SizeOf(accent);
-                        var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-                        Marshal.StructureToPtr(accent, accentPtr, false);
-                        var data = new WindowCompositionAttributeData();
-                        data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-                        data.SizeOfData = accentStructSize;
-                        data.Data = accentPtr;
-                        SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-                        Marshal.FreeHGlobal(accentPtr);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Couldn't enable glass effect");
-                    }
                 }
 
                 if (Properties.Settings.Default.EcoMode)
