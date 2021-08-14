@@ -9,8 +9,11 @@
         Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ContextMenu x:Key="AppMenu">
-            <MenuItem Header="Dark theme" Click="MenuDark_Click"/>
-            <MenuItem Header="Light theme" Click="MenuLight_Click"/>
+            <MenuItem Header="Dark theme" Click="MenuDark_Click" IsCheckable="true"/>
+            <MenuItem Header="Light theme" Click="MenuLight_Click" IsCheckable="true"/>
+            <Separator/>
+            <MenuItem Header="Eco mode" Click="EcoMode_Click" IsCheckable="true"
+                      ToolTip="Mines with reduced intensity, with lower earnings but also lower power usage and less disruption to your work"/>
         </ContextMenu>
     </Window.Resources>
     <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15" x:Name="mainWindow">

@@ -10,6 +10,7 @@ namespace CDKeyMiner
     {
         void Start(Credentials credentials);
         void Stop();
+        void Restart();
         event EventHandler OnAuthorized;
         event EventHandler OnMining;
         event EventHandler OnShare;

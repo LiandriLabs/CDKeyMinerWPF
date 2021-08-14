@@ -22,6 +22,8 @@ namespace CDKeyMiner
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ContextMenu appMenu;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,6 +34,24 @@ namespace CDKeyMiner
         {
             //var sb = (Storyboard)FindResource("FadeIn");
             //sb.Begin(mainWindow);
+            appMenu = this.FindResource("AppMenu") as ContextMenu;
+            if (appMenu != null)
+            {
+                if ((Application.Current as App).Theme == "Light")
+                {
+                    (appMenu.Items[1] as MenuItem).IsChecked = true;
+                }
+                else
+                {
+                    (appMenu.Items[0] as MenuItem).IsChecked = true;
+                }
+
+                if (Properties.Settings.Default.EcoMode)
+                {
+                    (appMenu.Items[3] as MenuItem).IsChecked = true;
+                }
+            }
+            
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -93,6 +113,13 @@ namespace CDKeyMiner
             ContextMenu cm = this.FindResource("AppMenu") as ContextMenu;
             cm.PlacementTarget = sender as Image;
             cm.IsOpen = true;
+        }
+
+        private void EcoMode_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.EcoMode = !Properties.Settings.Default.EcoMode;
+            Properties.Settings.Default.Save();
+            Phoenix.Instance.Restart();
         }
     }
 }

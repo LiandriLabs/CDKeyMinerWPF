@@ -119,7 +119,7 @@ namespace CDKeyMiner
                 mining = true;
                 buttonLbl.AnimatedUpdate("■");
                 statusLbl.AnimatedUpdate("Starting miner...");
-                miner = new Phoenix();
+                miner = Phoenix.Instance;
                 miner.OnError += (s, err) =>
                 {
                     if (err == MinerError.ExeNotFound)

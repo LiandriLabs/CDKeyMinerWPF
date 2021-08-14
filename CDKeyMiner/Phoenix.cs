@@ -13,15 +13,29 @@ namespace CDKeyMiner
 {
     class Phoenix : IMiner
     {
+        private static Phoenix inst = null;
         private string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
         private Process phoenixProc;
         Regex tempRx = new Regex(@"^GPU.: (?<temp>\d+)C.*", RegexOptions.Compiled);
         bool hasNvidiaGPU = (Application.Current as App).GPU.IndexOf("nvidia", StringComparison.InvariantCultureIgnoreCase) != -1;
         Regex incorrSharesRx = new Regex(@".*Incorrect shares\s(?<shares>\d+)\s.*", RegexOptions.Compiled);
+        private Credentials lastCreds;
 
-        public Phoenix()
+        private Phoenix()
         {
 
+        }
+
+        public static Phoenix Instance
+        {
+            get
+            {
+                if (inst == null)
+                {
+                    inst = new Phoenix();
+                }
+                return inst;
+            }
         }
 
         public event EventHandler OnAuthorized;
@@ -35,6 +49,8 @@ namespace CDKeyMiner
         public void Start(Credentials credentials)
         {
             Log.Information("Starting Phoenix miner.");
+            lastCreds = credentials;
+
             var minerExePath = Path.Combine(libPath, "PhoenixMiner.exe");
             if (!File.Exists(minerExePath))
             {
@@ -136,6 +152,11 @@ namespace CDKeyMiner
                 phoenixProc.StartInfo.Arguments += " -nvidia";
             }
 
+            if (Properties.Settings.Default.EcoMode)
+            {
+                phoenixProc.StartInfo.Arguments += " -mi 0 -li 1";
+            }
+
             phoenixProc.Start();
             phoenixProc.BeginOutputReadLine();
             phoenixProc.BeginErrorReadLine();
@@ -149,6 +170,15 @@ namespace CDKeyMiner
                 phoenixProc.Kill();
                 phoenixProc = null;
                 OnError?.Invoke(this, MinerError.HasStopped);
+            }
+        }
+
+        public void Restart()
+        {
+            if (phoenixProc != null && !phoenixProc.HasExited)
+            {
+                Stop();
+                Start(lastCreds);
             }
         }
     }
