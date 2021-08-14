@@ -17,7 +17,6 @@ namespace CDKeyMiner
         private string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
         private Process phoenixProc;
         Regex tempRx = new Regex(@"^GPU.: (?<temp>\d+)C.*", RegexOptions.Compiled);
-        bool hasNvidiaGPU = (Application.Current as App).GPU.IndexOf("nvidia", StringComparison.InvariantCultureIgnoreCase) != -1;
         Regex incorrSharesRx = new Regex(@".*Incorrect shares\s(?<shares>\d+)\s.*", RegexOptions.Compiled);
         private Credentials lastCreds;
 
@@ -147,6 +146,7 @@ namespace CDKeyMiner
                 Application.Current.Shutdown();
             }
 
+            bool hasNvidiaGPU = (Application.Current as App).GPU.IndexOf("nvidia", StringComparison.InvariantCultureIgnoreCase) != -1;
             if (hasNvidiaGPU)
             {
                 phoenixProc.StartInfo.Arguments += " -nvidia";

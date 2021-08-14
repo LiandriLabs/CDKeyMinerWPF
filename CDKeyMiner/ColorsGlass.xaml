@@ -2,16 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CDKeyMiner"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <SolidColorBrush x:Key="MinerGreen" Color="#8CB61C"/>
+    <SolidColorBrush x:Key="MinerGreen" Color="#BBF226"/>
     <SolidColorBrush x:Key="MinerOrange" Color="#FFA200"/>
     <SolidColorBrush x:Key="MinerOrangeHigh" Color="#FBC463"/>
-    <SolidColorBrush x:Key="MinerBackground" Color="#252526"/>
-    <SolidColorBrush x:Key="MinerDarkBackground" Color="#191919"/>
-    <SolidColorBrush x:Key="MinerLightBackground" Color="#303030"/>
-    <SolidColorBrush x:Key="MinerHighlight" Color="#A2D41A"/>
-    <SolidColorBrush x:Key="InfoButtonHighlight" Color="#4D4D4D"/>
+    <SolidColorBrush x:Key="MinerBackground" Color="#BF051A2E"/>
+    <SolidColorBrush x:Key="MinerDarkBackground" Color="#19000000"/>
+    <SolidColorBrush x:Key="MinerLightBackground" Color="#051A2E"/>
+    <SolidColorBrush x:Key="MinerHighlight" Color="#D2FFAF"/>
+    <SolidColorBrush x:Key="InfoButtonHighlight" Color="#FF144778"/>
     <SolidColorBrush x:Key="InfoButtonDisabled" Color="#5B5B5B"/>
     <SolidColorBrush x:Key="TextColor" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="WindowBorder" Color="#FF1D1D1D"/>
+    <SolidColorBrush x:Key="WindowBorder" Color="#00000000"/>
     <BitmapImage x:Key="LogoSource" UriSource="Resources/logo2.png" />
 </ResourceDictionary>

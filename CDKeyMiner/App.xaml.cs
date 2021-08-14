@@ -122,6 +122,13 @@ namespace CDKeyMiner
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("ColorsLight.xaml", UriKind.Relative) });
                 Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Skin.xaml", UriKind.Relative) });
             }
+            else if (Theme == "Glass")
+            {
+                Resources.Clear();
+                Resources.MergedDictionaries.Clear();
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("ColorsGlass.xaml", UriKind.Relative) });
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Skin.xaml", UriKind.Relative) });
+            }
         }
     }
 }

@@ -21,7 +21,7 @@
                PreviewMouseDown="Label_PreviewMouseDown" MouseEnter="buttonLbl_MouseEnter" MouseLeave="buttonLbl_MouseLeave" Content="▶"/>
             <Label x:Name="statusLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center">Click the button to start mining.</Label>
         </StackPanel>
-        <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource LeftTabButton}" Background="{StaticResource MinerBackground}">Dashboard</Button>
+        <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource LeftTabButton}">Dashboard</Button>
         <Button x:Name="InfoButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource RightTabButton}" Background="{StaticResource MinerDarkBackground}" Click="InfoButton_Click">Information</Button>
     </Grid>
 </Page>

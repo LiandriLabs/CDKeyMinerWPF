@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:CDKeyMiner">
+                    xmlns:local="clr-namespace:CDKeyMiner"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <SolidColorBrush x:Key="MinerGreen" Color="#1D2605"/>
     <SolidColorBrush x:Key="MinerOrange" Color="#915900"/>
     <SolidColorBrush x:Key="MinerOrangeHigh" Color="#AF6300"/>
@@ -11,5 +12,6 @@
     <SolidColorBrush x:Key="InfoButtonHighlight" Color="#A7B7A7"/>
     <SolidColorBrush x:Key="InfoButtonDisabled" Color="#ADADAD"/>
     <SolidColorBrush x:Key="TextColor" Color="#1D2605"/>
+    <SolidColorBrush x:Key="WindowBorder" Color="Black"/>
     <BitmapImage x:Key="LogoSource" UriSource="Resources/logo2_dark.png" />
 </ResourceDictionary>

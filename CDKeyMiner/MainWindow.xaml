@@ -11,6 +11,7 @@
         <ContextMenu x:Key="AppMenu">
             <MenuItem Header="Dark theme" Click="MenuDark_Click" IsCheckable="true"/>
             <MenuItem Header="Light theme" Click="MenuLight_Click" IsCheckable="true"/>
+            <MenuItem Header="Glass theme" Click="MenuGlass_Click" IsCheckable="True"/>
             <Separator/>
             <MenuItem Header="Eco mode" Click="EcoMode_Click" IsCheckable="true"
                       ToolTip="Mines with reduced intensity, with lower earnings but also lower power usage and less disruption to your work"/>

@@ -53,6 +53,6 @@
             <Button x:Name="UpdateButton" Grid.Row="5" Grid.Column="2" Height="36" Style="{StaticResource InfoPanelButton}" Click="UpdateButton_Click" IsEnabled="False">UPDATE</Button>
         </Grid>
         <Button x:Name="DashboardButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource LeftTabButton}" Background="{StaticResource MinerDarkBackground}" Click="DashboardButton_Click">Dashboard</Button>
-        <Button x:Name="InfoButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource RightTabButton}" Background="{StaticResource MinerBackground}">Information</Button>
+        <Button x:Name="InfoButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource RightTabButton}">Information</Button>
     </Grid>
 </Page>
