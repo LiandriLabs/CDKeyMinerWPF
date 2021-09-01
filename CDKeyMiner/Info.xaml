@@ -46,7 +46,7 @@
                 <Label x:Name="TempLabel" Foreground="{StaticResource MinerGreen}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">N/A</Label>
             </Border>
 
-            <Label Grid.Row="4" Grid.ColumnSpan="3" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Left" FontSize="14" FontFamily="Segoe UI Black">Update</Label>
+            <Label Grid.Row="4" Grid.ColumnSpan="3" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Left" FontSize="14" FontFamily="Segoe UI Black">Version</Label>
             <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource MinerLightBackground}" Height="36" CornerRadius="5">
                 <Label x:Name="VersionLabel" Foreground="{StaticResource MinerGreen}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">-</Label>
             </Border>
