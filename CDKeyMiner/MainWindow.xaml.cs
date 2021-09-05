@@ -76,9 +76,9 @@ namespace CDKeyMiner
             App.Current.MainWindow.WindowState = WindowState.Minimized;
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            LogoutButton.Visibility = Visibility.Collapsed;
+            SettingsButton.Visibility = Visibility.Collapsed;
             Properties.Settings.Default.Username = "";
             Properties.Settings.Default.JWT = "";
             Properties.Settings.Default.Save();
@@ -124,10 +124,10 @@ namespace CDKeyMiner
             Application.Current.MainWindow.Close();
         }
 
-        private void AppMenuBtn_Click(object sender, RoutedEventArgs e)
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             ContextMenu cm = this.FindResource("AppMenu") as ContextMenu;
-            cm.PlacementTarget = sender as Image;
+            cm.PlacementTarget = sender as Button;
             cm.IsOpen = true;
         }
 

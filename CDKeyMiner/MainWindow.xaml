@@ -8,13 +8,15 @@
         Title="CD Key Miner" Width="500" Height="400"
         Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <ContextMenu x:Key="AppMenu">
-            <MenuItem Header="Dark theme" Click="MenuDark_Click" IsCheckable="true"/>
-            <MenuItem Header="Light theme" Click="MenuLight_Click" IsCheckable="true"/>
-            <MenuItem Header="Glass theme" Click="MenuGlass_Click" IsCheckable="True"/>
-            <Separator/>
-            <MenuItem Header="Eco mode" Click="EcoMode_Click" IsCheckable="true"
-                      ToolTip="Mines with reduced intensity, with lower earnings but also lower power usage and less disruption to your work"/>
+        <ContextMenu x:Key="AppMenu" Style="{StaticResource ContextMenuStyle}" HasDropShadow="True">
+            <MenuItem Header="Dark theme" Click="MenuDark_Click" IsCheckable="true" Style="{StaticResource MenuItemStyle}"/>
+            <MenuItem Header="Light theme" Click="MenuLight_Click" IsCheckable="true" Style="{StaticResource MenuItemStyle}"/>
+            <MenuItem Header="Glass theme" Click="MenuGlass_Click" IsCheckable="True" Style="{StaticResource MenuItemStyle}"/>
+            <Separator />
+            <MenuItem Header="_Eco mode" Click="EcoMode_Click" IsCheckable="true"  Style="{StaticResource MenuItemStyle}"
+                      ToolTip="Lower earnings, but also lower power usage and less disruption to your work"/>
+            <Separator />
+            <MenuItem Header="_Log out" Click="LogOut_Click"  Style="{StaticResource MenuItemStyle}" />
         </ContextMenu>
     </Window.Resources>
     <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15" x:Name="mainWindow">
@@ -39,15 +41,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Panel.ZIndex="1" Margin="7">
-                <Button x:Name="AppMenuBtn" Style="{StaticResource WindowIcon}" Click="AppMenuBtn_Click">
-                    <Image Source="cdkeyminer.ico" Width="16" Margin="4,0,0,0"/>
-                </Button>
+                <Image Source="cdkeyminer.ico" Width="16" Margin="4,0,0,0"/>
                 <Label HorizontalAlignment="Left" Foreground="{StaticResource MinerGreen}" FontSize="12" FontFamily="Segoe UI Black">cdkeyMINER</Label>
                 <Label Name="balanceLbl" Foreground="{StaticResource MinerGreen}" HorizontalAlignment="Center"></Label>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1" Margin="7,7,3,7">
-                <Button x:Name="LogoutButton" ToolTip="Log out"
-                    KeyboardNavigation.IsTabStop="False" Content="⇐" Click="LogoutButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="16" Visibility="Hidden" />
+                <Button x:Name="SettingsButton" ToolTip="Settings"
+                    KeyboardNavigation.IsTabStop="False" Content="⚙" Click="SettingsButton_Click" Style="{StaticResource WindowButton}" FontSize="14" Visibility="Collapsed" />
                 
                 <Button x:Name="MinimizeButton" ToolTip="Minimize"
                     KeyboardNavigation.IsTabStop="False" Content="–" Click="MinimizeButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="18" />

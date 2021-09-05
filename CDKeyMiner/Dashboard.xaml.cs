@@ -64,7 +64,7 @@ namespace CDKeyMiner
                 var balStr = bal.ToString("F3", CultureInfo.InvariantCulture);
 
                 var elapsed = DateTime.UtcNow - startTime;
-                if (elapsed.TotalMinutes >= 5)
+                if (mining && elapsed.TotalMinutes >= 10)
                 {
                     var deltaBal = bal - startBal;
                     var est = ((24 * 60) / elapsed.TotalMinutes) * deltaBal;
@@ -95,7 +95,7 @@ namespace CDKeyMiner
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Log.Information("Page loaded: Dashboard");
-            (Application.Current.MainWindow as MainWindow).LogoutButton.Visibility = Visibility.Visible;
+            (Application.Current.MainWindow as MainWindow).SettingsButton.Visibility = Visibility.Visible;
             app.InfoPage.UserLabel.Content = creds.Username;
             app.InfoPage.GPULabel.Content = app.GPU;
             var appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();

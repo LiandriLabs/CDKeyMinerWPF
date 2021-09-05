@@ -173,6 +173,48 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="{x:Type ContextMenu}" x:Key="ContextMenuStyle">
+        <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope"
+          Value="true" />
+        <Setter Property="HasDropShadow"
+          Value="True" />
+        <Setter Property="HorizontalOffset" Value="-10" />
+        <Setter Property="VerticalOffset" Value="-10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border x:Name="Border" BorderThickness="1" BorderBrush="{StaticResource WindowBorder}" Margin="10"
+                            Background="{StaticResource MinerBackground}">
+                        <StackPanel IsItemsHost="True"
+                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="2"/>
+                        </Border.Effect>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasDropShadow" Value="true">
+                            <Setter TargetName="Border"
+                                Property="Padding"
+                                Value="0,5,0,5" />
+                            <Setter TargetName="Border"
+                                Property="CornerRadius"
+                                Value="5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource MinerGreen}" />
+    </Style>
+
     <Storyboard x:Key="FadeOut">
         <DoubleAnimation 
                 Storyboard.TargetProperty="Opacity" 

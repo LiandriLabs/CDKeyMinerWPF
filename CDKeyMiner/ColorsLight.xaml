@@ -12,6 +12,6 @@
     <SolidColorBrush x:Key="InfoButtonHighlight" Color="#A7B7A7"/>
     <SolidColorBrush x:Key="InfoButtonDisabled" Color="#ADADAD"/>
     <SolidColorBrush x:Key="TextColor" Color="#1D2605"/>
-    <SolidColorBrush x:Key="WindowBorder" Color="Black"/>
+    <SolidColorBrush x:Key="WindowBorder" Color="#FFB6B6B6"/>
     <BitmapImage x:Key="LogoSource" UriSource="Resources/logo2_dark.png" />
 </ResourceDictionary>
