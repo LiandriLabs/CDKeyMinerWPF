@@ -17,12 +17,16 @@ namespace CDKeyMiner
     public class WSHelper
     {
         private static WSHelper inst = null;
+
 #if DEBUG
         private const string URL = "ws://localhost:81/socket.io/?EIO=4&transport=websocket";
 #else
         private const string URL = "wss://app.cdkeyminer.com/socket.io/?EIO=4&transport=websocket";
 #endif
+
         private ClientWebSocket ws;
+        private SemaphoreSlim sendMutex = new SemaphoreSlim(1);
+        private SemaphoreSlim recvMutex = new SemaphoreSlim(1);
         private string jwt;
         private DispatcherTimer pingTimer = new DispatcherTimer();
         private CancellationTokenSource cts;
@@ -60,35 +64,54 @@ namespace CDKeyMiner
         public event EventHandler<double> OnBalance;
         public event EventHandler<string> OnError;
 
-        private async Task Send(ClientWebSocket socket, string data)
+        private async Task Send(string data)
         {
             Log.Debug("WS Send: {Data}", data);
-            await socket.SendAsync(
-                new ArraySegment<byte>(Encoding.UTF8.GetBytes(data)),
-                WebSocketMessageType.Text,
-                true,
-                cts.Token);
+            await sendMutex.WaitAsync().ConfigureAwait(false);
+
+            try
+            {
+                await ws.SendAsync(
+                    new ArraySegment<byte>(Encoding.UTF8.GetBytes(data)),
+                    WebSocketMessageType.Text,
+                    true,
+                    cts.Token);
+            }
+            finally
+            {
+                sendMutex.Release();
+            }
         }
 
-        private async Task<string> Receive(ClientWebSocket socket)
+        private async Task<string> Receive()
         {
-            var buffer = new ArraySegment<byte>(new byte[2048]);
-            WebSocketReceiveResult result;
-            using (var ms = new MemoryStream())
-            {
-                do
-                {
-                    result = await socket.ReceiveAsync(buffer, cts.Token);
-                    ms.Write(buffer.Array, buffer.Offset, result.Count);
-                } while (!result.EndOfMessage);
+            Log.Debug("WS Receive");
+            await recvMutex.WaitAsync().ConfigureAwait(false);
 
-                ms.Seek(0, SeekOrigin.Begin);
-                using (var reader = new StreamReader(ms, Encoding.UTF8))
+            try
+            {
+                var buffer = new ArraySegment<byte>(new byte[2048]);
+                WebSocketReceiveResult result;
+                using (var ms = new MemoryStream())
                 {
-                    var msg = reader.ReadToEnd();
-                    Log.Debug("WS Receive: {Data}", msg);
-                    return msg;
+                    do
+                    {
+                        result = await ws.ReceiveAsync(buffer, cts.Token);
+                        ms.Write(buffer.Array, buffer.Offset, result.Count);
+                    } while (!result.EndOfMessage);
+
+                    ms.Seek(0, SeekOrigin.Begin);
+                    using (var reader = new StreamReader(ms, Encoding.UTF8))
+                    {
+                        var msg = reader.ReadToEnd();
+                        Log.Debug("WS Receive: {Data}", msg);
+                        return msg;
+                    }
                 }
+            }
+            finally
+            {
+                recvMutex.Release();
             }
         }
 
@@ -129,8 +152,10 @@ namespace CDKeyMiner
         {
             await Connect();
 
-            await Send(ws, "40");
-            await Send(ws, $"42[\"login\",{{\"username\":\"{username}\",\"password\":\"{password}\"}}]");
+            await Send("40");
+            await Receive();
+            await Receive();
+            await Send($"42[\"login\",{{\"username\":\"{username}\",\"password\":\"{password}\"}}]");
             ProcessMessages();
         }
 
@@ -138,8 +163,10 @@ namespace CDKeyMiner
         {
             await Connect();
 
-            await Send(ws, "40");
-            await Send(ws, $"42[\"resume\",\"{jwt}\"]");
+            await Send("40");
+            await Receive();
+            await Receive();
+            await Send($"42[\"resume\",\"{jwt}\"]");
             ProcessMessages();
         }
 
@@ -147,7 +174,7 @@ namespace CDKeyMiner
         {
             try
             {
-                await Send(ws, $"42[\"hashrate\",{hr.ToString("N2", CultureInfo.InvariantCulture)}]");
+                await Send($"42[\"hashrate\",{hr.ToString("N2", CultureInfo.InvariantCulture)}]");
             }
             catch (Exception ex)
             {
@@ -159,7 +186,7 @@ namespace CDKeyMiner
         {
             try
             {
-                await Send(ws, $"42[\"temperature\", {temp}]");
+                await Send($"42[\"temperature\", {temp}]");
             }
             catch (Exception ex)
             {
@@ -174,12 +201,12 @@ namespace CDKeyMiner
                 var tok = cts.Token;
                 try
                 {
-                    var resp = await Receive(ws);
+                    var resp = await Receive();
                     if (resp == "2") // ping
                     {
                         pingTimer.Stop();
                         pingTimer.Start();
-                        await Send(ws, "3"); // pong
+                        await Send("3"); // pong
                     }
                     else if (resp.Contains("loggedIn"))
                     {

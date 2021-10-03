@@ -47,6 +47,109 @@ namespace CDKeyMiner
             var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
             mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
             algo = app.Algo;
+            miner = Phoenix.Instance;
+            miner.OnError += (s, err) =>
+            {
+                if (err == MinerError.ExeNotFound)
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        buttonLbl.AnimatedUpdate("⚠");
+                        statusLbl.AnimatedUpdate("Cannot find miner EXE");
+                    });
+                }
+                else if (err == MinerError.ConnectionError)
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        buttonLbl.AnimatedUpdate("⚠");
+                        statusLbl.AnimatedUpdate("Connection error - retrying");
+                    });
+                }
+            };
+            miner.OnAuthorized += (s, evt) =>
+            {
+                statusLbl.Dispatcher.Invoke(() =>
+                {
+                    buttonLbl.AnimatedUpdate("■");
+                    statusLbl.AnimatedUpdate("Miner connected, please wait...");
+                });
+            };
+            miner.OnMining += (s, evt) =>
+            {
+                statusLbl.Dispatcher.Invoke(() =>
+                {
+                    buttonLbl.AnimatedUpdate("■");
+                    statusLbl.AnimatedUpdate($"Mining {algo}");
+                    startTime = DateTime.UtcNow;
+                    startBal = bal;
+                });
+            };
+            miner.OnHashrate += (s, hr) =>
+            {
+                statusLbl.Dispatcher.Invoke(() =>
+                {
+                    buttonLbl.Content = "■";
+                    statusLbl.Content = $"Mining {algo} ({hr})";
+                    try
+                    {
+                        var hrNumStr = hr.Substring(0, hr.IndexOf(' '));
+                        var hrNum = double.Parse(hrNumStr, CultureInfo.InvariantCulture);
+                        WSHelper.Instance.ReportHashrate(hrNum);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Report hash rate error");
+                    }
+                });
+            };
+            miner.OnTemperature += (s, t) =>
+            {
+                try
+                {
+                    WSHelper.Instance.ReportTemperature(t);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Report temperature error");
+                }
+
+                app.InfoPage.TempLabel.Dispatcher.Invoke(() =>
+                {
+                    app.InfoPage.TempLabel.Content = t.ToString() + "°C";
+                    if (t >= 85)
+                    {
+                        app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerOrange") as SolidColorBrush;
+                    }
+                    else
+                    {
+                        app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
+                    }
+                });
+
+                if (t >= 90)
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        app.InfoPage.TempLabel.Content = "N/A";
+                        app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
+                        mining = false;
+                        miner.Stop();
+                        buttonLbl.AnimatedUpdate("⚠");
+                        statusLbl.AnimatedUpdate("Stopped because temperature exceeded 90°C");
+                    });
+                }
+            };
+            miner.OnIncorrectShares += (s, sh) =>
+            {
+                if (sh > 0)
+                {
+                    statusLbl.Dispatcher.Invoke(() =>
+                    {
+                        statusLbl.AnimatedUpdate($"Your GPU submitted {sh} incorrect share(s)");
+                    });
+                }
+            };
         }
 
         private void OnBalance(object sender, double e)
@@ -119,122 +222,16 @@ namespace CDKeyMiner
                 mining = true;
                 buttonLbl.AnimatedUpdate("■");
                 statusLbl.AnimatedUpdate("Starting miner...");
-                miner = Phoenix.Instance;
-                miner.OnError += (s, err) =>
-                {
-                    if (err == MinerError.ExeNotFound)
-                    {
-                        statusLbl.Dispatcher.Invoke(() =>
-                        {
-                            buttonLbl.AnimatedUpdate("⚠");
-                            statusLbl.AnimatedUpdate("Cannot find miner EXE");
-                        });
-                    }
-                    else if (err == MinerError.ConnectionError)
-                    {
-                        statusLbl.Dispatcher.Invoke(() =>
-                        {
-                            buttonLbl.AnimatedUpdate("⚠");
-                            statusLbl.AnimatedUpdate("Connection error - retrying");
-                        });
-                    }
-                };
-                miner.OnAuthorized += (s, evt) =>
-                {
-                    statusLbl.Dispatcher.Invoke(() =>
-                    {
-                        buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate("Miner connected, please wait...");
-                    });
-                };
-                miner.OnMining += (s, evt) =>
-                {
-                    statusLbl.Dispatcher.Invoke(() =>
-                    {
-                        buttonLbl.AnimatedUpdate("■");
-                        statusLbl.AnimatedUpdate($"Mining {algo}");
-                        startTime = DateTime.UtcNow;
-                        startBal = bal;
-                    });
-                };
-                miner.OnHashrate += (s, hr) =>
-                {
-                    statusLbl.Dispatcher.Invoke(() =>
-                    {
-                        buttonLbl.Content = "■";
-                        statusLbl.Content = $"Mining {algo} ({hr})";
-                        try
-                        {
-                            var hrNumStr = hr.Substring(0, hr.IndexOf(' '));
-                            var hrNum = double.Parse(hrNumStr, CultureInfo.InvariantCulture);
-                            WSHelper.Instance.ReportHashrate(hrNum);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Error(ex, "Report hash rate error");
-                        }
-                    });
-                };
-                miner.OnTemperature += (s, t) =>
-                {
-                    try
-                    {
-                        WSHelper.Instance.ReportTemperature(t);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Report temperature error");
-                    }
-
-                    app.InfoPage.TempLabel.Dispatcher.Invoke(() =>
-                    {
-                        app.InfoPage.TempLabel.Content = t.ToString() + "°C";
-                        if (t >= 85)
-                        {
-                            app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerOrange") as SolidColorBrush;
-                        }
-                        else
-                        {
-                            app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
-                        }
-                    });
-
-                    if (t >= 90)
-                    {
-                        statusLbl.Dispatcher.Invoke(() =>
-                        {
-                            app.InfoPage.TempLabel.Content = "N/A";
-                            app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
-                            mining = false;
-                            miner.Stop();
-                            buttonLbl.AnimatedUpdate("⚠");
-                            statusLbl.AnimatedUpdate("Stopped because temperature exceeded 90°C");
-                        });
-                    }
-                };
-                miner.OnIncorrectShares += (s, sh) =>
-                {
-                    if (sh > 0)
-                    {
-                        statusLbl.Dispatcher.Invoke(() =>
-                        {
-                            statusLbl.AnimatedUpdate($"Your GPU submitted {sh} incorrect share(s)");
-                        });
-                    }
-                };
                 miner.Start(creds);
             }
             else
             {
-                Dispatcher.Invoke(() =>
-                {
-                    app.InfoPage.TempLabel.Content = "N/A";
-                    app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
-                    mining = false;
-                    miner.Stop();
-                    buttonLbl.AnimatedUpdate("▶");
-                    statusLbl.AnimatedUpdate("Click the button to start mining.");
-                });    
+                app.InfoPage.TempLabel.Content = "N/A";
+                app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
+                mining = false;
+                miner.Stop();
+                buttonLbl.AnimatedUpdate("▶");
+                statusLbl.AnimatedUpdate("Click the button to start mining.");
             }
         }
 
