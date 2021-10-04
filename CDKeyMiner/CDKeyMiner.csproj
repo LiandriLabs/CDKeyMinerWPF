@@ -188,7 +188,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\UacShield_16x.png" />
-    <Resource Include="cdkeyminer.ico" />
+    <EmbeddedResource Include="cdkeyminer.ico" />
     <Resource Include="Resources\logo2.png" />
   </ItemGroup>
   <ItemGroup>

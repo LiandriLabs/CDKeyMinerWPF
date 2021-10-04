@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace CDKeyMiner
 {
@@ -39,46 +40,66 @@ namespace CDKeyMiner
 
         public bool CheckForUpdates()
         {
-            using (var http = new WebClient())
+            try
             {
-                var serverManifestJson = http.DownloadString(baseURL + "manifest.json");
-                serverManifest = JsonConvert.DeserializeObject<Dictionary<string, string>>(serverManifestJson);
-            }
-            foreach (var kvp in serverManifest)
-            {
-                if (!manifest.ContainsKey(kvp.Key) || kvp.Value != manifest[kvp.Key])
+                using (var http = new WebClient())
                 {
-                    NewVersion = serverManifest["CDKeyMiner.exe"];
-                    return true;
+                    var serverManifestJson = http.DownloadString(baseURL + "manifest.json");
+                    serverManifest = JsonConvert.DeserializeObject<Dictionary<string, string>>(serverManifestJson);
                 }
+                foreach (var kvp in serverManifest)
+                {
+                    if (!manifest.ContainsKey(kvp.Key) || kvp.Value != manifest[kvp.Key])
+                    {
+                        NewVersion = serverManifest["CDKeyMiner.exe"];
+                        return true;
+                    }
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Check for updates error");
+                return false;
+            }
         }
 
         public async Task<bool> DownloadUpdates()
         {
             if (serverManifest == null)
             {
-                throw new Exception("CheckForUpdates not called");
-            }
-            using (var http = new WebClient())
-            {
-                foreach (var kvp in serverManifest)
+                CheckForUpdates();
+                if (serverManifest == null)
                 {
-                    if (!manifest.ContainsKey(kvp.Key) || kvp.Value != manifest[kvp.Key])
-                    {
-                        var url = baseURL + kvp.Key.Replace("\\", "/");
-                        var destination = Path.Combine(appDir, kvp.Key);
-                        if (File.Exists(destination))
-                        {
-                            File.Move(destination, destination + ".bak");
-                        }
-                        await http.DownloadFileTaskAsync(url, destination);
-                    }
+                    throw new Exception("CheckForUpdates not called");
                 }
             }
-            File.WriteAllText(Path.Combine(appDir, "manifest.json"), JsonConvert.SerializeObject(serverManifest));
-            return true;
+            try
+            {
+                using (var http = new WebClient())
+                {
+                    foreach (var kvp in serverManifest)
+                    {
+                        if (!manifest.ContainsKey(kvp.Key) || kvp.Value != manifest[kvp.Key])
+                        {
+                            var url = baseURL + kvp.Key.Replace("\\", "/");
+                            var destination = Path.Combine(appDir, kvp.Key);
+                            if (File.Exists(destination))
+                            {
+                                File.Move(destination, destination + ".bak");
+                            }
+                            await http.DownloadFileTaskAsync(url, destination);
+                        }
+                    }
+                }
+                File.WriteAllText(Path.Combine(appDir, "manifest.json"), JsonConvert.SerializeObject(serverManifest));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Download updates error");
+                return false;
+            }
         }
 
         private void DeleteBackups(string dir)
