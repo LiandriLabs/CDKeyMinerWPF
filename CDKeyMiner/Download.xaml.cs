@@ -24,6 +24,8 @@ namespace CDKeyMiner
     public partial class Download : Page
     {
         App app = (App)Application.Current;
+        static string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
+        static string minerExePath = Path.Combine(libPath, "PhoenixMiner.exe");
 
         public Download()
         {
@@ -33,8 +35,7 @@ namespace CDKeyMiner
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Log.Information("Page loaded: Download");
-            string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
-            var minerExePath = Path.Combine(libPath, "PhoenixMiner.exe");
+            
             if (File.Exists(minerExePath))
             {
                 Log.Information("Miner found, continue...");
@@ -53,7 +54,7 @@ namespace CDKeyMiner
                     client.DownloadProgressChanged += Client_DownloadProgressChanged;
                     client.DownloadFileAsync(
                         new Uri("https://app.cdkeyminer.com/static/downloads/Phoenix.exe"),
-                        minerExePath
+                        minerExePath + ".part"
                     );
                     client.DownloadFileCompleted += Client_DownloadFileCompleted;
                 }
@@ -68,6 +69,7 @@ namespace CDKeyMiner
         private void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             Log.Information("Download finished");
+            File.Move(minerExePath + ".part", minerExePath);
             app.DashboardPage = new Dashboard();
             app.InfoPage = new Info();
             NavigationService.Navigate(app.DashboardPage);
