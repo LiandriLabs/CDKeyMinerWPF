@@ -50,6 +50,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -188,7 +189,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\UacShield_16x.png" />
-    <EmbeddedResource Include="cdkeyminer.ico" />
+    <Resource Include="cdkeyminer.ico" />
     <Resource Include="Resources\logo2.png" />
   </ItemGroup>
   <ItemGroup>

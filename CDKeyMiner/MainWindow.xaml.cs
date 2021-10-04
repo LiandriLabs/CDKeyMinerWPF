@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +25,17 @@ namespace CDKeyMiner
     public partial class MainWindow : Window
     {
         private ContextMenu appMenu;
+        private System.Windows.Forms.NotifyIcon systrayIcon;
 
         public MainWindow()
         {
             InitializeComponent();
             _mainFrame.Navigate(new LoginPage());
+            systrayIcon = new System.Windows.Forms.NotifyIcon();
+            systrayIcon.Text = "CD Key Miner";
+            Stream iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/CDKeyMiner;component/cdkeyminer.ico")).Stream;
+            systrayIcon.Icon = new System.Drawing.Icon(iconStream);
+            systrayIcon.Click += SystrayIcon_Click;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -56,6 +63,8 @@ namespace CDKeyMiner
                 {
                     (appMenu.Items[4] as MenuItem).IsChecked = true;
                 }
+
+                (appMenu.Items[5] as MenuItem).IsChecked = Properties.Settings.Default.MinimizeToTray;
             }
             
         }
@@ -73,7 +82,21 @@ namespace CDKeyMiner
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            App.Current.MainWindow.WindowState = WindowState.Minimized;
+            if (Properties.Settings.Default.MinimizeToTray)
+            {
+                systrayIcon.Visible = true;
+                this.Hide();
+            }
+            else
+            {
+                App.Current.MainWindow.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void SystrayIcon_Click(object sender, EventArgs e)
+        {
+            systrayIcon.Visible = false;
+            this.Show();
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -136,6 +159,19 @@ namespace CDKeyMiner
             Properties.Settings.Default.EcoMode = !Properties.Settings.Default.EcoMode;
             Properties.Settings.Default.Save();
             Phoenix.Instance.Restart();
+        }
+
+        private void MinimizeToTray_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.MinimizeToTray = !Properties.Settings.Default.MinimizeToTray;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            systrayIcon.Visible = false;
+            systrayIcon.Dispose();
+            systrayIcon = null;
         }
     }
 }

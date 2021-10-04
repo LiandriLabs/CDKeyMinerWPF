@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CDKeyMiner"
         mc:Ignorable="d"
-        Title="CD Key Miner" Width="500" Height="400"
-        Loaded="Window_Loaded" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+        Title="CD Key Miner" Width="500" Height="400" Background="Transparent" ResizeMode="NoResize" WindowStyle="None"
+        Loaded="Window_Loaded" MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Window.Resources>
         <ContextMenu x:Key="AppMenu" Style="{StaticResource ContextMenuStyle}" HasDropShadow="True">
             <MenuItem Header="Dark theme" Click="MenuDark_Click" IsCheckable="true" Style="{StaticResource MenuItemStyle}"/>
@@ -15,6 +16,7 @@
             <Separator />
             <MenuItem Header="_Eco mode" Click="EcoMode_Click" IsCheckable="true"  Style="{StaticResource MenuItemStyle}"
                       ToolTip="Lower earnings, but also lower power usage and less disruption to your work"/>
+            <MenuItem Header="_Minimize to tray" Click="MinimizeToTray_Click" IsCheckable="true"  Style="{StaticResource MenuItemStyle}"/>
             <Separator />
             <MenuItem Header="_Log out" Click="LogOut_Click"  Style="{StaticResource MenuItemStyle}" />
         </ContextMenu>
