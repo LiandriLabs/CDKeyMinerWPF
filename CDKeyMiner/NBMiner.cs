@@ -141,11 +141,11 @@ namespace CDKeyMiner
             var algo = (Application.Current as App).Algo;
             if (algo == Algo.ETH)
             {
-                nbminerProc.StartInfo.Arguments = $"-a ethash -o stratum+tcp://pool.cdkeyminer.com:9000 -u {credentials.Username} -log";
+                nbminerProc.StartInfo.Arguments = $"-a ethash -o stratum+tcp://pool.cdkeyminer.com:9000 -u {credentials.Username} -log -api 127.0.0.1:22333";
             }
             else if (algo == Algo.ETC)
             {
-                nbminerProc.StartInfo.Arguments = $"-a etchash -o stratum+tcp://pool.cdkeyminer.com:9001 -u {credentials.Username} -log";
+                nbminerProc.StartInfo.Arguments = $"-a etchash -o stratum+tcp://pool.cdkeyminer.com:9001 -u {credentials.Username} -log -api 127.0.0.1:22333";
             }
             else
             {
@@ -158,6 +158,7 @@ namespace CDKeyMiner
                 nbminerProc.StartInfo.Arguments += " -i 75";
             }
 
+            Log.Information("Arguments: {0}", nbminerProc.StartInfo.Arguments);
             nbminerProc.Start();
             nbminerProc.BeginOutputReadLine();
             nbminerProc.BeginErrorReadLine();
