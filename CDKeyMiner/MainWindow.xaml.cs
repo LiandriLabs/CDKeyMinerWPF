@@ -158,7 +158,7 @@ namespace CDKeyMiner
         {
             Properties.Settings.Default.EcoMode = !Properties.Settings.Default.EcoMode;
             Properties.Settings.Default.Save();
-            Phoenix.Instance.Restart();
+            (Application.Current as App).Miner.Restart();
         }
 
         private void MinimizeToTray_Click(object sender, RoutedEventArgs e)

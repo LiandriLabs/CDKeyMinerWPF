@@ -11,30 +11,17 @@ using Serilog;
 
 namespace CDKeyMiner
 {
-    class Phoenix : IMiner
+    public class Phoenix : IMiner
     {
-        private static Phoenix inst = null;
         private string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
         private Process phoenixProc;
         Regex tempRx = new Regex(@"^GPU.: (?<temp>\d+)C.*", RegexOptions.Compiled);
         Regex incorrSharesRx = new Regex(@".*Incorrect shares\s(?<shares>\d+)\s.*", RegexOptions.Compiled);
         private Credentials lastCreds;
 
-        private Phoenix()
+        public Phoenix()
         {
 
-        }
-
-        public static Phoenix Instance
-        {
-            get
-            {
-                if (inst == null)
-                {
-                    inst = new Phoenix();
-                }
-                return inst;
-            }
         }
 
         public event EventHandler OnAuthorized;

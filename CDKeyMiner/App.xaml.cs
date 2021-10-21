@@ -20,6 +20,7 @@ namespace CDKeyMiner
         public Dashboard DashboardPage;
         public Info InfoPage;
         public string Theme;
+        public IMiner Miner;
 
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public App()
@@ -82,6 +83,8 @@ namespace CDKeyMiner
             {
                 Log.Error(ex, "Couldn't clear old logs");
             }
+
+            Miner = new NBMiner();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -90,9 +93,29 @@ namespace CDKeyMiner
             Log.Error(ex, "Unhandled exception");
 
             Process[] phoenixProcs = Process.GetProcessesByName("PhoenixMiner");
-            foreach (var proc in phoenixProcs)
+            foreach (var p in phoenixProcs)
             {
-                proc.Kill();
+                try
+                {
+                    if (!p.HasExited)
+                    {
+                        p.Kill();
+                    }
+                }
+                catch { }
+            }
+
+            Process[] nbProcs = Process.GetProcessesByName("nbminer");
+            foreach (var p in nbProcs)
+            {
+                try
+                {
+                    if (!p.HasExited)
+                    {
+                        p.Kill();
+                    }
+                }
+                catch { }
             }
         }
 

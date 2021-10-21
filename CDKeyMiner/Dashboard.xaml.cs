@@ -28,7 +28,6 @@ namespace CDKeyMiner
     {
         private Credentials creds;
         private bool mining = false;
-        private IMiner miner;
         private Algo algo;
         private DateTime startTime;
         private double startBal;
@@ -47,7 +46,8 @@ namespace CDKeyMiner
             var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
             mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
             algo = app.Algo;
-            miner = Phoenix.Instance;
+
+            var miner = app.Miner;
             miner.OnError += (s, err) =>
             {
                 if (err == MinerError.ExeNotFound)
@@ -189,9 +189,9 @@ namespace CDKeyMiner
 
         public void StopMiner()
         {
-            if (miner != null)
+            if (app.Miner != null)
             {
-                miner.Stop();
+                app.Miner.Stop();
             }
         }
 
@@ -222,14 +222,14 @@ namespace CDKeyMiner
                 mining = true;
                 buttonLbl.AnimatedUpdate("■");
                 statusLbl.AnimatedUpdate("Starting miner...");
-                miner.Start(creds);
+                app.Miner.Start(creds);
             }
             else
             {
                 app.InfoPage.TempLabel.Content = "N/A";
                 app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
                 mining = false;
-                miner.Stop();
+                StopMiner();
                 buttonLbl.AnimatedUpdate("▶");
                 statusLbl.AnimatedUpdate("Click the button to start mining.");
             }
