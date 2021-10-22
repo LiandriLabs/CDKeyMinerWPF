@@ -36,6 +36,22 @@ namespace CDKeyMiner
             Stream iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/CDKeyMiner;component/cdkeyminer.ico")).Stream;
             systrayIcon.Icon = new System.Drawing.Icon(iconStream);
             systrayIcon.Click += SystrayIcon_Click;
+
+            var app = (Application.Current as App);
+            if (Properties.Settings.Default.Plugin.ToLowerInvariant() == "nbminer")
+            {
+                app.Miner = new NBMiner();
+            }
+            else if (Properties.Settings.Default.Plugin.ToLowerInvariant() == "phoenix")
+            {
+                app.Miner = new Phoenix();
+            }
+            else
+            {
+                Log.Error("Invalid miner plug-in configuration");
+                MessageBox.Show("Invalid miner plug-in configuration");
+                Application.Current.Shutdown();
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

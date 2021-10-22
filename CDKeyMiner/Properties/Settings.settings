@@ -23,5 +23,8 @@
     <Setting Name="MinimizeToTray" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Plugin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NBMiner</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

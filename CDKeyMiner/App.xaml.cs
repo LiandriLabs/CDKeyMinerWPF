@@ -83,8 +83,6 @@ namespace CDKeyMiner
             {
                 Log.Error(ex, "Couldn't clear old logs");
             }
-
-            Miner = new NBMiner();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

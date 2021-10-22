@@ -25,7 +25,9 @@ namespace CDKeyMiner
     {
         App app = (App)Application.Current;
         static string libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
-        static string minerExePath = Path.Combine(libPath, "PhoenixMiner.exe");
+        static string phoenixExePath = Path.Combine(libPath, "PhoenixMiner.exe");
+        static string nbminerExePath = Path.Combine(libPath, "nbminer.exe");
+        string minerUsed;
 
         public Download()
         {
@@ -35,30 +37,63 @@ namespace CDKeyMiner
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Log.Information("Page loaded: Download");
-            
-            if (File.Exists(minerExePath))
-            {
-                Log.Information("Miner found, continue...");
-                app.DashboardPage = new Dashboard();
-                app.InfoPage = new Info();
-                NavigationService.Navigate(app.DashboardPage);
-            }
-            else
-            {
-                var sb = (Storyboard)FindResource("FadeIn");
-                sb.Begin(this);
+            minerUsed = Properties.Settings.Default.Plugin.ToLowerInvariant();
 
-                Log.Information("Miner not found, downloading...");
-                using (var client = new WebClient())
+            if (minerUsed == "phoenix")
+            {
+                if (File.Exists(phoenixExePath))
                 {
-                    client.DownloadProgressChanged += Client_DownloadProgressChanged;
-                    client.DownloadFileAsync(
-                        new Uri("https://app.cdkeyminer.com/static/downloads/Phoenix.exe"),
-                        minerExePath + ".part"
-                    );
-                    client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                    Log.Information("Phoenix Miner found, continue...");
+                    app.DashboardPage = new Dashboard();
+                    app.InfoPage = new Info();
+                    NavigationService.Navigate(app.DashboardPage);
+                }
+                else
+                {
+                    DescLabel.Content = "Downloading Phoenix Miner...";
+                    var sb = (Storyboard)FindResource("FadeIn");
+                    sb.Begin(this);
+
+                    Log.Information("Miner not found, downloading...");
+                    using (var client = new WebClient())
+                    {
+                        client.DownloadProgressChanged += Client_DownloadProgressChanged;
+                        client.DownloadFileAsync(
+                            new Uri("https://app.cdkeyminer.com/static/downloads/Phoenix56d.exe"),
+                            phoenixExePath + ".part"
+                        );
+                        client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                    }
                 }
             }
+            else if (minerUsed == "nbminer")
+            {
+                if (File.Exists(nbminerExePath))
+                {
+                    Log.Information("NBMiner found, continue...");
+                    app.DashboardPage = new Dashboard();
+                    app.InfoPage = new Info();
+                    NavigationService.Navigate(app.DashboardPage);
+                }
+                else
+                {
+                    DescLabel.Content = "Downloading NBMiner...";
+                    var sb = (Storyboard)FindResource("FadeIn");
+                    sb.Begin(this);
+
+                    Log.Information("Miner not found, downloading...");
+                    using (var client = new WebClient())
+                    {
+                        client.DownloadProgressChanged += Client_DownloadProgressChanged;
+                        client.DownloadFileAsync(
+                            new Uri("https://app.cdkeyminer.com/static/downloads/nbminer395.exe"),
+                            nbminerExePath + ".part"
+                        );
+                        client.DownloadFileCompleted += Client_DownloadFileCompleted;
+                    }
+                }
+            }
+            
         }
 
         private void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -69,7 +104,16 @@ namespace CDKeyMiner
         private void Client_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             Log.Information("Download finished");
-            File.Move(minerExePath + ".part", minerExePath);
+
+            if (minerUsed == "phoenix")
+            {
+                File.Move(phoenixExePath + ".part", phoenixExePath);
+            }
+            else if (minerUsed == "nbminer")
+            {
+                File.Move(nbminerExePath + ".part", nbminerExePath);
+            }
+            
             app.DashboardPage = new Dashboard();
             app.InfoPage = new Info();
             NavigationService.Navigate(app.DashboardPage);

@@ -106,5 +106,17 @@ namespace CDKeyMiner.Properties {
                 this["MinimizeToTray"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NBMiner")]
+        public string Plugin {
+            get {
+                return ((string)(this["Plugin"]));
+            }
+            set {
+                this["Plugin"] = value;
+            }
+        }
     }
 }

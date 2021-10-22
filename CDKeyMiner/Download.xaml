@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Downloading Phoenix Miner..." Foreground="{StaticResource MinerGreen}"/>
+            <Label x:Name="DescLabel" Foreground="{StaticResource MinerGreen}"/>
             <ProgressBar x:Name="DownloadProgress" Foreground="{StaticResource MinerGreen}" />
         </StackPanel>
     </Grid>
