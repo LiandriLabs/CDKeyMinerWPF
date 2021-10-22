@@ -35,6 +35,8 @@ namespace CDKeyMiner
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            UpdateButton.Content = "UPDATING...";
+            UpdateButton.IsEnabled = false;
             await Updater.Instance.DownloadUpdates();
             MessageBox.Show("Update finished, click OK to restart");
             var pid = Process.GetCurrentProcess().Id;
