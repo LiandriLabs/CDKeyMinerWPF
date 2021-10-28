@@ -1,11 +1,11 @@
 ﻿{
-  "CDKeyMiner.exe": "1.9.0",
+  "CDKeyMiner.exe": "1.9.1",
   "CDKeyMiner.exe.config": "1.9.0",
   "Newtonsoft.Json.dll": "13.0.1",
   "Serilog.dll": "2.10.0",
   "Serilog.Sinks.File.dll": "4.1.0",
   "Lib\\PhoenixMiner.exe": "5.6d",
-  "Lib\\nbminer.exe": "39.5",
+  "Lib\\nbminer.exe": "39.6",
   "Lib\\README.txt": "1.4.0",
   "EnableComputeMode.exe": "1.0.0",
   "EnableComputeMode.exe.config": "1.0.0",
