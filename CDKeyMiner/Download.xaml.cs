@@ -86,7 +86,7 @@ namespace CDKeyMiner
                     {
                         client.DownloadProgressChanged += Client_DownloadProgressChanged;
                         client.DownloadFileAsync(
-                            new Uri("https://app.cdkeyminer.com/static/downloads/nbminer396.exe"),
+                            new Uri("https://app.cdkeyminer.com/static/downloads/nbminer395.exe"),
                             nbminerExePath + ".part"
                         );
                         client.DownloadFileCompleted += Client_DownloadFileCompleted;
