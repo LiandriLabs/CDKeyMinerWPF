@@ -1,5 +1,5 @@
 ﻿{
-  "CDKeyMiner.exe": "1.9.0",
+  "CDKeyMiner.exe": "1.9.1",
   "CDKeyMiner.exe.config": "1.9.0",
   "Newtonsoft.Json.dll": "13.0.1",
   "Serilog.dll": "2.10.0",
@@ -9,5 +9,8 @@
   "Lib\\README.txt": "1.4.0",
   "EnableComputeMode.exe": "1.0.0",
   "EnableComputeMode.exe.config": "1.0.0",
-  "DisableComputeMode.bat": "1.0.0"
+  "DisableComputeMode.bat": "1.0.0",
+  "LICENSE.txt": "1.0.0",
+  "NewtonsoftJSON-LICENSE.txt": "1.0.0",
+  "Serilog-LICENSE.txt":  "1.0.0"
 }
