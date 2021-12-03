@@ -5,7 +5,7 @@
   "Serilog.dll": "2.10.0",
   "Serilog.Sinks.File.dll": "4.1.0",
   "Lib\\PhoenixMiner.exe": "5.6d",
-  "Lib\\nbminer.exe": "39.5",
+  "Lib\\nbminer.exe": "40.1",
   "Lib\\README.txt": "1.4.0",
   "EnableComputeMode.exe": "1.0.0",
   "EnableComputeMode.exe.config": "1.0.0",

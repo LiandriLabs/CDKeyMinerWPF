@@ -128,10 +128,10 @@ namespace CDKeyMiner
                         {
                             try
                             {
-                                var inv = int.Parse(cols[6].Trim());
+                                var inv = int.Parse(cols[7].Trim());
                                 sumIncorrect += inv;
 
-                                var tmp = int.Parse(cols[8].Trim());
+                                var tmp = int.Parse(cols[9].Trim());
                                 if (tmp > maxTemp)
                                 {
                                     maxTemp = tmp;
