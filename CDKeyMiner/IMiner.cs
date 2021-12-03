@@ -26,6 +26,7 @@ namespace CDKeyMiner
         CannotStart,
         HasStopped,
         ConnectionError,
+        OutOfMemory,
         UnknownError
     }
 }

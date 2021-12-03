@@ -89,6 +89,11 @@ namespace CDKeyMiner
                         Log.Error("NBMiner connection error: {0}", e.Data);
                         OnError?.Invoke(this, MinerError.ConnectionError);
                     }
+                    else if (e.Data.Contains("out of memory"))
+                    {
+                        Log.Error("NBMiner out of memory error");
+                        OnError?.Invoke(this, MinerError.OutOfMemory);
+                    }
                     else if (e.Data.Contains("Summary"))
                     {
                         parsingSummary = true;

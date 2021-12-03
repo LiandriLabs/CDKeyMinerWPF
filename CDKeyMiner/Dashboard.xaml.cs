@@ -50,21 +50,31 @@ namespace CDKeyMiner
             var miner = app.Miner;
             miner.OnError += (s, err) =>
             {
-                if (err == MinerError.ExeNotFound)
+                switch (err)
                 {
-                    statusLbl.Dispatcher.Invoke(() =>
-                    {
-                        buttonLbl.AnimatedUpdate("⚠");
-                        statusLbl.AnimatedUpdate("Cannot find miner EXE");
-                    });
-                }
-                else if (err == MinerError.ConnectionError)
-                {
-                    statusLbl.Dispatcher.Invoke(() =>
-                    {
-                        buttonLbl.AnimatedUpdate("⚠");
-                        statusLbl.AnimatedUpdate("Connection error - retrying");
-                    });
+                    case MinerError.ExeNotFound:
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            StopMiner();
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate("Cannot find miner EXE");
+                        });
+                        break;
+                    case MinerError.ConnectionError:
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate("Connection error - retrying");
+                        });
+                        break;
+                    case MinerError.OutOfMemory:
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            StopMiner();
+                            buttonLbl.AnimatedUpdate("⚠");
+                            statusLbl.AnimatedUpdate("Not enough free video memory");
+                        });
+                        break;
                 }
             };
             miner.OnAuthorized += (s, evt) =>
@@ -189,6 +199,7 @@ namespace CDKeyMiner
 
         public void StopMiner()
         {
+            mining = false;
             PreventSleep.EnableSleep();
             if (app.Miner != null)
             {

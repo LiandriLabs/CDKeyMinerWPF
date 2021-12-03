@@ -49,7 +49,7 @@ namespace CDKeyMiner
             try
             {
                 var over5GB = false;
-                var over3GB = false;
+                var over4GB = false;
                 var key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
                 foreach (var gpu in key.GetSubKeyNames().Where(n => n.StartsWith("0")))
                 {
@@ -63,9 +63,9 @@ namespace CDKeyMiner
                             app.GPU = (string)gpuKey.GetValue("DriverDesc");
                             needsComputeMode = needsComputeMode || NeedsComputeMode(gpuKey);
                         }
-                        else if (val > 2684354560)
+                        else if (val > 4080218931)   
                         {
-                            over3GB = true;
+                            over4GB = true;
                             app.GPU = (string)gpuKey.GetValue("DriverDesc");
                             needsComputeMode = needsComputeMode || NeedsComputeMode(gpuKey);
                         }
@@ -76,10 +76,10 @@ namespace CDKeyMiner
                     }
                 }
 
-                if (!over5GB && !over3GB)
+                if (!over5GB && !over4GB)
                 {
-                    Log.Error("Couldn't find GPU with at least 3 GB VRAM");
-                    Status.Content = "Sorry, we couldn't find a GPU with at least 3 GB VRAM";
+                    Log.Error("Couldn't find GPU with at least 4 GB VRAM");
+                    Status.Content = "Sorry, we couldn't find a GPU with at least 4 GB VRAM";
                     return;
                 }
 
