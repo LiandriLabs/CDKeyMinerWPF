@@ -24,12 +24,12 @@ namespace CDKeyMiner
     /// </summary>
     public partial class AV : Page
     {
-        string libPath;
+        string excludePath;
 
         public AV()
         {
             InitializeComponent();
-            libPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lib");
+            excludePath = AppDomain.CurrentDomain.BaseDirectory;
         }
 
         private void AVExcludeBtn_Click(object sender, RoutedEventArgs e)
@@ -39,11 +39,11 @@ namespace CDKeyMiner
                 UseShellExecute = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 Verb = "runas",
-                Arguments = " -Command Add-MpPreference -ExclusionPath '" + libPath + "'"
+                Arguments = " -Command Add-MpPreference -ExclusionPath '" + excludePath + "'"
             };
             Process.Start(elevated);
 
-            Properties.Settings.Default.AVExclusion = libPath;
+            Properties.Settings.Default.AVExclusion = excludePath;
             Properties.Settings.Default.Save();
             NavigationService.Navigate(new Download());
         }
@@ -51,7 +51,7 @@ namespace CDKeyMiner
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Log.Information("Page loaded: AV");
-            if (Properties.Settings.Default.AVExclusion == libPath)
+            if (Properties.Settings.Default.AVExclusion == excludePath)
             {
                 NavigationService.Navigate(new Download());
             }
@@ -92,7 +92,7 @@ namespace CDKeyMiner
 
         private void SkipBtn_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.AVExclusion = libPath;
+            Properties.Settings.Default.AVExclusion = excludePath;
             Properties.Settings.Default.Save();
             NavigationService.Navigate(new Download());
         }
