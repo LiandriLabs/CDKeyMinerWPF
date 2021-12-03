@@ -189,6 +189,7 @@ namespace CDKeyMiner
 
         public void StopMiner()
         {
+            PreventSleep.EnableSleep();
             if (app.Miner != null)
             {
                 app.Miner.Stop();
@@ -223,6 +224,7 @@ namespace CDKeyMiner
                 buttonLbl.AnimatedUpdate("■");
                 statusLbl.AnimatedUpdate("Starting miner...");
                 app.Miner.Start(creds);
+                PreventSleep.DisableSleep();
             }
             else
             {
