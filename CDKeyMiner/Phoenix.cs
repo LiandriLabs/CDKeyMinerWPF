@@ -121,11 +121,11 @@ namespace CDKeyMiner
             var algo = (Application.Current as App).Algo;
             if (algo == Algo.ETH)
             {
-                phoenixProc.StartInfo.Arguments = $"-pool pool.cdkeyminer.com:9000 -wal {credentials.Username} -proto 2 -coin eth -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1 -logdir Logs";
+                phoenixProc.StartInfo.Arguments = $"-pool ssl://app.cdkeyminer.com:10000 -wal {credentials.Username} -proto 2 -coin eth -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1 -logdir Logs";
             }
             else if (algo == Algo.ETC)
             {
-                phoenixProc.StartInfo.Arguments = $"-pool pool.cdkeyminer.com:9001 -wal {credentials.Username} -proto 2 -coin etc -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1 -logdir Logs";
+                phoenixProc.StartInfo.Arguments = $"-pool ssl://app.cdkeyminer.com:10001 -wal {credentials.Username} -proto 2 -coin etc -stales 0 -rate 0 -cdm 0 -gsi 0 -log 1 -logdir Logs";
             }
             else
             {
