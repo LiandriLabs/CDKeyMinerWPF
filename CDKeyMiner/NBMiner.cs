@@ -146,11 +146,21 @@ namespace CDKeyMiner
             var algo = (Application.Current as App).Algo;
             if (algo == Algo.ETH)
             {
-                nbminerProc.StartInfo.Arguments = $"-a ethash -o stratum+ssl://app.cdkeyminer.com:10000 -strict-ssl -u {credentials.Username} -log -api 127.0.0.1:22333";
+#if DEBUG
+                var URL = "stratum+tcp://localhost:9000";
+#else
+                var URL = "stratum+ssl://app.cdkeyminer.com:10000 -strict-ssl";
+#endif
+                nbminerProc.StartInfo.Arguments = $"-a ethash -o {URL} -u {credentials.Username} -log -api 127.0.0.1:22333";
             }
             else if (algo == Algo.ETC)
             {
-                nbminerProc.StartInfo.Arguments = $"-a etchash -o stratum+ssl://app.cdkeyminer.com:10001 -strict-ssl -u {credentials.Username} -log -api 127.0.0.1:22333";
+#if DEBUG
+                var URL = "stratum+tcp://localhost:9001";
+#else
+                var URL = "stratum+ssl://app.cdkeyminer.com:10001 -strict-ssl";
+#endif
+                nbminerProc.StartInfo.Arguments = $"-a etchash -o {URL} -u {credentials.Username} -log -api 127.0.0.1:22333";
             }
             else
             {
