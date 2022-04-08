@@ -117,12 +117,14 @@ namespace CDKeyMiner
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Logging out");
             SettingsButton.Visibility = Visibility.Collapsed;
             Properties.Settings.Default.Username = "";
             Properties.Settings.Default.JWT = "";
             Properties.Settings.Default.Save();
             (_mainFrame.Content as Dashboard)?.StopMiner();
             balanceLbl.AnimatedUpdate("");
+            WSHelper.Instance.Disconnect();
             _mainFrame.Navigate(new LoginPage());
         }
 

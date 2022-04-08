@@ -143,6 +143,7 @@ namespace CDKeyMiner
 
         public void Disconnect()
         {
+            Log.Information("Disconnecting WebSockets");
             cts.Cancel();
             ws.Abort();
             ws.Dispose();
@@ -220,6 +221,7 @@ namespace CDKeyMiner
                     }
                     else if (resp.Contains("LOGIN_FAILED") || resp.Contains("INVALID_SESSION"))
                     {
+                        this.Disconnect();
                         OnLoginFailed?.Invoke(inst, null);
                     }
                     else if (resp.Contains("balance"))
