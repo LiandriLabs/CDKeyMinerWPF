@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using Newtonsoft.Json;
 
 namespace CDKeyMiner
 {
@@ -24,18 +25,45 @@ namespace CDKeyMiner
             InitializeComponent();
         }
 
-        private bool NeedsComputeMode(RegistryKey key)
+        private bool NeedsComputeMode(string forGPU)
         {
-            var gpuProv = (string)key.GetValue("ProviderName");
-            var driverDesc = (string)key.GetValue("DriverDesc");
-            if (gpuProv.Contains("Advanced Micro Devices") || driverDesc.Contains("Radeon"))
+            RegistryKey key;
+            try
             {
-                var lp = key.GetValue("KMD_EnableInternalLargePage");
-                if (lp == null || (int)lp != 2)
+                key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Cannot open GPU registry key");
+                return false;
+            }
+
+            foreach (var gpu in key.GetSubKeyNames().Where(n => n.StartsWith("0")))
+            {
+                try
                 {
-                    return true;
+                    var gpuKey = key.OpenSubKey(gpu);
+                    var gpuProv = (string)gpuKey.GetValue("ProviderName");
+                    var driverDesc = (string)gpuKey.GetValue("DriverDesc");
+                    if (driverDesc != forGPU)
+                    {
+                        continue;
+                    }
+                    if (gpuProv.Contains("Advanced Micro Devices") || driverDesc.Contains("Radeon"))
+                    {
+                        var lp = gpuKey.GetValue("KMD_EnableInternalLargePage");
+                        if (lp == null || (int)lp != 2)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Cannot enumerate GPU " + gpu);
                 }
             }
+
             return false;
         }
 
@@ -48,27 +76,27 @@ namespace CDKeyMiner
 
             try
             {
-                var over5GB = false;
-                var over4GB = false;
+                var report = new Hardware.HWReport();
                 var key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
                 foreach (var gpu in key.GetSubKeyNames().Where(n => n.StartsWith("0")))
                 {
                     try
                     {
                         var gpuKey = key.OpenSubKey(gpu);
-                        var val = (long)gpuKey.GetValue("HardwareInformation.qwMemorySize");
-                        if (val > 5368709120)
+                        var memBytes = (long)gpuKey.GetValue("HardwareInformation.qwMemorySize");
+                        var gpuProv = (string)gpuKey.GetValue("ProviderName");
+                        var driverDesc = (string)gpuKey.GetValue("DriverDesc");
+                        var dacType = (string)gpuKey.GetValue("HardwareInformation.DacType");
+                        var driverDate = (string)gpuKey.GetValue("DriverDate");
+
+                        report.GPU.Add(new Hardware.GPUInfo
                         {
-                            over5GB = true;
-                            app.GPU = (string)gpuKey.GetValue("DriverDesc");
-                            needsComputeMode = needsComputeMode || NeedsComputeMode(gpuKey);
-                        }
-                        else if (val > 4080218931)   
-                        {
-                            over4GB = true;
-                            app.GPU = (string)gpuKey.GetValue("DriverDesc");
-                            needsComputeMode = needsComputeMode || NeedsComputeMode(gpuKey);
-                        }
+                            Description = driverDesc,
+                            Provider = gpuProv,
+                            MemoryBytes = memBytes,
+                            DacType = dacType,
+                            DriverDate = driverDate
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -76,30 +104,53 @@ namespace CDKeyMiner
                     }
                 }
 
-                if (!over5GB && !over4GB)
-                {
-                    Log.Error("Couldn't find GPU with at least 4 GB VRAM");
-                    Status.Content = "Sorry, we couldn't find a GPU with at least 4 GB VRAM";
-                    return;
-                }
-
-                if (over5GB)
-                {
-                    app.Algo = Algo.ETH;
-                }
-                else
-                {
-                    app.Algo = Algo.ETC;
-                }
+                WSHelper.Instance.OnRecommend += Server_OnRecommend;
+                WSHelper.Instance.ReportHardware(report);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Hardware detection has failed, mining ETC");
-                app.GPU = "Detection failed, contact support";
-                app.Algo = Algo.ETC;
+                Log.Error(ex, "Hardware detection has failed");
+                Status.Content = "Detection failed, contact support";
+            }
+        }
+
+        private void Server_OnRecommend(object sender, Hardware.HWResponse e)
+        {
+            WSHelper.Instance.OnRecommend -= Server_OnRecommend;
+            if (e.Algos.Length == 0)
+            {
+                Log.Error("Couldn't find suitable hardware");
+                Status.Content = "Couldn't find suitable hardware, please contact support";
+                return;
             }
 
-            if (needsComputeMode)
+            var found = false;
+            foreach (var algo in e.Algos)
+            {
+                if (algo == "ETH")
+                {
+                    found = true;
+                    app.Algo = Algo.ETH;
+                    break;
+                }
+                else if (algo == "ETC")
+                {
+                    found = true;
+                    app.Algo = Algo.ETC;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                Log.Error("No supported algorithm");
+                Status.Content = "Please update your client";
+                return;
+            }
+
+            app.GPU = e.BestGPU;
+
+            if (NeedsComputeMode(e.BestGPU))
             {
                 Status.Content = "You have an AMD GPU, but compute mode is not enabled.";
                 CompModeBtn.Visibility = Visibility.Visible;
@@ -107,6 +158,7 @@ namespace CDKeyMiner
             }
             else
             {
+                // continue
                 NavigationService.Navigate(new AV());
             }
         }

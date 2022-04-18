@@ -63,6 +63,7 @@ namespace CDKeyMiner
         public event EventHandler OnLoginFailed;
         public event EventHandler<double> OnBalance;
         public event EventHandler<string> OnError;
+        public event EventHandler<Hardware.HWResponse> OnRecommend;
 
         private async Task Send(string data)
         {
@@ -195,6 +196,19 @@ namespace CDKeyMiner
             }
         }
 
+        public async void ReportHardware(Hardware.HWReport report)
+        {
+            try
+            {
+                await Send($"42[\"hardware\", {JsonConvert.SerializeObject(report)}]");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Report hardware error");
+                throw ex;
+            }
+        }
+
         private async void ProcessMessages()
         {
             while (true)
@@ -230,6 +244,12 @@ namespace CDKeyMiner
                         dynamic json = JArray.Parse(msg);
                         var balance = json[1];
                         OnBalance?.Invoke(inst, balance.Value);
+                    }
+                    else if (resp.Contains("recommend"))
+                    {
+                        var msg = resp.Substring(15, resp.Length - 16);
+                        var rec = JsonConvert.DeserializeObject<Hardware.HWResponse>(msg);
+                        OnRecommend?.Invoke(inst, rec);
                     }
                 }
                 catch (Exception e)

@@ -83,6 +83,7 @@
     <Compile Include="HWDetect.xaml.cs">
       <DependentUpon>HWDetect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HWReport.cs" />
     <Compile Include="Info.xaml.cs">
       <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
