@@ -83,10 +83,36 @@ namespace CDKeyMiner
                     try
                     {
                         var gpuKey = key.OpenSubKey(gpu);
-                        var memBytes = (long)gpuKey.GetValue("HardwareInformation.qwMemorySize");
+                        var valueNames = gpuKey.GetValueNames();
+
+                        long memBytes = 0L;
+                        if (valueNames.Contains("HardwareInformation.qwMemorySize") &&
+                            gpuKey.GetValueKind("HardwareInformation.qwMemorySize") == RegistryValueKind.QWord)
+                        {
+                            memBytes = (long)gpuKey.GetValue("HardwareInformation.qwMemorySize");
+                        }
+                        else if (valueNames.Contains("HardwareInformation.MemorySize") &&
+                            gpuKey.GetValueKind("HardwareInformation.MemorySize") == RegistryValueKind.Binary)
+                        {
+                            memBytes = (long)BitConverter.ToUInt32((byte[])gpuKey.GetValue("HardwareInformation.MemorySize"), 0);
+                        }
+
+                        string dacType = "";
+                        if (gpuKey.GetValueKind("HardwareInformation.DacType") == RegistryValueKind.String)
+                        {
+                            dacType = (string)gpuKey.GetValue("HardwareInformation.DacType");
+                        }
+                        else if (gpuKey.GetValueKind("HardwareInformation.DacType") == RegistryValueKind.Binary)
+                        {
+                            dacType = System.Text.Encoding.Unicode.GetString((byte[])gpuKey.GetValue("HardwareInformation.DacType"));
+                            if (dacType.Last() == '\0')
+                            {
+                                dacType = dacType.Substring(0, dacType.Length - 1);
+                            }
+                        }
+
                         var gpuProv = (string)gpuKey.GetValue("ProviderName");
                         var driverDesc = (string)gpuKey.GetValue("DriverDesc");
-                        var dacType = (string)gpuKey.GetValue("HardwareInformation.DacType");
                         var driverDate = (string)gpuKey.GetValue("DriverDate");
 
                         report.GPU.Add(new Hardware.GPUInfo
