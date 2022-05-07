@@ -200,7 +200,9 @@ namespace CDKeyMiner
         {
             try
             {
-                await Send($"42[\"hardware\", {JsonConvert.SerializeObject(report)}]");
+                var rep = JsonConvert.SerializeObject(report);
+                Log.Information("HW report: {0}", rep);
+                await Send($"42[\"hardware\", {rep}]");
             }
             catch (Exception ex)
             {

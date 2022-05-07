@@ -28,7 +28,6 @@ namespace CDKeyMiner
     {
         private Credentials creds;
         private bool mining = false;
-        private Algo algo;
         private DateTime startTime;
         private double startBal;
         private double bal;
@@ -45,7 +44,6 @@ namespace CDKeyMiner
             bal = startBal;
             var balStr = startBal.ToString("F3", CultureInfo.InvariantCulture);
             mainWindow.balanceLbl.Content = $"Balance: {balStr} CDKT";
-            algo = app.Algo;
 
             var miner = app.Miner;
             miner.OnError += (s, err) =>
@@ -90,7 +88,7 @@ namespace CDKeyMiner
                 statusLbl.Dispatcher.Invoke(() =>
                 {
                     buttonLbl.AnimatedUpdate("■");
-                    statusLbl.AnimatedUpdate($"Mining {algo}");
+                    statusLbl.AnimatedUpdate($"Mining {app.Algo}");
                     startTime = DateTime.UtcNow;
                     startBal = bal;
                 });
@@ -100,7 +98,7 @@ namespace CDKeyMiner
                 statusLbl.Dispatcher.Invoke(() =>
                 {
                     buttonLbl.Content = "■";
-                    statusLbl.Content = $"Mining {algo} ({hr})";
+                    statusLbl.Content = $"Mining {app.Algo} ({hr})";
                     try
                     {
                         var hrNumStr = hr.Substring(0, hr.IndexOf(' '));
@@ -160,6 +158,20 @@ namespace CDKeyMiner
                     });
                 }
             };
+
+            WSHelper.Instance.OnRecommend += Server_OnRecommend;
+        }
+
+        private void Server_OnRecommend(object sender, Hardware.HWResponse e)
+        {
+            Log.Information("Received server recommendation: {0}", e.Algos);
+
+            app.SetMiningAlgorithm(e.Algos);
+            if (mining)
+            {
+                app.Miner.Stop();
+                app.Miner.Start(creds);
+            }
         }
 
         private void OnBalance(object sender, double e)
@@ -193,6 +205,7 @@ namespace CDKeyMiner
 
         ~Dashboard()
         {
+            WSHelper.Instance.OnRecommend -= Server_OnRecommend;
             StopMiner();
             WSHelper.Instance.Disconnect();
         }

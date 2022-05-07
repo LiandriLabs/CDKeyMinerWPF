@@ -143,6 +143,9 @@ namespace CDKeyMiner
         private void Server_OnRecommend(object sender, Hardware.HWResponse e)
         {
             WSHelper.Instance.OnRecommend -= Server_OnRecommend;
+
+            Log.Information("Received server recommendation: {0}", e.Algos);
+
             if (e.Algos.Length == 0)
             {
                 Log.Error("Couldn't find suitable hardware");
@@ -150,23 +153,7 @@ namespace CDKeyMiner
                 return;
             }
 
-            var found = false;
-            foreach (var algo in e.Algos)
-            {
-                if (algo == "ETH")
-                {
-                    found = true;
-                    app.Algo = Algo.ETH;
-                    break;
-                }
-                else if (algo == "ETC")
-                {
-                    found = true;
-                    app.Algo = Algo.ETC;
-                    break;
-                }
-            }
-
+            var found = app.SetMiningAlgorithm(e.Algos);
             if (!found)
             {
                 Log.Error("No supported algorithm");

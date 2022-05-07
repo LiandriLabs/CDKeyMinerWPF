@@ -85,6 +85,28 @@ namespace CDKeyMiner
             }
         }
 
+        public bool SetMiningAlgorithm(string[] recommendations)
+        {
+            var found = false;
+            foreach (var algo in recommendations)
+            {
+                if (algo == "ETH")
+                {
+                    found = true;
+                    this.Algo = Algo.ETH;
+                    break;
+                }
+                else if (algo == "ETC")
+                {
+                    found = true;
+                    this.Algo = Algo.ETC;
+                    break;
+                }
+            }
+
+            return found;
+        }
+
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
