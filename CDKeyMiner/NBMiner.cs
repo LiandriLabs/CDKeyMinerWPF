@@ -174,9 +174,16 @@ namespace CDKeyMiner
             }
 
             Log.Information("Arguments: {0}", nbminerProc.StartInfo.Arguments);
+            nbminerProc.EnableRaisingEvents = true;
+            nbminerProc.Exited += NbminerProc_Exited;
             nbminerProc.Start();
             nbminerProc.BeginOutputReadLine();
             nbminerProc.BeginErrorReadLine();
+        }
+
+        private void NbminerProc_Exited(object sender, EventArgs e)
+        {
+            OnError?.Invoke(this, MinerError.HasStopped);
         }
 
         public void Stop()
@@ -185,6 +192,7 @@ namespace CDKeyMiner
             parsingSummary = false;
             if (nbminerProc != null && !nbminerProc.HasExited)
             {
+                nbminerProc.Exited -= NbminerProc_Exited;
                 nbminerProc.Kill();
             } 
             Process[] localByName = Process.GetProcessesByName("nbminer");
@@ -200,7 +208,6 @@ namespace CDKeyMiner
                 catch { }
             }
             nbminerProc = null;
-            OnError?.Invoke(this, MinerError.HasStopped);
         }
 
         public void Restart()

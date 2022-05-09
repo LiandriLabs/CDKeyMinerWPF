@@ -73,6 +73,14 @@ namespace CDKeyMiner
                             statusLbl.AnimatedUpdate("Not enough free video memory");
                         });
                         break;
+                    case MinerError.HasStopped:
+                        statusLbl.Dispatcher.Invoke(() =>
+                        {
+                            mining = false;
+                            buttonLbl.AnimatedUpdate("▶");
+                            statusLbl.AnimatedUpdate("Miner has stopped");
+                        });
+                        break;
                 }
             };
             miner.OnAuthorized += (s, evt) =>
@@ -212,11 +220,14 @@ namespace CDKeyMiner
 
         public void StopMiner()
         {
-            mining = false;
-            PreventSleep.EnableSleep();
-            if (app.Miner != null)
+            if (mining)
             {
-                app.Miner.Stop();
+                mining = false;
+                PreventSleep.EnableSleep();
+                if (app.Miner != null)
+                {
+                    app.Miner.Stop();
+                }
             }
         }
 
