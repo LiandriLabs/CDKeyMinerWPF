@@ -149,8 +149,7 @@ namespace CDKeyMiner
                     {
                         app.InfoPage.TempLabel.Content = "N/A";
                         app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
-                        mining = false;
-                        miner.Stop();
+                        StopMiner();
                         buttonLbl.AnimatedUpdate("⚠");
                         statusLbl.AnimatedUpdate("Stopped because temperature exceeded 90°C");
                     });
@@ -265,7 +264,6 @@ namespace CDKeyMiner
             {
                 app.InfoPage.TempLabel.Content = "N/A";
                 app.InfoPage.TempLabel.Foreground = Application.Current.TryFindResource("MinerGreen") as SolidColorBrush;
-                mining = false;
                 StopMiner();
                 buttonLbl.AnimatedUpdate("▶");
                 statusLbl.AnimatedUpdate("Click the button to start mining.");
