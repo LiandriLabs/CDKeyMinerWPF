@@ -22,6 +22,7 @@ namespace CDKeyMiner
     public partial class Info : Page
     {
         App app = (App)Application.Current;
+        Window logWindow;
 
         public Info()
         {
@@ -46,7 +47,18 @@ namespace CDKeyMiner
 
         private void ShowLogsButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory + "Logs");
+            if (logWindow == null)
+            {
+                logWindow = new LogWindow();
+                logWindow.Closed += LogWindow_Closed;
+            }
+            logWindow.Show();
+        }
+
+        private void LogWindow_Closed(object sender, EventArgs e)
+        {
+            logWindow.Closed -= LogWindow_Closed;
+            logWindow = null;
         }
     }
 }
