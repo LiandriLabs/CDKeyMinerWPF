@@ -221,8 +221,11 @@ namespace CDKeyMiner
 
         public void Restart()
         {
-            Stop();
-            Start(lastCreds);
+            if (nbminerProc != null && !nbminerProc.HasExited)
+            {
+                Stop();
+                Start(lastCreds);
+            }
         }
     }
 }
