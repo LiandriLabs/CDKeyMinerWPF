@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:CDKeyMiner"
         mc:Ignorable="d"
         Title="Logs" Width="800" Height="600" Background="Transparent" ResizeMode="NoResize" WindowStyle="None"
-        MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        MouseDown="Window_MouseDown" AllowsTransparency="True" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded" Closing="LogWindow_Closing">
     <Border Background="{StaticResource MinerBackground}" CornerRadius="15" Margin="15">
         <Border.LayoutTransform>
             <TransformGroup>

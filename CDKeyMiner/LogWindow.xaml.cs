@@ -31,6 +31,7 @@ namespace CDKeyMiner
             InitializeComponent();
             app = (App)Application.Current;
             miner = app.Miner;
+            app.MainWindow.Closing += MainWindow_Closing;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -77,11 +78,21 @@ namespace CDKeyMiner
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void LogWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
             miner.OnHashrate -= Miner_OnHashrate;
             miner.OnTemperature -= Miner_OnTemperature;
             miner.OnOutput -= Miner_OnOutput;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
             this.Close();
         }
+
         private void ShowLogsButton_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory + "Logs");
