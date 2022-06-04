@@ -9,10 +9,12 @@
     <Border x:Name="theContainer">
         <Canvas x:Name="theCanvas" Grid.Row="1">
             <Polygon Fill="{Binding ChartFill}" Points="{Binding ChartPoints}"></Polygon>
-            <Label Content="{Binding MaxText}" Foreground="{Binding Foreground}" Canvas.Left="10" Canvas.Top="10"/>
-            <Line X1="80" X2="{Binding ActualWidth, ElementName=theCanvas}"
-                  Y1="25" Y2="25"
-                  Stroke="{Binding Foreground}" StrokeDashArray="2, 4" StrokeThickness="4" />
+            <Label Content="{Binding CurrentText}" Foreground="{Binding Foreground}"
+                   Width="{Binding ActualWidth, ElementName=theCanvas}"
+                   FontWeight="Bold" x:Name="currLabel" HorizontalContentAlignment="Right"/>
+            <Line X1="0" X2="{Binding ActualWidth, ElementName=theCanvas}"
+                  Y1="25" Y2="25" x:Name="currLine"
+                  Stroke="{Binding Foreground}" StrokeDashArray="2, 4" StrokeThickness="3" />
         </Canvas>
     </Border>
 </UserControl>

@@ -35,7 +35,7 @@
                 <Button x:Name="CloseButton" ToolTip="Close"
                     KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="18"/>
             </StackPanel>
-            <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,0">
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150"/>
                     <RowDefinition Height="*"/>
@@ -64,7 +64,7 @@
                         </LinearGradientBrush>
                     </local:Chart.ChartFill>
                 </local:Chart>
-                <TextBox x:Name="logsBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10,10,10"
+                <TextBox x:Name="logsBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"
                          BorderBrush="{StaticResource MinerGreen}" Background="Transparent"
                          Foreground="{StaticResource MinerGreen}" FontFamily="Lucida Console"
                          IsReadOnly="True" Padding="5"/>

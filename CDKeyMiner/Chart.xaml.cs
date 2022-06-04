@@ -21,7 +21,8 @@ namespace CDKeyMiner
         PointCollection chartPoints;
         List<double> chartValues = new List<double> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         double max = 0;
-        string unit = "";
+        double current = 0;
+        string unit = "MH/s";
         Brush chartFill;
 
         public Chart()
@@ -66,6 +67,7 @@ namespace CDKeyMiner
                     if (this.PropertyChanged != null)
                     {
                         PropertyChanged(this, new PropertyChangedEventArgs("MaxText"));
+                        PropertyChanged(this, new PropertyChangedEventArgs("CurrentText"));
                     }
                 }
             }
@@ -95,6 +97,33 @@ namespace CDKeyMiner
             get
             {
                 return $"{this.max:N0} {this.unit}";
+            }
+        }
+
+        public double Current
+        {
+            get
+            {
+                return this.current;
+            }
+            set
+            {
+                if (value != this.current)
+                {
+                    this.current = value;
+                    if (this.PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("CurrentText"));
+                    }
+                }
+            }
+        }
+
+        public string CurrentText
+        {
+            get
+            {
+                return $"{this.current:N0} {this.unit}";
             }
         }
 
@@ -144,8 +173,14 @@ namespace CDKeyMiner
             pc.Add(new Point(w, h));
             pc.Add(new Point(0, h));
 
+            var currLinePos = h - (val * hScale);
+            currLine.Y1 = currLinePos;
+            currLine.Y2 = currLinePos;
+            Canvas.SetTop(currLabel, currLinePos - 25);
+
             this.ChartPoints = pc;
             this.Max = max;
+            this.Current = val;
         }
     }
 }
