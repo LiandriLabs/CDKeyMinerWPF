@@ -18,6 +18,7 @@
                       ToolTip="Lower earnings, but also lower power usage and less disruption to your work"/>
             <MenuItem Header="_Minimize to tray" Click="MinimizeToTray_Click" IsCheckable="true"  Style="{StaticResource MenuItemStyle}"/>
             <Separator />
+            <MenuItem Header="Open _Logs Folder" Click="ShowLogsFolder_Click" Style="{StaticResource MenuItemStyle}"/>
             <MenuItem Header="_About" Click="About_Click" Style="{StaticResource MenuItemStyle}"/>
             <Separator />
             <MenuItem Header="_Log out" Click="LogOut_Click" Style="{StaticResource MenuItemStyle}" />

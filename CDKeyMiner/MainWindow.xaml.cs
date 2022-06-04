@@ -199,5 +199,10 @@ namespace CDKeyMiner
             aboutWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             aboutWindow.ShowDialog();
         }
+
+        private void ShowLogsFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory + "Logs");
+        }
     }
 }
