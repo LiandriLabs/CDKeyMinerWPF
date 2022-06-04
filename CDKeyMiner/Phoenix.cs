@@ -31,6 +31,7 @@ namespace CDKeyMiner
         public event EventHandler<string> OnHashrate;
         public event EventHandler<int> OnTemperature;
         public event EventHandler<int> OnIncorrectShares;
+        public event EventHandler<string> OnOutput;
 
         public void Start(Credentials credentials)
         {
@@ -59,6 +60,8 @@ namespace CDKeyMiner
                 {
                     return;
                 }
+
+                OnOutput?.Invoke(this, e.Data);
 
                 if (e.Data.Contains("Eth: Connected to ethash pool"))
                 {
@@ -112,8 +115,12 @@ namespace CDKeyMiner
                 if (e.Data != null)
                 {
                     Log.Error("Error from Phoenix: {0}", e.Data);
+                    OnOutput?.Invoke(this, e.Data);
                 }
-                OnError?.Invoke(this, MinerError.UnknownError);
+                else
+                {
+                    OnError?.Invoke(this, MinerError.UnknownError);
+                }
             });
 
             phoenixProc.StartInfo.CreateNoWindow = true;

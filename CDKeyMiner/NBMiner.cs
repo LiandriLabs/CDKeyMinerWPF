@@ -34,6 +34,7 @@ namespace CDKeyMiner
         public event EventHandler<string> OnHashrate;
         public event EventHandler<int> OnTemperature;
         public event EventHandler<int> OnIncorrectShares;
+        public event EventHandler<string> OnOutput;
 
         public void Start(Credentials credentials)
         {
@@ -61,14 +62,22 @@ namespace CDKeyMiner
             nbminerProc.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
             {
                 Log.Debug(e.Data);
+                if (e.Data == null || e.Data.Length == 0)
+                {
+                    return;
+                }
+
+                OnOutput?.Invoke(this, e.Data);
             });
 
             nbminerProc.ErrorDataReceived += new DataReceivedEventHandler((sender, e) => {
                 Log.Debug(e.Data);
-                if (e.Data == null)
+                if (e.Data == null || e.Data.Length == 0)
                 {
                     return;
                 }
+
+                OnOutput?.Invoke(this, e.Data);
 
                 if (!parsingSummary)
                 {
