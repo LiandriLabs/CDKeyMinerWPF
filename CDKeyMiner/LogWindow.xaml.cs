@@ -25,6 +25,7 @@ namespace CDKeyMiner
     {
         App app;
         IMiner miner;
+        int maxLogChars = 10000;
 
         public LogWindow()
         {
@@ -71,6 +72,11 @@ namespace CDKeyMiner
         {
             logsBox.Dispatcher.Invoke(() =>
             {
+                if (logsBox.Text.Length > maxLogChars)
+                {
+                    var newLineStart = logsBox.Text.IndexOf('\n', maxLogChars / 2) + 1;
+                    logsBox.Text = logsBox.Text.Substring(newLineStart, logsBox.Text.Length - newLineStart);
+                }
                 logsBox.Text += Environment.NewLine + e;
                 logsBox.ScrollToEnd();
             });
