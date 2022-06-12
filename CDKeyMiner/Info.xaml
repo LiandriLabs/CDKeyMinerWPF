@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CDKeyMiner"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="400"
-      Title="Info">
+      Title="Info" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>

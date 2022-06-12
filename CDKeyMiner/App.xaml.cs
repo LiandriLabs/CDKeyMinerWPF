@@ -54,6 +54,7 @@ namespace CDKeyMiner
                     .MinimumLevel.Information()
 #endif
                     .WriteTo.File("Logs\\cdkm.log", rollingInterval: RollingInterval.Day)
+                    .WriteTo.Sink(SerilogEventSink.Instance)
                     .CreateLogger();
 
             Log.Information("CDKeyMiner {Version} is starting...", Assembly.GetExecutingAssembly().GetName().Version);

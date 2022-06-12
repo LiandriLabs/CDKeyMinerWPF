@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Serilog;
 
 namespace CDKeyMiner
 {
@@ -27,6 +28,11 @@ namespace CDKeyMiner
         public Info()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Log.Information("Page loaded: Information");
         }
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)

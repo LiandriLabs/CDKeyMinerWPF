@@ -96,6 +96,7 @@
     <Compile Include="NBMiner.cs" />
     <Compile Include="Phoenix.cs" />
     <Compile Include="PreventSleep.cs" />
+    <Compile Include="SerilogSink.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WSHelper.cs" />
     <Page Include="Chart.xaml">

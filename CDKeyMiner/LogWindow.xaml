@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
             <Label HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource MinerGreen}" FontSize="12" FontFamily="Segoe UI Black" Margin="7,0,0,0">Logs</Label>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Panel.ZIndex="1" Margin="7,7,3,7" HorizontalAlignment="Right">
-                <Button x:Name="ShowLogsButton" Style="{StaticResource InfoPanelButton}" Click="ShowLogsButton_Click" Width="110" Margin="0,0,5,0">SHOW LOGS FOLDER</Button>
+                <Button x:Name="ShowLogsButton" Style="{StaticResource InfoPanelButton}" Click="ShowLogsButton_Click" Width="110" Margin="0,3,5,0">SHOW LOGS FOLDER</Button>
                 <Button x:Name="CloseButton" ToolTip="Close"
                     KeyboardNavigation.IsTabStop="False" Content="×" Click="CloseButton_Click" Style="{StaticResource WindowButton}" FontFamily="Segoe UI Black" FontSize="18"/>
             </StackPanel>

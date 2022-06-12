@@ -46,6 +46,7 @@ namespace CDKeyMiner
             miner.OnHashrate += Miner_OnHashrate;
             miner.OnTemperature += Miner_OnTemperature;
             miner.OnOutput += Miner_OnOutput;
+            SerilogEventSink.Instance.OnLogMessage += Miner_OnOutput;
         }
 
         private void Miner_OnHashrate(object sender, string e)
@@ -92,6 +93,7 @@ namespace CDKeyMiner
             miner.OnHashrate -= Miner_OnHashrate;
             miner.OnTemperature -= Miner_OnTemperature;
             miner.OnOutput -= Miner_OnOutput;
+            SerilogEventSink.Instance.OnLogMessage -= Miner_OnOutput;
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
